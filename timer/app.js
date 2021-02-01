@@ -8,9 +8,11 @@ timers = [];
 window.addEventListener('beforeunload', saveData);
 
 function start() {
-  if (window.alt1) {
+  try {
     alt1.identifyAppUrl('appconfig.json');
     loadData();
+  } catch (e) {
+    console.log('Alt1 not found')
   }
   
   drawTimers();
