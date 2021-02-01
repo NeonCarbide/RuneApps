@@ -141,7 +141,6 @@ function tickTimers() {
   for (var i = 0; i < timers.length; i++) {
     if (timers[i].count && timers[i].count <= 0) {
       stopTick(i);
-      notify(i);
       continue;
     }
     if (timers[i].start) {
@@ -161,6 +160,7 @@ function stopTick(index) {
 
   clearInterval(timers[index].interval);
   timers[index].interval = null;
+  notify(i);
 }
 
 function scheduleTick(index) {
