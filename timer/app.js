@@ -212,10 +212,10 @@ function overlayNotify() {
     size = 24;
     h = alt1.rsHeight;
     w = alt1.rsWidth;
-    x = 10;
+    x = size;
     // x = 20;
     // x = h - size * 2 + 20;
-    y = 10;
+    y = size;
     // y = parseInt(w / 2 - (text.length * size) / 2.15);
     colour = parseInt('0xFFF0F000');
 
