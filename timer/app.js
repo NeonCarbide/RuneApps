@@ -14,6 +14,8 @@ window.addEventListener('mouseover', clearIcon);
 
 inputs = [elid('name'), elid('hrs'), elid('min'), elid('sec')];
 
+console.log(inputs)
+
 for (var i = 0; i < inputs.length; i++) {
   inputs[i].addEventListener('keyup', function (e) {
     if (e.keyCode === 13) {
