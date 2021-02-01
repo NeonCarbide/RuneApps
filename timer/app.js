@@ -301,6 +301,12 @@ function loadData() {
   }
 }
 
+function enterKeyPress(event) {
+  if (event.keyCode === 13) {
+    elid('add-timer').click();
+  }
+}
+
 // inputs = [elid('name'), elid('hrs'), elid('min'), elid('sec')];
 
 // console.log(inputs)
@@ -314,10 +320,10 @@ function loadData() {
 //   });
 // }
 
-namebox = document.getElementById('name');
-namebox.addEventListener('keyup', function (event) {
-  if (event.keyCode === 13) {
-    event.preventDefault();
-    elid('add-timer').click();
-  }
-});
+// namebox = document.getElementById('name');
+// namebox.addEventListener('keyup', function (event) {
+//   if (event.keyCode === 13) {
+//     event.preventDefault();
+//     elid('add-timer').click();
+//   }
+// });

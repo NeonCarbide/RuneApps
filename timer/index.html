@@ -75,6 +75,7 @@
         class="nisinput name-in"
         id="name"
         placeholder="Name"
+        onkeypress="enterKeyPress(event);"
         autofocus
       />
       <div id="time-field">
@@ -83,6 +84,7 @@
           class="nisinput time-in"
           id="hrs"
           placeholder="H"
+          onkeypress="enterKeyPress(event);"
         />
         <span class="nistext">:</span>
         <input
@@ -90,6 +92,7 @@
           class="nisinput time-in"
           id="min"
           placeholder="M"
+          onkeypress="enterKeyPress(event);"
         />
         <span class="nistext">:</span>
         <input
@@ -97,6 +100,7 @@
           class="nisinput time-in"
           id="sec"
           placeholder="S"
+          onkeypress="enterKeyPress(event);"
         />
       </div>
       <div class="nisbutton2 add" id="add-timer" onclick="addTimer();">
