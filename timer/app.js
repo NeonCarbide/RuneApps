@@ -184,6 +184,7 @@ function notify(index) {
     // colour = parseInt('0xFF' + getColourFromString('#E0E010'));
     colour = parseInt('0xFF00FF00');
 
+    console.log(getColourFromString('#E0E010'));
     console.log(h, w);
 
     alt1.overLayText(text, colour, size, x, y, delay);
