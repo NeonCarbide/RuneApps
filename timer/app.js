@@ -166,8 +166,12 @@ function scheduleTick(index) {
 
 function saveData() {
   obj = [];
-  obj.push(timers)
-  localStorage.gen_timers=JSON.stringify(obj);
+
+  for (var i = 0; i < timers.length; i ++) {
+    obj.push(timers[i])
+  }
+
+  localStorage.gen_timers = JSON.stringify(obj);
 }
 
 function loadData() {
