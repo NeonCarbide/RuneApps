@@ -208,8 +208,8 @@ function checkTimers() {
 function overlayNotify() {
   if (window.alt1) {
     // text = timers[index].name + ' timer has completed';
-    text = '\u23F1';
-    size = 24;
+    text = '\u23F0';
+    size = 32;
     h = alt1.rsHeight;
     w = alt1.rsWidth;
     x = size;
