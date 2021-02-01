@@ -5,8 +5,11 @@ DAY = HOUR * 24;
 
 timers = [];
 
+window.addEventListener('beforeunload', saveData)
+
 function start() {
   alt1.identifyAppUrl('appconfig.json');
+  loadData();
   drawTimers();
 }
 
@@ -158,6 +161,24 @@ function scheduleTick(index) {
 
   if (timers[index].start != null) {
     timers[index].interval = setInterval(tickTimers, 50);
+  }
+}
+
+function saveData() {
+  localStorage.gen_timers=JSON.stringify(timers);
+}
+
+function loadData() {
+  timers = []
+
+  if (!localStorage.gen_timers) {
+    return;
+  }
+
+  try {
+    console.log(localStorage.gen_timers);
+  } catch (e) {
+    return;
   }
 }
 
