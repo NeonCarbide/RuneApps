@@ -172,7 +172,7 @@ function scheduleTick(index) {
 }
 
 function notify(index) {
-  if (typeof alt1 !== 'undefined') {
+  if (window.alt1) {
     text = timers[index].name + ' timer has completed';
     size = 24;
     delay = 3000;
