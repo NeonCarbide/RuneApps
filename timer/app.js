@@ -179,7 +179,8 @@ function scheduleTick(index) {
 function notify(index) {
   try {
     if (window.alt1) {
-      text = timers[index].name + ' timer has completed';
+      // text = timers[index].name + ' timer has completed';
+      text = '\u23F1';
       size = 24;
       delay = 3000;
       h = alt1.rsHeight;
