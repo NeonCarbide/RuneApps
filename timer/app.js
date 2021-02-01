@@ -176,8 +176,8 @@ function notify(index) {
     text = timers[index].name + ' timer has completed';
     size = 24;
     delay = 3000;
-    x = 450;
-    y = 50;
+    x = 20;//(alt1.rsHeight - size) - (size + 20);
+    y = parseInt((alt1.rsWidth / 2) - ((text.length * size) / 3.15));
     colour = parseInt('0xD030D0');
 
     alt1.overLayText(text, colour, size, x, y, delay);
