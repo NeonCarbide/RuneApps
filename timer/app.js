@@ -301,15 +301,22 @@ function loadData() {
   }
 }
 
-inputs = [elid('name'), elid('hrs'), elid('min'), elid('sec')];
+// inputs = [elid('name'), elid('hrs'), elid('min'), elid('sec')];
 
-console.log(inputs)
+// console.log(inputs)
 
-for (var i = 0; i < inputs.length; i++) {
-  inputs[i].addEventListener('keyup', function (e) {
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      elid('add-timer').click();
-    }
-  });
-}
+// for (var i = 0; i < inputs.length; i++) {
+//   inputs[i].addEventListener('keyup', function (event) {
+//     if (event.keyCode === 13) {
+//       event.preventDefault();
+//       elid('add-timer').click();
+//     }
+//   });
+// }
+
+elid('name').addEventListener('keyup', function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    elid('add-timer').click();
+  }
+});
