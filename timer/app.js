@@ -185,7 +185,7 @@ function notify(index) {
 
     console.log(h, w);
 
-    alt1.overLayText(text, colour, size, x, y, delay);
+    alt1.overLayText(text, colour, size, y, x, delay);
   } else {
     if (!('Notification' in window)) {
       alert('Error: Browser does not support toast notifications');
