@@ -3,18 +3,22 @@ MIN = SEC * 60;
 HOUR = MIN * 60;
 DAY = HOUR * 24;
 
+delay = 1050;
+tick = 1000;
+showIcon = false;
+iconTimeout = null;
 timers = [];
 
 window.addEventListener('beforeunload', saveData);
+window.addEventListener('mousedown', clearIcon);
 
 function start() {
   try {
     alt1.identifyAppUrl('appconfig.json');
     loadData();
   } catch (e) {
-    console.log('Alt1 not found')
+    console.log('Alt1 not found');
   }
-  
   drawTimers();
 }
 
@@ -165,7 +169,8 @@ function stopTick(index) {
 
   clearInterval(timers[index].interval);
   timers[index].interval = null;
-  notify(index);
+  iconTick();
+  toastNotify(index);
 }
 
 function scheduleTick(index) {
@@ -176,22 +181,49 @@ function scheduleTick(index) {
   }
 }
 
-function notify(index) {
+function clearIcon() {
+  clearTimeout(iconTimeout);
+  showIcon = false;
+}
+
+function iconTick() {
+  iconTimeout = setTimeout(function () {
+    checkTimers();
+    iconTick();
+  }, tick);
+}
+
+function checkTimers() {
+  for (var i = 0; i < timers.length; i++) {
+    if (timers[i].count && timers[i].count <= 0) {
+      showIcon = true;
+    }
+  }
+
+  if (showIcon) {
+    overlayNotify();
+  }
+}
+
+function overlayNotify() {
+  if (window.alt1) {
+    // text = timers[index].name + ' timer has completed';
+    text = '\u23F1';
+    size = 24;
+    h = alt1.rsHeight;
+    w = alt1.rsWidth;
+    x = 20;
+    // x = h - size * 2 + 20;
+    y = parseInt(w / 2 - (text.length * size) / 2.15);
+    colour = parseInt('0xFFF0F000');
+
+    alt1.overLayText(text, colour, size, x, y, delay);
+  }
+}
+
+function toastNotify(index) {
   try {
-    if (window.alt1) {
-      // text = timers[index].name + ' timer has completed';
-      text = '\u23F1';
-      size = 24;
-      delay = 3000;
-      h = alt1.rsHeight;
-      w = alt1.rsWidth;
-      x = 20;
-      // x = h - size * 2 + 20;
-      y = parseInt(w / 2 - (text.length * size) / 2.15);
-      colour = parseInt('0xFFF0F000');
-  
-      alt1.overLayText(text, colour, size, x, y, delay);
-    } else {
+    if (!window.alt1) {
       if (!('Notification' in window)) {
         alert('Error: Browser does not support toast notifications');
       } else if (Notification.permission === 'granted') {
@@ -205,7 +237,7 @@ function notify(index) {
       }
     }
   } catch (e) {
-    console.log('Something went wrong...')
+    console.log('Something went wrong...');
   }
 }
 
@@ -221,7 +253,7 @@ function getColourFromString(colour) {
 
 function toast(index) {
   return new Notification('General Timers', {
-    body: timers[index].name + ' timer has completed',
+    body: timers[index].name + ' : Done',
     icon: 'icon.png',
   });
 }
