@@ -182,7 +182,7 @@ function notify(index) {
     x = h - size * 2 + 20;
     y = parseInt(w / 2 - (text.length * size) / 3.15);
     // colour = parseInt('0xFF' + getColourFromString('#E0E010'));
-    colour = parseInt('0xFFFF0000');
+    colour = parseInt('0xFF00FF00');
 
     console.log(h, w);
 
