@@ -178,9 +178,26 @@ function loadData() {
   }
 
   try {
-    timers = JSON.parse(localStorage.gen_timers);
+    obj = JSON.parse(localStorage.gen_timers);
   } catch (e) {
     return;
+  }
+
+  for (var i = 0; i < obj.length; i++) {
+    timers.push({
+      name: obj.name,
+      hrs: obj.hrs,
+      h: obj.h,
+      min: obj.min,
+      m: obj.m,
+      sec: obj.sec,
+      s: obj.s,
+      total: obj.total,
+      start: obj.start,
+      end: obj.end,
+      count: obj.count,
+      interval: obj.interval,
+    });
   }
 }
 
