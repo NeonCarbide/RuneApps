@@ -314,7 +314,7 @@ function loadData() {
 //   });
 // }
 
-namebox = elid('name');
+namebox = document.getElementById('name');
 namebox.addEventListener('keyup', function (event) {
   if (event.keyCode === 13) {
     event.preventDefault();
