@@ -314,7 +314,8 @@ function loadData() {
 //   });
 // }
 
-elid('name').addEventListener('keyup', function (event) {
+namebox = elid('name');
+namebox.addEventListener('keyup', function (event) {
   if (event.keyCode === 13) {
     event.preventDefault();
     elid('add-timer').click();
