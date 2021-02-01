@@ -187,6 +187,8 @@ function loadData() {
     return;
   }
 
+  console.log(obj);
+
   for (var i = 0; i < obj.length; i++) {
     timers.push({
       name: obj[i].name,
@@ -203,6 +205,8 @@ function loadData() {
       interval: obj[i].interval,
     });
   }
+
+  console.log(timers);
 }
 
 function startButton(index) {
