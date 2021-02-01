@@ -190,19 +190,21 @@ function notify(index) {
       colour = parseInt('0xFFF0F000');
   
       alt1.overLayText(text, colour, size, x, y, delay);
+    } else {
+      if (!('Notification' in window)) {
+        alert('Error: Browser does not support toast notifications');
+      } else if (Notification.permission === 'granted') {
+        return toast(index);
+      } else if (Notification.permission !== 'denied') {
+        Notification.requestPermission(function (permission) {
+          if (permission === 'granted') {
+            return toast(index);
+          }
+        });
+      }
     }
   } catch (e) {
-    if (!('Notification' in window)) {
-      alert('Error: Browser does not support toast notifications');
-    } else if (Notification.permission === 'granted') {
-      return toast(index);
-    } else if (Notification.permission !== 'denied') {
-      Notification.requestPermission(function (permission) {
-        if (permission === 'granted') {
-          return toast(index);
-        }
-      });
-    }
+    console.log('Something went wrong...')
   }
 }
 
@@ -217,7 +219,6 @@ function getColourFromString(colour) {
 }
 
 function toast(index) {
-  console.log('Toast sent');
   return new Notification('General Timers', {
     body: timers[index].name + ' timer has completed',
     icon: 'icon.png',
