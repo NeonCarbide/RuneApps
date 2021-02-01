@@ -8,8 +8,11 @@ timers = [];
 window.addEventListener('beforeunload', saveData);
 
 function start() {
-  alt1.identifyAppUrl('appconfig.json');
-  loadData();
+  if (window.alt1) {
+    alt1.identifyAppUrl('appconfig.json');
+    loadData();
+  }
+  
   drawTimers();
 }
 
