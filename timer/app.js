@@ -5,7 +5,7 @@ DAY = HOUR * 24;
 
 timers = [];
 
-window.addEventListener('beforeunload', saveData)
+window.addEventListener('beforeunload', saveData);
 
 function start() {
   alt1.identifyAppUrl('appconfig.json');
@@ -58,9 +58,18 @@ function drawTimers() {
     }
     html += '<div class="nistext name">' + timers[i].name + '</div>';
     html += '<div class="buttons">';
-    html += '<div class="nisbutton2 control" id="start" onclick="startTimer(' + i + ')">Start</div>';
-    html += '<div class="nisbutton2 control" id="pause" onclick="pauseTimer(' + i + ')">Pause</div>';
-    html += '<div class="nisbutton2 control" id="reset" onclick="resetTimer(' + i + ')">Reset</div>';
+    html +=
+      '<div class="nisbutton2 control" id="start" onclick="startTimer(' +
+      i +
+      ')">Start</div>';
+    html +=
+      '<div class="nisbutton2 control" id="pause" onclick="pauseTimer(' +
+      i +
+      ')">Pause</div>';
+    html +=
+      '<div class="nisbutton2 control" id="reset" onclick="resetTimer(' +
+      i +
+      ')">Reset</div>';
     html +=
       '<div class="nisbutton2 control" onclick="removeTimer(' +
       i +
@@ -164,15 +173,15 @@ function scheduleTick(index) {
 function saveData() {
   obj = [];
 
-  for (var i = 0; i < timers.length; i ++) {
-    obj.push(timers[i])
+  for (var i = 0; i < timers.length; i++) {
+    obj.push(timers[i]);
   }
 
   localStorage.gen_timers = JSON.stringify(obj);
 }
 
 function loadData() {
-  timers = []
+  timers = [];
 
   if (!localStorage.gen_timers) {
     return;
@@ -199,13 +208,5 @@ function loadData() {
       count: obj[i].count,
       interval: obj[i].interval,
     });
-  }
-}
-
-function startButton(index) {
-  if (!timers[index].start) {
-    startTimer(index);
-  } else {
-    pauseTimer(index);
   }
 }
