@@ -1,8 +1,8 @@
 {
   "appName": "Example app",
   "description": "This app is an example for other developers, this text will show up in the app list.",
-  "appUrl": "/apps/alt1/example/",
-  "configUrl": "/apps/alt1/example/appconfig.jon",
+  "appUrl": "/RuneApps/timer/",
+  "configUrl": "/RuneApps/timer/appconfig.json",
   "defaultWidth": 300,
   "defaultHeight": 300,
   "minWidth": 400,
