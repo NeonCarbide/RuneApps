@@ -1,0 +1,32 @@
+.timer, #add-timer-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.add {
+  width: 6rem;
+}
+.control {
+  min-width: 2rem;
+}
+.timer {
+  justify-content: first baseline;
+}
+.name-in {
+  width: 10rem;
+}
+.time-in {
+  width: 2rem;
+  text-align: center;
+}
+.time-in::-webkit-inner-spin-button,
+.time-in::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#add-timer-wrapper {
+  justify-content: space-evenly;
+  padding: 5px;
+}

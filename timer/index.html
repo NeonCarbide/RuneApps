@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://runeapps.org/nis/nis.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://runeapps.org/nis/alt1-currentskin/skinstyle.css"
+    />
+    <link rel="stylesheet" type="text/css" href="base.css" />
+    <script
+      type="text/javascript"
+      src="https://runeapps.org/alt1lib.js"
+    ></script>
+    <script type="text/javascript" src="app.js"></script>
+  </head>
+  <body class="nis" onload="start();">
+    <div id="add-timer-wrapper">
+      <input
+        type="text"
+        class="nisinput name-in"
+        id="name"
+        placeholder="Name"
+      />
+      <div id="time-field">
+        <input
+          type="number"
+          class="nisinput time-in"
+          id="hrs"
+          placeholder="H"
+        />
+        <span class="nistext">:</span>
+        <input
+          type="number"
+          class="nisinput time-in"
+          id="min"
+          placeholder="M"
+        />
+        <span class="nistext">:</span>
+        <input
+          type="number"
+          class="nisinput time-in"
+          id="sec"
+          placeholder="S"
+        />
+      </div>
+      <div class="nisbutton2 add" id="add-timer" onclick="addTimer();">
+        New Timer
+      </div>
+    </div>
+    <div class="nisseperator"></div>
+    <span id="timers"></span>
+    <div class="nisseperator"></div>
+    <div class="nisbutton2" onclick="printTimers();">Show Timers</div>
+  </body>
+</html>
