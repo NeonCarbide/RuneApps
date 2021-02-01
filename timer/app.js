@@ -185,18 +185,18 @@ function loadData() {
 
   for (var i = 0; i < obj.length; i++) {
     timers.push({
-      name: obj.name,
-      hrs: obj.hrs,
-      h: obj.h,
-      min: obj.min,
-      m: obj.m,
-      sec: obj.sec,
-      s: obj.s,
-      total: obj.total,
-      start: obj.start,
-      end: obj.end,
-      count: obj.count,
-      interval: obj.interval,
+      name: obj[i].name,
+      hrs: obj[i].hrs,
+      h: obj[i].h,
+      min: obj[i].min,
+      m: obj[i].m,
+      sec: obj[i].sec,
+      s: obj[i].s,
+      total: obj[i].total,
+      start: obj[i].start,
+      end: obj[i].end,
+      count: obj[i].count,
+      interval: obj[i].interval,
     });
   }
 }
