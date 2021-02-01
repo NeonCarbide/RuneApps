@@ -53,6 +53,7 @@ function drawTimers() {
     html += '<div id="timer-' + i + '" class="timer">';
     if (timers[i].count && timers[i].count <= 0) {
       html += '<div class="nistext time" style="color: limegreen;">DONE</div>';
+      notify(i);
     } else {
       html += '<div class="nistext time">' + writeTime(timers[i]) + '</div>';
     }
@@ -141,7 +142,6 @@ function tickTimers() {
   for (var i = 0; i < timers.length; i++) {
     if (timers[i].count && timers[i].count <= 0) {
       stopTick(i);
-      notify(i);
       continue;
     }
     if (timers[i].start) {
@@ -176,8 +176,10 @@ function notify(index) {
     text = timers[index].name + ' timer has completed';
     size = 24;
     delay = 3000;
-    x = 20;//(alt1.rsHeight - size) - (size + 20);
-    y = parseInt((alt1.rsWidth / 2) - ((text.length * size) / 3.15));
+    h = alt1.rsHeight;
+    w = alt1.rsWidth;
+    x = 20;//(h - size) - (size + 20);
+    y = parseInt((w / 2) - ((text.length * size) / 3.15));
     colour = parseInt('0xD030D0');
 
     alt1.overLayText(text, colour, size, x, y, delay);
