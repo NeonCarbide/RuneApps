@@ -178,14 +178,10 @@ function notify(index) {
     delay = 3000;
     h = alt1.rsHeight;
     w = alt1.rsWidth;
-    // x = 20;
-    x = h - size * 2 + 20;
+    x = 20;
+    // x = h - size * 2 + 20;
     y = parseInt(w / 2 - (text.length * size) / 3.15);
-    // colour = parseInt('0xFF' + getColourFromString('#E0E010'));
-    colour = parseInt('0xFF00FF00');
-
-    console.log(getColourFromString('#E0E010'));
-    console.log(h, w);
+    colour = parseInt('0xFFF0F000');
 
     alt1.overLayText(text, colour, size, x, y, delay);
   } else {
