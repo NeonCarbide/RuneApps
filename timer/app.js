@@ -178,9 +178,9 @@ function notify(index) {
     delay = 3000;
     h = alt1.rsHeight;
     w = alt1.rsWidth;
-    x = 20;
+    // x = 20;
     // x = (h - size) - (size + 20);
-    // x = size / 2;
+    x = size / 2;
     y = parseInt(w / 2 - (text.length * size) / 3.15);
     colour = parseInt('0xFF' + getColourFromString('#C0C030'));
 
