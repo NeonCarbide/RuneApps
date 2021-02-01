@@ -139,8 +139,6 @@ function tickTimers() {
       timers[i].h = Math.floor((timers[i].count % DAY) / HOUR);
       timers[i].m = Math.floor((timers[i].count % HOUR) / MIN);
       timers[i].s = Math.floor((timers[i].count % MIN) / SEC);
-      console.log(timers[i].count)
-      console.log(writeTime(timers[i]))
     }
   }
   drawTimers();
