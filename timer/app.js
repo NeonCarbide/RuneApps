@@ -141,7 +141,7 @@ function tickTimers() {
   for (var i = 0; i < timers.length; i++) {
     if (timers[i].count && timers[i].count <= 0) {
       stopTick(i);
-      sendToast(i);
+      notify(i);
       continue;
     }
     if (timers[i].start) {
@@ -171,25 +171,36 @@ function scheduleTick(index) {
   }
 }
 
+function notify(index) {
+  if (typeof alt1 !== 'undefined') {
+    text = timers[index].name + ' timer has completed';
+    size = 24;
+    delay = 3000;
+    x = 450;
+    y = 50;
+    colour = parseInt('0xD030D0');
+
+    alt1.overLayText(text, colour, size, x, y, delay);
+  } else {
+    if (!('Notification' in window)) {
+      alert('Error: Browser does not support toast notifications');
+    } else if (Notification.permission === 'granted') {
+      return toast(index);
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission(function (permission) {
+        if (permission === 'granted') {
+          return toast(index);
+        }
+      });
+    }
+  }
+}
+
 function toast(index) {
   return new Notification('General Timers', {
     body: timers[index].name + ' timer has completed',
     icon: 'icon.png'
   });
-}
-
-function sendToast(index) {
-  if (!('Notification' in window)) {
-    alert('Error: Browser does not support toast notifications');
-  } else if (Notification.permission === 'granted') {
-    return toast(index);
-  } else if (Notification.permission !== 'denied') {
-    Notification.requestPermission(function (permission) {
-      if (permission === 'granted') {
-        return toast(index);
-      }
-    });
-  }
 }
 
 function saveData() {
