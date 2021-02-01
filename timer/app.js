@@ -160,7 +160,7 @@ function stopTick(index) {
 
   clearInterval(timers[index].interval);
   timers[index].interval = null;
-  notify(i);
+  notify(index);
 }
 
 function scheduleTick(index) {
