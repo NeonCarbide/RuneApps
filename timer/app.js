@@ -178,9 +178,10 @@ function notify(index) {
     delay = 3000;
     h = alt1.rsHeight;
     w = alt1.rsWidth;
-    x = 20;//(h - size) - (size + 20);
+    // x = 20;
+    x = (h - size) - (size + 20);
     y = parseInt((w / 2) - ((text.length * size) / 3.15));
-    colour = parseInt('0xFFA030A0');
+    colour = parseInt('0xFF' + getColourFromString('#A030A0'));
 
     alt1.overLayText(text, colour, size, x, y, delay);
   } else {
@@ -196,6 +197,16 @@ function notify(index) {
       });
     }
   }
+}
+
+function getColourFromString(colour) {
+  var checkHex = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(colour);
+
+  if (checkHex) {
+    return colour.substring(1);
+  }
+
+  return false;
 }
 
 function toast(index) {
