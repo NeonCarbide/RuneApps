@@ -58,7 +58,8 @@ function drawTimers() {
     }
     html += '<div class="nistext name">' + timers[i].name + '</div>';
     html += '<div class="buttons">';
-    html += '<div class="nisbutton2 control" id="start" onclick="startButton(' + i + ')">Start</div>';
+    html += '<div class="nisbutton2 control" id="start" onclick="startTimer(' + i + ')">Start</div>';
+    html += '<div class="nisbutton2 control" id="pause" onclick="pauseTimer(' + i + ')">Pause</div>';
     html += '<div class="nisbutton2 control" id="reset" onclick="resetTimer(' + i + ')">Reset</div>';
     html +=
       '<div class="nisbutton2 control" onclick="removeTimer(' +
@@ -106,14 +107,12 @@ function removeTimer(index) {
 function startTimer(index) {
   timers[index].start = Date.now();
   timers[index].end = timers[index].start + timers[index].total;
-  elid('start').innerHTML = 'Pause';
   drawTimers();
   scheduleTick(index);
 }
 
 function pauseTimer(index) {
   stopTick(index);
-  elid('start').innerHTML = 'Start';
   drawTimers();
 }
 
@@ -187,8 +186,6 @@ function loadData() {
     return;
   }
 
-  console.log(obj);
-
   for (var i = 0; i < obj.length; i++) {
     timers.push({
       name: obj[i].name,
@@ -205,12 +202,10 @@ function loadData() {
       interval: obj[i].interval,
     });
   }
-
-  console.log(timers);
 }
 
 function startButton(index) {
-  if (timers[index].start == null) {
+  if (!timers[index].start) {
     startTimer(index);
   } else {
     pauseTimer(index);
