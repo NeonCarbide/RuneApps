@@ -15,11 +15,6 @@
     />
     <!-- <link rel="stylesheet" type="text/css" href="base.css" /> -->
     <style>
-      .control,
-      #add-timer-wrapper {
-        padding: 5px;
-      }
-
       .buttons,
       #add-timer-wrapper {
         display: flex;
@@ -33,6 +28,9 @@
       }
       .buttons {
         grid-column: 3 / 4;
+      }
+      .control {
+        padding: 5px;
       }
       .name {
         grid-column: 2 / 3;
@@ -61,6 +59,10 @@
         -webkit-appearance: none;
         margin: 0;
       }
+
+      #add-timer-wrapper {
+        padding: 10px;
+      }
     </style>
     <script
       type="text/javascript"
@@ -75,7 +77,6 @@
         class="nisinput name-in"
         id="name"
         placeholder="Name"
-        onkeypress="enterKeyPress(event);"
         autofocus
       />
       <div id="time-field">

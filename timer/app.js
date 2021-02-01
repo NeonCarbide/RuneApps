@@ -306,24 +306,3 @@ function enterKeyPress(event) {
     elid('add-timer').click();
   }
 }
-
-// inputs = [elid('name'), elid('hrs'), elid('min'), elid('sec')];
-
-// console.log(inputs)
-
-// for (var i = 0; i < inputs.length; i++) {
-//   inputs[i].addEventListener('keyup', function (event) {
-//     if (event.keyCode === 13) {
-//       event.preventDefault();
-//       elid('add-timer').click();
-//     }
-//   });
-// }
-
-// namebox = document.getElementById('name');
-// namebox.addEventListener('keyup', function (event) {
-//   if (event.keyCode === 13) {
-//     event.preventDefault();
-//     elid('add-timer').click();
-//   }
-// });
