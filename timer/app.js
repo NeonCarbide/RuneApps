@@ -182,11 +182,11 @@ function sendToast(index) {
   if (!('Notification' in window)) {
     alert('Error: Browser does not support toast notifications');
   } else if (Notification.permission === 'granted') {
-    return sendToast(index);
+    return toast(index);
   } else if (Notification.permission !== 'denied') {
     Notification.requestPermission(function (permission) {
       if (permission === 'granted') {
-        return sendToast(index);
+        return toast(index);
       }
     });
   }
