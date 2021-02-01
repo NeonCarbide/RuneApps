@@ -141,6 +141,7 @@ function tickTimers() {
   for (var i = 0; i < timers.length; i++) {
     if (timers[i].count && timers[i].count <= 0) {
       stopTick(i);
+      sendToast(i);
       continue;
     }
     if (timers[i].start) {
@@ -167,6 +168,27 @@ function scheduleTick(index) {
 
   if (timers[index].start != null) {
     timers[index].interval = setInterval(tickTimers, 1000);
+  }
+}
+
+function toast(index) {
+  return new Notification('General Timers', {
+    body: timers[index].name + ' timer has completed',
+    icon: 'icon.png'
+  });
+}
+
+function sendToast(index) {
+  if (!('Notification' in window)) {
+    alert('Error: Browser does not support toast notifications');
+  } else if (Notification.permission === 'granted') {
+    return sendToast(index);
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission(function (permission) {
+      if (permission === 'granted') {
+        return sendToast(index);
+      }
+    });
   }
 }
 
