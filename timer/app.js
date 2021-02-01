@@ -1,3 +1,8 @@
+SEC = 1000;
+MIN = SEC * 60;
+HOUR = MIN * 60;
+DAY = HOUR * 24;
+
 timers = [];
 
 function start() {
@@ -30,9 +35,9 @@ function readIn() {
 
 function writeTime(data) {
   time = {
-    h: data.hrs,
-    m: data.min,
-    s: data.sec,
+    h: data.h,
+    m: data.m,
+    s: data.s,
   };
 
   return pad(time.h, 2) + ':' + pad(time.m, 2) + ':' + pad(time.s, 2);
@@ -42,15 +47,20 @@ function drawTimers() {
   html = '';
 
   for (var i = 0; i < timers.length; i++) {
-    data = timers[i];
-
     html += '<div id="timer-' + i + '" class="timer">';
-    html += '<div class="nistext time">' + writeTime(data) + '</div>';
-    html += '<div class="nistext name">' + data.name + '</div>';
+    if (timers[i].count && timers[i].count <= 0) {
+      html += '<div class="nistext time" style="color: limegreen;">DONE</div>';
+    } else {
+      html += '<div class="nistext time">' + writeTime(timers[i]) + '</div>';
+    }
+    html += '<div class="nistext name">' + timers[i].name + '</div>';
     html += '<div class="buttons">';
-    html += '<div class="nisbutton2 control"' + '>Start</div>';
-    html += '<div class="nisbutton2 control"' + '>Reset</div>';
-    html += '<div class="nisbutton2 control" onclick="removeTimer(' + i + ')">X</div>';
+    html += '<div class="nisbutton2 control" id="start" onclick="startButton(' + i + ')">Start</div>';
+    html += '<div class="nisbutton2 control" id="reset" onclick="resetTimer(' + i + ')">Reset</div>';
+    html +=
+      '<div class="nisbutton2 control" onclick="removeTimer(' +
+      i +
+      ')">X</div>';
     html += '</div></div>';
     html += '<div class="nisseperator"></div>';
   }
@@ -64,9 +74,16 @@ function addTimer() {
   timers.push({
     name: data.name,
     hrs: data.hrs,
+    h: data.hrs,
     min: data.min,
+    m: data.min,
     sec: data.sec,
+    s: data.sec,
     total: data.total,
+    start: null,
+    end: null,
+    count: null,
+    interval: null,
   });
 
   clearField('name');
@@ -78,16 +95,76 @@ function addTimer() {
 }
 
 function removeTimer(index) {
+  stopTick(index);
   timers.splice(index, 1);
   drawTimers();
 }
 
-function printTimers() {
-  console.log(timers);
+function startTimer(index) {
+  timers[index].start = Date.now();
+  timers[index].end = timers[index].start + timers[index].total;
+  elid('start').innerHTML = 'Pause';
+  drawTimers();
+  scheduleTick(index);
 }
 
-function printInputs() {
-  time = readIn();
+function pauseTimer(index) {
+  stopTick(index);
+  elid('start').innerHTML = 'Start';
+  drawTimers();
+}
 
-  console.log(time);
+function resetTimer(index) {
+  stopTick(index);
+  timers[index].h = timers[index].hrs;
+  timers[index].m = timers[index].min;
+  timers[index].s = timers[index].sec;
+  timers[index].start = null;
+  timers[index].end = null;
+  timers[index].count = null;
+  elid('start').innerHTML = 'Start';
+  drawTimers();
+}
+
+function tickTimers() {
+  for (var i = 0; i < timers.length; i++) {
+    if (timers[i].count && timers[i].count <= 0) {
+      stopTick(i);
+      continue;
+    }
+    if (timers[i].start) {
+      timers[i].count = timers[i].end - Date.now();
+      timers[i].h = Math.floor((timers[i].count % DAY) / HOUR);
+      timers[i].m = Math.floor((timers[i].count % HOUR) / MIN);
+      timers[i].s = Math.floor((timers[i].count % MIN) / SEC);
+      console.log(timers[i].count)
+      console.log(writeTime(timers[i]))
+    }
+  }
+  drawTimers();
+}
+
+function stopTick(index) {
+  if (!timers[index].interval) {
+    return;
+  }
+
+  clearInterval(timers[index].interval);
+  timers[index].interval = null;
+}
+
+function scheduleTick(index) {
+  stopTick(index);
+
+  if (timers[index].start != null) {
+    timers[index].interval = setInterval(tickTimers, 50);
+  }
+}
+
+function startButton(index) {
+  if (timers[index].start == null) {
+    startTimer(index);
+  } else {
+    pauseTimer(index);
+  }
 }
