@@ -10,7 +10,7 @@ iconTimeout = null;
 timers = [];
 
 window.addEventListener('beforeunload', saveData);
-window.addEventListener('mousedown', clearIcon);
+window.addEventListener('focus', clearIcon);
 
 function start() {
   try {
