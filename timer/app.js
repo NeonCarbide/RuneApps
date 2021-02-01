@@ -1,16 +1,18 @@
-var timers = [];
+timers = [];
 
 function start() {
   alt1.identifyAppUrl('appconfig.json');
 }
 
 function drawTimers() {
-  var html = '';
-  
+  html = '';
+
   for (var i = 0; i < timers.length; i++) {
+    data = timers[i];
+
     html += '<div id="timer-' + i + '" class="timer">';
-    html += '<div class="nistext name"></div>';
-    html += '<div class="nistext time"></div>';
+    html += '<div class="nistext name">' + data.name + '</div>';
+    html += '<div class="nistext time">' + writeTime(data) + '</div>';
     html += '<div class="nisbutton2 control"' + '>Start</div>';
     html += '<div class="nisbutton2 control"' + '>Reset</div>';
     html += '<div class="nisbutton2 control"' + '>X</div>';
@@ -45,6 +47,22 @@ function readIn() {
   t = (h * 60 * 60 + m * 60 + s) * 1000;
 
   return { name: elid('name').value, hrs: h, min: m, sec: s, total: t };
+}
+
+function writeTime(data) {
+  time = {
+    h: data.hrs,
+    m: data.min,
+    s: data.sec,
+  };
+
+  return pad(time.hrs, 2) + ':' + pad(time.min, 2) + ':' + pad(time.sec, 2);
+}
+
+function pad(n, width) {
+  n = n + '';
+
+  return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 }
 
 function printTimers() {
