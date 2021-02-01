@@ -180,7 +180,7 @@ function notify(index) {
   try {
     if (window.alt1) {
       text = timers[index].name + ' timer has completed';
-      size = 30;
+      size = 24;
       delay = 3000;
       h = alt1.rsHeight;
       w = alt1.rsWidth;
