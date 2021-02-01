@@ -186,7 +186,7 @@ function notify(index) {
       w = alt1.rsWidth;
       x = 20;
       // x = h - size * 2 + 20;
-      y = parseInt(w / 2 - (text.length * size) / 2.95);
+      y = parseInt(w / 2 - (text.length * size) / 2.55);
       colour = parseInt('0xFFF0F000');
   
       alt1.overLayText(text, colour, size, x, y, delay);
