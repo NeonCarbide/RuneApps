@@ -31,7 +31,7 @@ function readIn() {
   h = elid('hrs').value || 0;
   m = elid('min').value || 0;
   s = elid('sec').value || 0;
-  t = (h * 60 * 60 + m * 60 + s) * 1000;
+  t = h * HOUR + m * MIN + s * SEC;
 
   return { name: elid('name').value, hrs: h, min: m, sec: s, total: t };
 }
