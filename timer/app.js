@@ -157,7 +157,7 @@ function scheduleTick(index) {
   stopTick(index);
 
   if (timers[index].start != null) {
-    timers[index].interval = setInterval(tickTimers, 200);
+    timers[index].interval = setInterval(tickTimers, 1000);
   }
 }
 
