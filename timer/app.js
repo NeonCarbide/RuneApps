@@ -178,7 +178,7 @@ function notify(index) {
     delay = 3000;
     h = alt1.rsHeight;
     w = alt1.rsWidth;
-    x = 20;
+    x = 10;
     // x = h - size * 2 + 20;
     y = parseInt(w / 2 - (text.length * size) / 3.15);
     colour = parseInt('0xFFF0F000');
