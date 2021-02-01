@@ -53,7 +53,6 @@ function drawTimers() {
     html += '<div id="timer-' + i + '" class="timer">';
     if (timers[i].count && timers[i].count <= 0) {
       html += '<div class="nistext time" style="color: limegreen;">DONE</div>';
-      notify(i);
     } else {
       html += '<div class="nistext time">' + writeTime(timers[i]) + '</div>';
     }
@@ -142,6 +141,7 @@ function tickTimers() {
   for (var i = 0; i < timers.length; i++) {
     if (timers[i].count && timers[i].count <= 0) {
       stopTick(i);
+      notify(i);
       continue;
     }
     if (timers[i].start) {
