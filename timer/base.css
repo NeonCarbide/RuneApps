@@ -1,17 +1,36 @@
-.timer, #add-timer-wrapper {
+.control,
+#add-timer-wrapper {
+  padding: 5px;
+}
+
+.buttons,
+#add-timer-wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 
 .add {
   width: 6rem;
 }
-.control {
-  min-width: 2rem;
+.buttons {
+  grid-column: 3 / 4;
+}
+.name {
+  grid-column: 2 / 3;
+  font-size: 1rem;
+}
+.time {
+  grid-column: 1 / 2;
+  font-weight: bold;
 }
 .timer {
-  justify-content: first baseline;
+  display: grid;
+  grid-template-columns: min-content auto min-content;
+  grid-column-gap: 10px;
+  align-items: center;
+  padding: 3px 1px 0px 8px;
 }
 .name-in {
   width: 10rem;
@@ -24,9 +43,4 @@
 .time-in::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-#add-timer-wrapper {
-  justify-content: space-evenly;
-  padding: 5px;
 }
