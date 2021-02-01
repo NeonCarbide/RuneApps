@@ -210,6 +210,7 @@ function getColourFromString(colour) {
 }
 
 function toast(index) {
+  console.log('Toast sent');
   return new Notification('General Timers', {
     body: timers[index].name + ' timer has completed',
     icon: 'icon.png',
