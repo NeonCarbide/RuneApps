@@ -178,7 +178,7 @@ function loadData() {
   }
 
   try {
-    console.log(JSON.parse(localStorage.gen_timers));
+    timers = JSON.parse(localStorage.gen_timers);
   } catch (e) {
     return;
   }
