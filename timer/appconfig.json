@@ -6,7 +6,7 @@
   "iconUrl": "/RuneApps/timer/icon.png",
   "defaultWidth": 430,
   "defaultHeight": 150,
-  "minWidth": 410,
+  "minWidth": 430,
   "minHeight": 150,
   "maxWidth": 800,
   "maxHeight": 1200,
