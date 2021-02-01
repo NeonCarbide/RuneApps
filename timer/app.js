@@ -12,19 +12,6 @@ timers = [];
 window.addEventListener('beforeunload', saveData);
 window.addEventListener('mouseover', clearIcon);
 
-inputs = [elid('name'), elid('hrs'), elid('min'), elid('sec')];
-
-console.log(inputs)
-
-for (var i = 0; i < inputs.length; i++) {
-  inputs[i].addEventListener('keyup', function (e) {
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      elid('add-timer').click();
-    }
-  });
-}
-
 function start() {
   try {
     alt1.identifyAppUrl('appconfig.json');
@@ -312,4 +299,17 @@ function loadData() {
       interval: obj[i].interval,
     });
   }
+}
+
+inputs = [elid('name'), elid('hrs'), elid('min'), elid('sec')];
+
+console.log(inputs)
+
+for (var i = 0; i < inputs.length; i++) {
+  inputs[i].addEventListener('keyup', function (e) {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      elid('add-timer').click();
+    }
+  });
 }
