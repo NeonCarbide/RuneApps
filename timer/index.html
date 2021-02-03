@@ -14,16 +14,18 @@
       href="https://runeapps.org/nis/alt1-currentskin/skinstyle.css"
     />
     <style>
-      .add {
-        /* grid-column: 3 / 4; */
-        width: 6rem;
-      }
-      .buttons {
-        grid-column: 3 / 4;
+      .buttons, #add-timer-wrapper {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+      }
+
+      .add {
+        width: 6rem;
+      }
+      .buttons {
+        grid-column: 3 / 4;
       }
       .content {
         margin-top: 10px;
@@ -63,17 +65,12 @@
       }
       #add-timer-wrapper {
         border-bottom: 1px solid #000000;
-        /* grid-template-columns: 1fr min-content min-content;
-        grid-column-gap: 10px;
-        align-items: center; */
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
       }
       #name {
-        /* grid-column: 1 / 2; */
-        min-width: 6rem;
+        width: calc(100% - 234px);
+      }
+      #pause-all-timers {
+        width: 8rem;
       }
       #static-footer {
         border-top: 1px solid #41555f;
@@ -83,9 +80,6 @@
         right: 0;
         z-index: 999;
       }
-      /* #time-field {
-        grid-column: 2 / 3;
-      } */
       #timers {
         overflow-y: auto;
         height: calc(100vh - 74px);
