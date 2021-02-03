@@ -11,7 +11,6 @@ timers = [];
 
 window.addEventListener('beforeunload', saveData);
 window.addEventListener('mouseover', clearIcon);
-window.addEventListener('resize', checkContentSize);
 
 function start() {
   try {
