@@ -68,11 +68,19 @@
       #add-timer-wrapper {
         border-bottom: 1px solid #000000;
       }
+      #control-all {
+        grid-template-columns: min-content min-content;
+        grid-column-gap: 10px;
+      }
       #name {
         width: calc(100% - 234px);
       }
       #pause-all-timers {
+        grid-column: 1 / 2;
         width: 8rem;
+      }
+      #reset-all-timers {
+        grid-column: 2 / 3;
       }
       #static-footer {
         border-top: 1px solid #41555f;
@@ -140,12 +148,21 @@
       <div id="timers"></div>
       <div id="static-footer">
         <!-- <div class="nisbutton2" id="settings">Settings</div> -->
-        <div
-          class="nisbutton2"
-          id="pause-all-timers"
-          onclick="pauseAllTimers()"
-        >
-          Pause All Timers
+        <div id="control-all">
+          <div
+            class="nisbutton2"
+            id="pause-all-timers"
+            onclick="pauseAllTimers()"
+          >
+            Pause All
+          </div>
+          <div
+            class="nisbutton2"
+            id="reset-all-timers"
+            onclick="resetAllTimers()"
+          >
+            Reset All
+          </div>
         </div>
       </div>
     </div>
