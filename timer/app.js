@@ -93,7 +93,6 @@ function drawTimers() {
       i +
       ')">X</div>';
     html += '</div></div>';
-    html += '<div class="nisseperator"></div>';
   }
 
   elid('timers').innerHTML = html;
