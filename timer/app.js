@@ -11,6 +11,7 @@ timers = [];
 
 window.addEventListener('beforeunload', saveData);
 window.addEventListener('mouseover', clearIcon);
+window.addEventListener('resize', checkContentSize);
 
 function start() {
   try {
@@ -318,4 +319,11 @@ function enterKeyPress(event) {
   if (event.keyCode === 13) {
     elid('add-timer').click();
   }
+}
+
+function checkContentSize() {
+  heightAdd = elid('add-timer-wrapper').clientHeight;
+  heightBody = document.body.clientHeight;
+
+  elid('timers').clientHeight = heightBody - heightAdd;
 }
