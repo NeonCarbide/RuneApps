@@ -229,6 +229,9 @@ function overlayNotify() {
     // x = h - size * 2 + 20;
     // y = size;
     y = parseInt(w / 2 - size / 2)
+
+    console.log(w, y);
+
     // y = parseInt(w / 2 - (text.length * size) / 2.15);
     colour = parseInt('0xFFF0F000');
 
