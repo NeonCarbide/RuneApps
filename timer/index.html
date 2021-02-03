@@ -56,8 +56,12 @@
         border-bottom: 1px solid #000000;
       }
       #timers {
-        overflow-x: hidden;
-        overflow-y: auto;
+        overflow-y: scroll;
+        height: calc(100% - 41px);
+      }
+
+      #timers::-webkit-scrollbar {
+        display: none;
       }
 
       .buttons,
