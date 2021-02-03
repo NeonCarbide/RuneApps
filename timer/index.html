@@ -63,11 +63,13 @@
         padding: 10px 5px 10px 5px;
         border-bottom: 1px solid #000000;
       }
-      #content {
-        overflow: hidden;
-      }
       #timers {
         overflow-y: scroll;
+      }
+
+      #timers::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
       }
     </style>
     <script
