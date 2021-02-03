@@ -90,7 +90,8 @@
         right: 0;
         z-index: 999;
       }
-      #timers, #timers > .timer {
+      #timers,
+      #timers > .timer {
         border-top: 1px solid #41555f;
         border-bottom: 1px solid #000000;
       }
@@ -113,6 +114,10 @@
     <script
       type="text/javascript"
       src="https://runeapps.org/alt1lib.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://runeapps.org/runeappslib.js"
     ></script>
     <script type="text/javascript" src="app.js"></script>
   </head>
@@ -157,7 +162,9 @@
       </div>
       <div id="timers"></div>
       <div id="static-footer">
-        <!-- <div class="nisbutton2 control" id="settings">Settings</div> -->
+        <div class="nisbutton2 control" id="settings" onclick="settingsMenu()">
+          Settings
+        </div>
         <div id="control-all">
           <div
             class="nisbutton2 control"

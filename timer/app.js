@@ -243,11 +243,7 @@ function overlayNotify() {
     h = alt1.rsHeight;
     w = alt1.rsWidth;
     x = size;
-    // x = 20;
-    // x = h - size * 2 + 20;
-    // y = size;
     y = parseInt(h / 2 - size / 2);
-    // y = parseInt(w / 2 - (text.length * size) / 2.15);
     colour = parseInt('0xFFF0F000');
 
     alt1.overLayText(text, colour, size, x, y, delay);
@@ -336,5 +332,29 @@ function loadData() {
 function enterKeyPress(event) {
   if (event.keyCode === 13) {
     elid('add-timer').click();
+  }
+}
+
+function settingsMenu() {
+  data = [];
+
+  data.push({
+    t: 'button:confirm',
+    text: 'Confirm'
+  });
+  data.push({
+    t: 'button:cancel',
+    text: 'Cancel'
+  });
+
+  menu = promptbox2({
+    title: 'Settings',
+    style: 'popup',
+    width: 200
+  }, data);
+
+  menu.cancel.onclick = menu.frame.close.b();
+  menu.confirm.onclick = function () {
+    menu.frame.close();
   }
 }
