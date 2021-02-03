@@ -71,7 +71,7 @@ function drawTimers() {
     html +=
       '<div id="timer-' +
       i +
-      '" class="timer" style="border-bottom: 1px solid #000000; border-top: 1px solid #41555F;">';
+      '" class="timer">';
     if (timers[i].count && timers[i].count <= 0) {
       html += '<div class="nistext time" style="color: limegreen;">DONE</div>';
     } else {
