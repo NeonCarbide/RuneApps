@@ -325,5 +325,8 @@ function checkContentSize() {
   heightAdd = elid('add-timer-wrapper').clientHeight;
   heightBody = document.body.clientHeight;
 
+  console.log(heightAdd);
+  console.log(elid('timers').clientHeight);
   elid('timers').clientHeight = heightBody - heightAdd;
+  console.log(elid('timers').clientHeight);
 }
