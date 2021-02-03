@@ -27,10 +27,6 @@
         grid-column: 2 / 3;
         font-size: 1rem;
       }
-      .scroll {
-        overflow-y: scroll;
-        height: calc(100vh - 41px);
-      }
       .time {
         grid-column: 1 / 2;
         font-weight: bold;
@@ -58,6 +54,10 @@
       #add-timer-wrapper {
         margin: 10px 5px;
         border-bottom: 1px solid #000000;
+      }
+      #timers {
+        overflow-y: scroll;
+        height: calc(100vh - 41px);
       }
 
       .buttons,
@@ -113,7 +113,7 @@
           New Timer
         </div>
       </div>
-      <div class="scroll" id="timers"></div>
+      <div id="timers"></div>
     </div>
   </body>
 </html>

@@ -68,7 +68,10 @@ function drawTimers() {
   html = '';
 
   for (var i = 0; i < timers.length; i++) {
-    html += '<div id="timer-' + i + '" class="timer" style="border-bottom: 1px solid #000000; border-top: 1px solid #41555F;">';
+    html +=
+      '<div id="timer-' +
+      i +
+      '" class="timer" style="border-bottom: 1px solid #000000; border-top: 1px solid #41555F;">';
     if (timers[i].count && timers[i].count <= 0) {
       html += '<div class="nistext time" style="color: limegreen;">DONE</div>';
     } else {
@@ -227,7 +230,7 @@ function overlayNotify() {
     // x = 20;
     // x = h - size * 2 + 20;
     // y = size;
-    y = parseInt(h / 2 - size / 2)
+    y = parseInt(h / 2 - size / 2);
     // y = parseInt(w / 2 - (text.length * size) / 2.15);
     colour = parseInt('0xFFF0F000');
 
@@ -318,14 +321,4 @@ function enterKeyPress(event) {
   if (event.keyCode === 13) {
     elid('add-timer').click();
   }
-}
-
-function checkContentSize() {
-  heightAdd = elid('add-timer-wrapper').clientHeight;
-  heightBody = document.body.clientHeight;
-
-  console.log(heightAdd);
-  console.log(elid('timers').clientHeight);
-  elid('timers').clientHeight = heightBody - heightAdd;
-  console.log(elid('timers').clientHeight);
 }
