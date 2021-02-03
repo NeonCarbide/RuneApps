@@ -19,6 +19,15 @@ function start() {
   } catch (e) {
     console.log('Alt1 not found');
   }
+
+  for (var i = 0; i < timers.length; i++) {
+    if (timers[i].start) {
+      if (Date.now() > timers[i].end) {
+        timers[i].count = 0;
+      }
+    }
+  }
+
   drawTimers();
 }
 
