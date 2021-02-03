@@ -14,12 +14,13 @@
       href="https://runeapps.org/nis/alt1-currentskin/skinstyle.css"
     />
     <style>
-      .buttons,
-      #add-timer-wrapper {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+      body {
+        overflow-y: scroll;
+      }
+
+      body::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
       }
 
       .add {
@@ -63,13 +64,13 @@
         padding: 10px 5px 10px 5px;
         border-bottom: 1px solid #000000;
       }
-      #timers {
-        overflow-y: scroll;
-      }
 
-      #timers::-webkit-scrollbar {
-        width: 0px;
-        height: 0px;
+      .buttons,
+      #add-timer-wrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
       }
     </style>
     <script
