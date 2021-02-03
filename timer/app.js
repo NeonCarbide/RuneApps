@@ -123,10 +123,13 @@ function removeTimer(index) {
 }
 
 function startTimer(index) {
-  timers[index].start = Date.now();
-  timers[index].end = timers[index].start + timers[index].total;
-  drawTimers();
+  if (!timers[index].start) {
+    timers[index].start = Date.now();
+    timers[index].end = timers[index].start + timers[index].total;
+  }
+
   scheduleTick(index);
+  drawTimers();
 }
 
 function pauseTimer(index) {
@@ -142,7 +145,6 @@ function resetTimer(index) {
   timers[index].start = null;
   timers[index].end = null;
   timers[index].count = null;
-  elid('start').innerHTML = 'Start';
   drawTimers();
 }
 
