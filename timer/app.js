@@ -228,7 +228,7 @@ function overlayNotify() {
     // x = 20;
     // x = h - size * 2 + 20;
     // y = size;
-    y = parseInt(w / 2 - size / 2)
+    y = parseInt(h / 2 - size / 2)
 
     console.log(w, y);
 
