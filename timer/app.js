@@ -136,8 +136,9 @@ function startTimer(index) {
 
   if (!timers[index].start) {
     timers[index].start = Date.now();
-    timers[index].end = timers[index].start + timers[index].total;
   }
+
+  timers[index].end = timers[index].start + timers[index].total;
 
   scheduleTick(index);
   drawTimers();
