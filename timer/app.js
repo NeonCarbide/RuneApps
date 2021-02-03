@@ -149,6 +149,14 @@ function pauseTimer(index) {
   drawTimers();
 }
 
+function pauseAllTimers() {
+  for (var i = 0; i < timers.length; i++) {
+    stopTick(i);
+  }
+
+  drawTimers();
+}
+
 function resetTimer(index) {
   stopTick(index);
   timers[index].h = timers[index].hrs;
