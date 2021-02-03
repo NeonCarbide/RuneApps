@@ -264,6 +264,7 @@ function saveData() {
   obj = [];
 
   for (var i = 0; i < timers.length; i++) {
+    stopTick(i);
     obj.push(timers[i]);
   }
 
