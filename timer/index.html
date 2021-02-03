@@ -70,7 +70,7 @@
       }
       #control-all {
         display: grid;
-        grid-template-columns: min-content min-content;
+        grid-template-columns: max-content max-content;
         grid-column-gap: 10px;
       }
       #name {
@@ -92,8 +92,16 @@
       }
       #timers {
         border-top: 1px solid #41555f;
+        border-bottom: 1px solid #000000;
         overflow-y: auto;
         height: calc(100vh - 74px);
+      }
+
+      #timers:first-child {
+        border-top: none;
+      }
+      #timers:last-child {
+        border-bottom: none;
       }
 
       #timers::-webkit-scrollbar {
