@@ -123,6 +123,8 @@ function removeTimer(index) {
 }
 
 function startTimer(index) {
+  console.log(!timers[index].start);
+
   if (!timers[index].start) {
     timers[index].start = Date.now();
     timers[index].end = timers[index].start + timers[index].total;
