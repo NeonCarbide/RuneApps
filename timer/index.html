@@ -15,12 +15,7 @@
     />
     <style>
       body {
-        overflow-y: scroll;
-      }
-
-      body::-webkit-scrollbar {
-        width: 0px;
-        height: 0px;
+        overflow: hidden;
       }
 
       .add {
@@ -64,6 +59,14 @@
         padding: 10px 5px 10px 5px;
         border-bottom: 1px solid #000000;
       }
+      #timers {
+        overflow-y: scroll;
+      }
+
+      #timers::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
 
       .buttons,
       #add-timer-wrapper {
@@ -80,45 +83,43 @@
     <script type="text/javascript" src="app.js"></script>
   </head>
   <body class="nis" onload="start();">
-    <div id="content">
-      <div id="add-timer-wrapper">
+    <div id="add-timer-wrapper">
+      <input
+        type="text"
+        class="nisinput name-in"
+        id="name"
+        placeholder="Name"
+        autofocus
+      />
+      <div id="time-field">
         <input
-          type="text"
-          class="nisinput name-in"
-          id="name"
-          placeholder="Name"
-          autofocus
+          type="number"
+          class="nisinput time-in"
+          id="hrs"
+          placeholder="H"
+          onkeypress="enterKeyPress(event);"
         />
-        <div id="time-field">
-          <input
-            type="number"
-            class="nisinput time-in"
-            id="hrs"
-            placeholder="H"
-            onkeypress="enterKeyPress(event);"
-          />
-          <span class="nistext">:</span>
-          <input
-            type="number"
-            class="nisinput time-in"
-            id="min"
-            placeholder="M"
-            onkeypress="enterKeyPress(event);"
-          />
-          <span class="nistext">:</span>
-          <input
-            type="number"
-            class="nisinput time-in"
-            id="sec"
-            placeholder="S"
-            onkeypress="enterKeyPress(event);"
-          />
-        </div>
-        <div class="nisbutton2 add" id="add-timer" onclick="addTimer();">
-          New Timer
-        </div>
+        <span class="nistext">:</span>
+        <input
+          type="number"
+          class="nisinput time-in"
+          id="min"
+          placeholder="M"
+          onkeypress="enterKeyPress(event);"
+        />
+        <span class="nistext">:</span>
+        <input
+          type="number"
+          class="nisinput time-in"
+          id="sec"
+          placeholder="S"
+          onkeypress="enterKeyPress(event);"
+        />
       </div>
-      <div id="timers"></div>
+      <div class="nisbutton2 add" id="add-timer" onclick="addTimer();">
+        New Timer
+      </div>
     </div>
+    <div id="timers"></div>
   </body>
 </html>
