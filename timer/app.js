@@ -168,6 +168,14 @@ function resetTimer(index) {
   drawTimers();
 }
 
+function resetAllTimers() {
+  for (var i = 0; i < timers.length; i++) {
+    if (timers[i].start) {
+      resetTimer(i);
+    }
+  }
+}
+
 function tickTimers() {
   for (var i = 0; i < timers.length; i++) {
     if (timers[i].count && timers[i].count <= 0) {
