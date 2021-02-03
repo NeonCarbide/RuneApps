@@ -23,7 +23,7 @@ function start() {
   for (var i = 0; i < timers.length; i++) {
     if (timers[i].start) {
       if (Date.now() > timers[i].end) {
-        timers[i].count = 0;
+        timers[i].count = -1;
       }
     }
   }
