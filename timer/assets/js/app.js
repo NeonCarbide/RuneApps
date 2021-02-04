@@ -253,7 +253,7 @@ function soundNotify() {
         continue;
       }
 
-      alertSound.volume = settings.alertVolume;
+      alertSound.volume = settings.alertVolume / 100;
       alertSound.play();
       break;
     }
@@ -370,7 +370,7 @@ function settingsMenu() {
   if (settings.enableSoundAlert) {
     data.push({ t: 'h/11' });
     data.push({ t: 'text', text: 'Alert Volume' });
-    data.push({ t: 'slider:alertVolume', v: settings.alertVolume * 100 });
+    data.push({ t: 'int:alertVolume', v: settings.alertVolume });
   }
 
   data.push({
@@ -406,12 +406,14 @@ function settingsMenu() {
       data
     );
 
+    menu.alertVolume.min = 0;
+    menu.alertVolume.max = 100;
     menu.cancel.onclick = menu.frame.close.b();
     menu.confirm.onclick = function () {
       settings.enableSoundAlert = menu.soundEnable.getValue();
 
       if (menu.alertVolume) {
-        settings.alertVolume = menu.alertVolume.getValue() / 100;
+        settings.alertVolume = menu.alertVolume.getValue();
       }
 
       settings.enableIconOverlay = menu.iconEnable.getValue();
