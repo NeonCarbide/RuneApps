@@ -1,3 +1,5 @@
+import { data } from "jquery";
+
 SEC = 1000;
 MIN = SEC * 60;
 HOUR = MIN * 60;
@@ -287,6 +289,8 @@ var config = (function () {
       data.push({ t: 'h/11' });
       data.push({ t: 'button:confirm', text: 'Confirm' });
       data.push({ t: 'button:cancel', text: 'Cancel' });
+
+      console.log(data);
 
       try {
         menu = promptbox2(
