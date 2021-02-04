@@ -398,14 +398,14 @@ function settingsMenu() {
       },
       data
     );
-
-    menu.alertVolume.min = 0;
-    menu.alertVolume.max = 100;
+    
     menu.cancel.onclick = menu.frame.close.b();
     menu.confirm.onclick = function () {
       settings.enableSoundAlert = menu.soundEnable.getValue();
 
       if (menu.alertVolume) {
+        menu.alertVolume.min = 0;
+        menu.alertVolume.max = 100;
         settings.alertVolume = menu.alertVolume.getValue();
       }
 
