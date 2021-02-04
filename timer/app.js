@@ -3,6 +3,12 @@ MIN = SEC * 60;
 HOUR = MIN * 60;
 DAY = HOUR * 24;
 
+settings = {
+  enableIconOverlay: true,
+  iconSize: 32,
+  iconColour: '#F0F000',
+};
+
 delay = 1050;
 tick = 1000;
 showIcon = false;
@@ -16,6 +22,7 @@ function start() {
   try {
     alt1.identifyAppUrl('appconfig.json');
     loadData();
+    loadSettings();
   } catch (e) {
     console.log('Alt1 not found');
   }
@@ -68,10 +75,7 @@ function drawTimers() {
   html = '';
 
   for (var i = 0; i < timers.length; i++) {
-    html +=
-      '<div id="timer-' +
-      i +
-      '" class="timer">';
+    html += '<div id="timer-' + i + '" class="timer">';
     if (timers[i].count && timers[i].count <= 0) {
       html += '<div class="nistext time" style="color: limegreen;">DONE</div>';
     } else {
@@ -237,16 +241,14 @@ function checkTimers() {
 
 function overlayNotify() {
   if (window.alt1) {
-    // text = timers[index].name + ' timer has completed';
     text = '\u23F0';
-    size = 32;
     h = alt1.rsHeight;
     w = alt1.rsWidth;
-    x = size;
-    y = parseInt(h / 2 - size / 2);
-    colour = parseInt('0xFFF0F000');
+    x = settings.iconSize;
+    y = parseInt(h / 2 - settings.iconSize / 2);
+    colour = parseInt('0xFF' + getColourFromString(settings.iconColour));
 
-    alt1.overLayText(text, colour, size, x, y, delay);
+    alt1.overLayText(text, colour, settings.iconSize, x, y, delay);
   }
 }
 
@@ -338,23 +340,94 @@ function enterKeyPress(event) {
 function settingsMenu() {
   data = [];
 
+  data.push(
+    createUserInput(
+      'iconEnable',
+      settings.enableIconOverlay,
+      {
+        t: 'bool',
+        n: 'Enable Icon Overlay'
+      }
+    )
+  );
+  data.push(
+    createUserInput(
+      'iconSize',
+      settings.iconSize,
+      {
+        t: 'number',
+        n: 'Icon Font Size'
+      }
+    )
+  );
+  data.push(
+    createUserInput(
+      'iconColour',
+      settings.iconColour,
+      {
+        t: 'string',
+        n: 'Icon Colour HEX Code'
+      }
+    )
+  );
   data.push({
     t: 'button:confirm',
-    text: 'Confirm'
+    text: 'Confirm',
   });
   data.push({
     t: 'button:cancel',
-    text: 'Cancel'
+    text: 'Cancel',
   });
 
-  menu = promptbox2({
-    title: 'Settings',
-    style: 'popup',
-    width: 200
-  }, data);
+  menu = promptbox2(
+    {
+      title: 'Settings',
+      style: 'popup',
+      width: 200,
+    },
+    data
+  );
 
   menu.cancel.onclick = menu.frame.close.b();
   menu.confirm.onclick = function () {
+    settings.enableIconOverlay = menu.iconEnable.getValue();
+    settings.iconSize = menu.iconSize.getValue();
+    settings.iconColour = menu.iconColour.getValue();
+    saveSettings();
     menu.frame.close();
+  };
+}
+
+function createUserInput(id, value, meta) {
+  if (['string', 'int', 'number', 'color', 'slider'].indexOf(meta.t) != -1) {
+    return [
+      { t: 'h/11' },
+      { t: 'text', text: meta.n },
+      { t: meta.t, id: id, v: value },
+    ];
+  } else if (meta.t == 'dropdown') {
+    return [
+      { t: 'h/11' },
+      { t: 'text', text: meta.n },
+      {
+        t: 'dropdown',
+        id: id,
+        options: meta.options || meta.getOptions(),
+        v: value,
+      },
+    ];
+  } else if (meta.t == 'bool') {
+    return [{ t: 'bool', id: id, v: value, text: meta.n }];
+  }
+}
+
+function saveSettings() {
+  localStorage.gen_timers_config = JSON.stringify(settings);
+}
+
+function loadSettings() {
+  if (localStorage.gen_timers_config) {
+    userSettings = JSON.parse(localStorage.gen_timers_config);
+    settings = Object.assign(settings, userSettings);
   }
 }
