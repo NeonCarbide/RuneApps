@@ -533,7 +533,7 @@ var app = (function () {
 })();
 
 window.addEventListener('beforeunload', function () {
-  config.cfgSave();
+  config.dataSave();
 });
 window.addEventListener('mouseover', function () {
   notify.clearIcon();
