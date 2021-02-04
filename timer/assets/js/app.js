@@ -6,6 +6,8 @@ DAY = HOUR * 24;
 alertSound = new Audio('assets/audio/pop.wav');
 
 settings = {
+  timerDoneColour: '#32CD32',
+  timerRunningColour: '#FFD700',
   enableSoundAlert: false,
   alertVolume: 0.5,
   enableIconOverlay: true,
@@ -81,7 +83,7 @@ function writeTime(input) {
   }
 
   if (input.s > 0) {
-    time.s = input.s
+    time.s = input.s;
   }
 
   return pad(time.h, 2) + ':' + pad(time.m, 2) + ':' + pad(time.s, 2);
@@ -96,7 +98,7 @@ function drawTimers() {
     if (timers[i].done || isTimerDone(i)) {
       str += ' done';
     } else if (timers[i].interval) {
-      str += ' running'
+      str += ' running';
     }
 
     str += '">';
@@ -354,6 +356,13 @@ function enterKeyPress(event) {
 function settingsMenu() {
   data = [];
 
+  data.push({ t: 'h/11' });
+  data.push({ t: 'text', text: 'Done HEX Colour Code' });
+  data.push({ t: 'string:doneColour', v: settings.timerDoneColour });
+  data.push({ t: 'h/11' });
+  data.push({ t: 'text', text: 'Running HEX Colour Code' });
+  data.push({ t: 'string:runningColour', v: settings.timerRunningColour });
+
   data.push({
     t: 'bool:soundEnable',
     v: settings.enableSoundAlert,
@@ -377,7 +386,7 @@ function settingsMenu() {
     data.push({ t: 'text', text: 'Icon Font Size' });
     data.push({ t: 'int:iconSize', v: settings.iconSize });
     data.push({ t: 'h/11' });
-    data.push({ t: 'text', text: 'Icon Colour HEX Code' });
+    data.push({ t: 'text', text: 'Icon HEX Colour Code' });
     data.push({ t: 'string:iconColour', v: settings.iconColour });
   }
 
@@ -398,9 +407,21 @@ function settingsMenu() {
       },
       data
     );
-    
+
     menu.cancel.onclick = menu.frame.close.b();
     menu.confirm.onclick = function () {
+      settings.timerDoneColour = menu.doneColour.getValue();
+      settings.timerRunningColour = menu.runningColour.getValue();
+
+      document.documentElement.style.setProperty(
+        '--colour-timer-done',
+        settings.timerDoneColour
+      );
+      document.documentElement.style.setProperty(
+        '--colour-timer-running',
+        settings.timerRunningColour
+      );
+
       settings.enableSoundAlert = menu.soundEnable.getValue();
 
       if (menu.alertVolume) {

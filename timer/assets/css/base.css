@@ -1,3 +1,8 @@
+:root {
+  --colour-timer-done: #32CD32;
+  --colour-timer-running: #FFD700;
+}
+
 .buttons,
 #add-timer-wrapper,
 #static-footer {
@@ -20,10 +25,10 @@
   padding: 5px;
 }
 .done {
-  color: limegreen;
+  color: var(--colour-timer-done);
 }
 .running {
-  color: gold;
+  color: var(--colour-timer-running);
 }
 .name {
   grid-column: 2 / 3;
