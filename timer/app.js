@@ -367,8 +367,11 @@ function settingsMenu() {
     menu.cancel.onclick = menu.frame.close.b();
     menu.confirm.onclick = function () {
       settings.enableIconOverlay = menu.iconEnable.getValue();
-      settings.iconSize = menu.iconSize.getValue();
-      settings.iconColour = menu.iconColour.getValue();
+
+      if (settings.enableIconOverlay) {
+        settings.iconSize = menu.iconSize.getValue();
+        settings.iconColour = menu.iconColour.getValue();
+      }
 
       saveSettings();
       menu.frame.close();
