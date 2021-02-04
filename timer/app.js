@@ -364,7 +364,6 @@ function settingsMenu() {
   try {
     menu = promptbox2({ title: 'Settings', style: 'popup', width: 300 }, data);
 
-    menu.iconEnable.onchange = settingsMenu();
     menu.cancel.onclick = menu.frame.close.b();
     menu.confirm.onclick = function () {
       settings.enableIconOverlay = menu.iconEnable.getValue();
