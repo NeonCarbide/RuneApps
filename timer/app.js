@@ -358,6 +358,7 @@ function settingsMenu() {
       n: 'Icon Colour HEX Code',
     })
   );
+  data.push({ t: 'h/11' });
   data.push({ t: 'button:confirm', text: 'Confirm' });
   data.push({ t: 'button:cancel', text: 'Cancel' });
 
