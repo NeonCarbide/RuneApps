@@ -77,14 +77,15 @@ function writeTime(input) {
 
 function drawTimers() {
   html = '';
+  str = '">' + writeTime(timers[i]);
 
   for (var i = 0; i < timers.length; i++) {
-    html += '<div id="timer-' + i + '" class="timer">';
-    if (isTimerDone(i)) {
-      html += '<div class="nistext time" style="color: limegreen;">DONE</div>';
-    } else {
-      html += '<div class="nistext time">' + writeTime(timers[i]) + '</div>';
+    if (timers[i].done) {
+      str = ' done">DONE'
     }
+
+    html += '<div id="timer-' + i + '" class="timer">';
+    html += '<div class="nistext time' + str + '</div>';
     html += '<div class="nistext name">' + timers[i].name + '</div>';
     html += '<div class="buttons">';
     html +=
@@ -121,6 +122,7 @@ function addTimer() {
     sec: input.sec,
     s: input.sec,
     total: input.total,
+    done: false,
     start: null,
     end: null,
     count: null,
@@ -170,6 +172,7 @@ function resetTimer(index) {
   timers[index].h = timers[index].hrs;
   timers[index].m = timers[index].min;
   timers[index].s = timers[index].sec;
+  timers[index].done = false;
   timers[index].start = null;
   timers[index].end = null;
   timers[index].count = null;
@@ -210,6 +213,8 @@ function stopTick(index) {
   timers[index].interval = null;
 
   if (isTimerDone(index)) {
+    timers[index].done = true;
+
     soundNotify();
     iconTick();
   }
