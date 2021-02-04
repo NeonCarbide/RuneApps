@@ -1,3 +1,5 @@
+import { anyTimerDone, getHexFromString } from './util';
+
 alertSound = new Audio('assets/audio/pop.wav');
 
 delay = 1050;
@@ -7,21 +9,7 @@ iconTimeout = null;
 
 window.addEventListener('mouseover', clearIcon);
 
-function clearIcon() {
-  clearTimeout(iconTimeout);
-  showIcon = false;
-}
-
-function iconTick() {
-  if (settings.enableIconOverlay) {
-    iconTimeout = setTimeout(function () {
-      checkTimers();
-      iconTick();
-    }, tick);
-  }
-}
-
-function checkTimers() {
+export function checkTimers() {
   for (var i = 0; i < timers.length; i++) {
     if (anyTimerDone()) {
       showIcon = true;
@@ -34,14 +22,21 @@ function checkTimers() {
   }
 }
 
-function soundNotify() {
-  if (window.alt1 && settings.enableSoundAlert) {
-    alertSound.volume = settings.alertVolume / 100;
-    alertSound.play();
+export function clearIcon() {
+  clearTimeout(iconTimeout);
+  showIcon = false;
+}
+
+export function iconTick() {
+  if (settings.enableIconOverlay) {
+    iconTimeout = setTimeout(function () {
+      checkTimers();
+      iconTick();
+    }, tick);
   }
 }
 
-function overlayNotify() {
+export function overlayNotify() {
   if (window.alt1 && settings.enableIconOverlay) {
     text = '\u23F0';
     h = alt1.rsHeight;
@@ -51,5 +46,12 @@ function overlayNotify() {
     colour = parseInt(`0xFF${getHexFromString(settings.iconColour)}`);
 
     alt1.overLayText(text, colour, settings.iconSize, x, y, delay);
+  }
+}
+
+export function soundNotify() {
+  if (window.alt1 && settings.enableSoundAlert) {
+    alertSound.volume = settings.alertVolume / 100;
+    alertSound.play();
   }
 }

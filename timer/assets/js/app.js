@@ -1,4 +1,20 @@
-settings = {
+import { iconTick, soundNotify } from './notify';
+import { loadSettings } from './settings';
+import {
+  SEC,
+  MIN,
+  HOUR,
+  DAY,
+  clearField,
+  elid,
+  isTimerDone,
+  loadData,
+  readIn,
+  saveData,
+  writeTime,
+} from './util';
+
+export var settings = {
   timerDoneColour: '#32CD32',
   timerRunningColour: '#FFD700',
   enableSoundAlert: false,
@@ -8,11 +24,11 @@ settings = {
   iconColour: '#F0F000',
 };
 
-timers = [];
+export var timers = [];
 
 window.addEventListener('beforeunload', saveData);
 
-function start() {
+export function start() {
   try {
     alt1.identifyAppUrl('appconfig.json');
     loadData();
@@ -32,7 +48,7 @@ function start() {
   drawTimers();
 }
 
-function drawTimers() {
+export function drawTimers() {
   html = '';
 
   for (var i = 0; i < timers.length; i++) {
@@ -56,7 +72,7 @@ function drawTimers() {
   elid('timers').innerHTML = html;
 }
 
-function addTimer() {
+export function addTimer() {
   input = readIn();
 
   timers.push({
@@ -83,7 +99,7 @@ function addTimer() {
   drawTimers();
 }
 
-function pauseAllTimers() {
+export function pauseAllTimers() {
   for (var i = 0; i < timers.length; i++) {
     stopTick(i);
   }
@@ -91,18 +107,18 @@ function pauseAllTimers() {
   drawTimers();
 }
 
-function pauseTimer(index) {
+export function pauseTimer(index) {
   stopTick(index);
   drawTimers();
 }
 
-function removeTimer(index) {
+export function removeTimer(index) {
   stopTick(index);
   timers.splice(index, 1);
   drawTimers();
 }
 
-function resetAllTimers() {
+export function resetAllTimers() {
   for (var i = 0; i < timers.length; i++) {
     if (timers[i].start) {
       resetTimer(i);
@@ -110,7 +126,7 @@ function resetAllTimers() {
   }
 }
 
-function resetTimer(index) {
+export function resetTimer(index) {
   stopTick(index);
   timers[index].h = timers[index].hrs;
   timers[index].m = timers[index].min;
@@ -122,7 +138,7 @@ function resetTimer(index) {
   drawTimers();
 }
 
-function scheduleTick(index) {
+export function scheduleTick(index) {
   stopTick(index);
 
   if (timers[index].start != null) {
@@ -130,7 +146,7 @@ function scheduleTick(index) {
   }
 }
 
-function startTimer(index) {
+export function startTimer(index) {
   if (!timers[index].start) {
     timers[index].start = Date.now();
   }
@@ -141,7 +157,7 @@ function startTimer(index) {
   drawTimers();
 }
 
-function stopTick(index) {
+export function stopTick(index) {
   if (!timers[index].interval) {
     return;
   }
@@ -158,7 +174,7 @@ function stopTick(index) {
   }
 }
 
-function tickTimers() {
+export function tickTimers() {
   for (var i = 0; i < timers.length; i++) {
     if (isTimerDone(i)) {
       stopTick(i);

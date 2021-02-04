@@ -1,9 +1,9 @@
-SEC = 1000;
-MIN = SEC * 60;
-HOUR = MIN * 60;
-DAY = HOUR * 24;
+export const SEC = 1000;
+export const MIN = SEC * 60;
+export const HOUR = MIN * 60;
+export const DAY = HOUR * 24;
 
-function anyTimerDone() {
+export function anyTimerDone() {
   for (var i = 0; i < timers.length; i++) {
     if (isTimerDone(i)) {
       return true;
@@ -13,11 +13,11 @@ function anyTimerDone() {
   return false;
 }
 
-function clearField(field) {
+export function clearField(field) {
   elid(field).value = '';
 }
 
-function createUserInput(id, value, meta) {
+export function createUserInput(id, value, meta) {
   if (['string', 'int', 'number', 'color', 'slider'].indexOf(meta.t) != -1) {
     if (meta.style) {
       return [
@@ -43,17 +43,17 @@ function createUserInput(id, value, meta) {
   }
 }
 
-function elid(id) {
+export function elid(id) {
   return document.getElementById(id);
 }
 
-function enterKeyPress(event) {
+export function enterKeyPress(event) {
   if (event.keyCode === 13) {
     elid('add-timer').click();
   }
 }
 
-function getHexFromString(colour) {
+export function getHexFromString(colour) {
   var checkHex = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(colour);
 
   if (checkHex) {
@@ -63,7 +63,7 @@ function getHexFromString(colour) {
   return false;
 }
 
-function getRGBFromHex(colour) {
+export function getRGBFromHex(colour) {
   hex = getHexFromString(colour);
 
   if (hex.length === 3) {
@@ -82,7 +82,7 @@ function getRGBFromHex(colour) {
   return [r, g, b];
 }
 
-function getInverseColour(colour) {
+export function getInverseColour(colour) {
   rgb = getRGBFromHex(colour);
   rI = Math.floor((255 - rgb[0]) * 1);
   gI = Math.floor((255 - rgb[1]) * 1);
@@ -91,7 +91,7 @@ function getInverseColour(colour) {
   return `rgb(${rI}, ${gI}, ${bI})`;
 }
 
-function getTextColourRelativeToBG(colour) {
+export function getTextColourRelativeToBG(colour) {
   rgb = getRGBFromHex(colour);
   yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
 
@@ -102,11 +102,11 @@ function getTextColourRelativeToBG(colour) {
   return 'white';
 }
 
-function isTimerDone(index) {
+export function isTimerDone(index) {
   return timers[index].count && timers[index].count <= 0 ? true : false;
 }
 
-function loadData() {
+export function loadData() {
   timers = [];
 
   if (!localStorage.gen_timers) {
@@ -137,13 +137,13 @@ function loadData() {
   }
 }
 
-function pad(n, width) {
+export function pad(n, width) {
   n = n + '';
 
   return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 }
 
-function readIn() {
+export function readIn() {
   h = elid('hrs').value || 0;
   m = elid('min').value || 0;
   s = elid('sec').value || 0;
@@ -152,7 +152,7 @@ function readIn() {
   return { name: elid('name').value, hrs: h, min: m, sec: s, total: t };
 }
 
-function saveData() {
+export function saveData() {
   obj = [];
 
   for (var i = 0; i < timers.length; i++) {
@@ -163,7 +163,7 @@ function saveData() {
   localStorage.gen_timers = JSON.stringify(obj);
 }
 
-function writeTime(input) {
+export function writeTime(input) {
   time = {
     h: input.h > 0 ? input.h : 0,
     m: input.m > 0 ? input.m : 0,
