@@ -8,6 +8,11 @@ body {
   color: var(--nis-col-std);
 }
 
+.pb2 {
+  overflow-y: auto;
+  height: calc(100vh - 31px);
+}
+
 .pb2-flex-h, .pb2-bool {
   display: flex;
   flex-direction: row;
@@ -67,6 +72,10 @@ body {
 .pb2-button:hover {
   background: linear-gradient(to bottom, #2a799c, #1b4e65 25%);
   color: white;
+}
+
+.pb2::-webkit-scrollbar {
+  display: none;
 }
 
 .pb2-int::-webkit-inner-spin-button,
