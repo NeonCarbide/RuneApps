@@ -82,8 +82,10 @@ function drawTimers() {
   for (var i = 0; i < timers.length; i++) {
     if (timers[i].done) {
       str = ' done">DONE'
+    } else if (timers[i].interval) {
+      str = ' running">' + writeTime(timers[i]);
     } else if (isTimerDone(i)) {
-      str = ' ending">00:00:00';
+      str = '">00:00:00';
     } else {
       str = '">' + writeTime(timers[i]);
     }

@@ -22,8 +22,8 @@
 .done {
   color: limegreen;
 }
-.ending {
-  color: goldenrod;
+.running {
+  color: gold;
 }
 .name {
   grid-column: 2 / 3;
