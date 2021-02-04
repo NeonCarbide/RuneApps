@@ -7,7 +7,7 @@ alertSound = new Audio('assets/audio/pop.wav');
 
 settings = {
   enableSoundAlert: false,
-  alertVolume: 50,
+  alertVolume: 0.5,
   enableIconOverlay: true,
   iconSize: 32,
   iconColour: '#F0F000',
@@ -362,7 +362,7 @@ function settingsMenu() {
   if (settings.enableSoundAlert) {
     data.push({ t: 'h/11' });
     data.push({ t: 'text', text: 'Alert Volume' });
-    data.push({ t: 'slider:alertVolume', v: settings.alertVolume });
+    data.push({ t: 'slider:alertVolume', v: settings.alertVolume * 100 });
   }
 
   data.push({
@@ -403,7 +403,7 @@ function settingsMenu() {
       settings.enableSoundAlert = menu.soundEnable.getValue();
 
       if (menu.alertVolume) {
-        settings.alertVolume = menu.alertVolume.getValue();
+        settings.alertVolume = menu.alertVolume.getValue() * 0.01;
       }
 
       settings.enableIconOverlay = menu.iconEnable.getValue();
