@@ -353,7 +353,7 @@ function settingsMenu() {
     data.push({ t: 'text', text: 'Icon Font Size' });
     data.push({ t: 'int:iconSize', v: settings.iconSize });
     data.push({ t: 'h/11' });
-    data.push({ t: 'text', text: 'Icon Font Colour' });
+    data.push({ t: 'text', text: 'Icon Colour HEX Code' });
     data.push({ t: 'string:iconColour', v: settings.iconColour });
   }
 
@@ -362,7 +362,7 @@ function settingsMenu() {
   data.push({ t: 'button:cancel', text: 'Cancel' });
 
   try {
-    menu = promptbox2({ title: 'Settings', style: 'popup', width: 300 }, data);
+    menu = promptbox2({ title: 'Settings', style: 'popup', width: 300, stylesheets: ['settings.css'] }, data);
 
     menu.cancel.onclick = menu.frame.close.b();
     menu.confirm.onclick = function () {
