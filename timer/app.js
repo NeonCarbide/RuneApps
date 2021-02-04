@@ -340,32 +340,34 @@ function enterKeyPress(event) {
 function settingsMenu() {
   data = [];
 
-  data.push(
-    createUserInput('iconEnable', settings.enableIconOverlay, {
-      t: 'bool',
-      n: 'Enable Icon Overlay',
-    })
+  data.concat({
+    t: 'bool',
+    id: 'iconEnable',
+    v: settings.enableIconOverlay,
+    text: 'Enable Icon Overlay',
+  });
+
+  // if (settings.enableIconOverlay) {
+  //   data.push({ t: 'h/11' });
+  //   data.push(
+  //     createUserInput('iconSize', settings.iconSize, {
+  //       t: 'int',
+  //       n: 'Icon Font Size',
+  //     })
+  //   );
+  //   data.push(
+  //     createUserInput('iconColour', settings.iconColour, {
+  //       t: 'string',
+  //       n: 'Icon Colour HEX Code',
+  //     })
+  //   );
+  // }
+
+  data.concat(
+    { t: 'h/11' },
+    { t: 'button:confirm', text: 'Confirm' },
+    { t: 'button:cancel', text: 'Cancel' }
   );
-
-  if (settings.enableIconOverlay) {
-    data.push({ t: 'h/11' });
-    data.push(
-      createUserInput('iconSize', settings.iconSize, {
-        t: 'int',
-        n: 'Icon Font Size',
-      })
-    );
-    data.push(
-      createUserInput('iconColour', settings.iconColour, {
-        t: 'string',
-        n: 'Icon Colour HEX Code',
-      })
-    );
-  }
-
-  data.push({ t: 'h/11' });
-  data.push({ t: 'button:confirm', text: 'Confirm' });
-  data.push({ t: 'button:cancel', text: 'Cancel' });
 
   try {
     menu = promptbox2({ title: 'Settings', style: 'popup', width: 300 }, data);
