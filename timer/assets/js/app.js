@@ -83,7 +83,7 @@ function drawTimers() {
     if (timers[i].done) {
       str = ' done">DONE'
     } else if (isTimerDone(i)) {
-      str = '">00:00:00';
+      str = ' ending">00:00:00';
     } else {
       str = '">' + writeTime(timers[i]);
     }

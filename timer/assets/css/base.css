@@ -22,6 +22,9 @@
 .done {
   color: limegreen;
 }
+.ending {
+  color: goldenrod;
+}
 .name {
   grid-column: 2 / 3;
   font-size: 1rem;
