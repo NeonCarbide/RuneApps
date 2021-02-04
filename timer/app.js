@@ -21,9 +21,6 @@ showIcon = false;
 iconTimeout = null;
 timerList = [];
 
-window.addEventListener('beforeunload', config.cfgSave);
-window.addEventListener('mouseover', notify.clearIcon);
-
 var app = (function () {
   return {
     start: function () {
@@ -549,3 +546,6 @@ var util = function () {
     },
   };
 };
+
+window.addEventListener('beforeunload', config.cfgSave);
+window.addEventListener('mouseover', notify.clearIcon);
