@@ -11,7 +11,7 @@ import {
   loadData,
   readIn,
   writeTime,
-} from './util';
+} from './util.js';
 
 function start() {
   try {
