@@ -3,7 +3,7 @@
   "description": "Track the time-sensitive things you want with this custom app for the Alt1 Toolkit.",
   "appUrl": "/RuneApps/timer/",
   "configUrl": "/RuneApps/timer/appconfig.json",
-  "iconUrl": "/RuneApps/timer/icon.png",
+  "iconUrl": "/RuneApps/timer/assets/images/icon.png",
   "defaultWidth": 400,
   "defaultHeight": 190,
   "minWidth": 400,

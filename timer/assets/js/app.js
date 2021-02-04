@@ -367,7 +367,7 @@ function settingsMenu() {
         title: 'Settings',
         style: 'popup',
         width: 290,
-        stylesheets: ['settings.css', 'https://runeapps.org/nis/nis.css'],
+        stylesheets: ['assets/css/settings.css', 'https://runeapps.org/nis/nis.css'],
       },
       data
     );
