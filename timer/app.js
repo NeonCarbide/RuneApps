@@ -187,13 +187,17 @@ var config = (function () {
       util.createInput('doneColour', settings.timerDoneColour, {
         t: 'string',
         n: 'Done HEX Colour Code',
-        style: styles.done,
-      }),
+        // style: styles.done,
+      })
+    );
+    info.concat(
       util.createInput('runningColour', settings.timerRunningColour, {
         t: 'string',
         n: 'Running HEX Colour Code',
-        style: styles.running,
-      }),
+        // style: styles.running,
+      })
+    );
+    info.concat(
       util.createInput('soundEnable', settings.enableSoundAlert, {
         t: 'bool',
         n: 'Enable Sound Alert',
@@ -229,7 +233,7 @@ var config = (function () {
         util.createInput('iconColour', settings.iconColour, {
           t: 'string',
           n: 'Icon HEX Colour Code',
-          style: styles.icon,
+          // style: styles.icon,
         })
       );
     }
