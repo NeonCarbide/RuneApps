@@ -10,23 +10,8 @@ import {
   isTimerDone,
   loadData,
   readIn,
-  saveData,
   writeTime,
 } from './util';
-
-settings = {
-  timerDoneColour: '#32CD32',
-  timerRunningColour: '#FFD700',
-  enableSoundAlert: false,
-  alertVolume: 0.5,
-  enableIconOverlay: true,
-  iconSize: 48,
-  iconColour: '#F0F000',
-};
-
-timers = [];
-
-window.addEventListener('beforeunload', saveData);
 
 function start() {
   try {
@@ -189,3 +174,18 @@ function tickTimers() {
   }
   drawTimers();
 }
+
+export {
+  start,
+  drawTimers,
+  addTimer,
+  pauseAllTimers,
+  pauseTimer,
+  removeTimer,
+  resetAllTimers,
+  resetTimer,
+  scheduleTick,
+  startTimer,
+  stopTick,
+  tickTimers,
+};

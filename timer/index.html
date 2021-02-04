@@ -22,7 +22,29 @@
       type="text/javascript"
       src="https://runeapps.org/runeappslib.js"
     ></script>
-    <script type="application/javascript" src="assets/js/app.js"></script>
+    <script type="application/javascript">
+      settings = {
+        timerDoneColour: '#32CD32',
+        timerRunningColour: '#FFD700',
+        enableSoundAlert: false,
+        alertVolume: 0.5,
+        enableIconOverlay: true,
+        iconSize: 48,
+        iconColour: '#F0F000',
+      };
+
+      alertSound = new Audio('assets/audio/pop.wav');
+
+      delay = 1050;
+      tick = 1000;
+      showIcon = false;
+      iconTimeout = null;
+      timers = [];
+
+      window.addEventListener('beforeunload', saveData);
+      window.addEventListener('mouseover', clearIcon);
+    </script>
+    <script type="module" src="assets/js/app.js"></script>
     <script type="module" src="assets/js/notify.js"></script>
     <script type="module" src="assets/js/settings.js"></script>
     <script type="module" src="assets/js/util.js"></script>

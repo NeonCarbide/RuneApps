@@ -1,14 +1,5 @@
 import { anyTimerDone, getHexFromString } from './util';
 
-alertSound = new Audio('assets/audio/pop.wav');
-
-delay = 1050;
-tick = 1000;
-showIcon = false;
-iconTimeout = null;
-
-window.addEventListener('mouseover', clearIcon);
-
 function checkTimers() {
   for (var i = 0; i < timers.length; i++) {
     if (anyTimerDone()) {
