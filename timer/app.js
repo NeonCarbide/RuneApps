@@ -29,20 +29,20 @@ var util = (function () {
       if (meta.style) {
         return [
           { t: 'h/11' },
-          { t: meta.n },
+          { t: 'text', text: meta.n },
           { t: `${meta.t}:${id}`, v: value, style: meta.style },
         ];
       }
 
       return [
         { t: 'h/11' },
-        { t: meta.n },
+        { t: 'text', text: meta.n },
         { t: `${meta.t}:${id}`, v: value },
       ];
     } else if (meta.t == 'dropdown') {
       return [
         { t: 'h/11' },
-        { t: meta.n },
+        { t: 'text', text: meta.n },
         {
           t: `dropdown:${id}`,
           options: meta.options || meta.getOptions(),
