@@ -383,7 +383,7 @@ function settingsMenu() {
 
   doneStyle = '';
   doneStyle += 'background-color: ' + settings.timerDoneColour + '; ';
-  doneStyle += 'color: ' + getTextColourRelativeToBG(settings.timerDoneColour) + ';';
+  doneStyle += 'color: ' + getTextColourRelativeToBG(settings.timerDoneColour) + '; ';
 
   runningStyle = '';
   runningStyle += 'background-color: ' + settings.timerRunningColour;
