@@ -22,8 +22,50 @@ iconTimeout = null;
 timerList = [];
 
 var util = (function () {
+  function createUserInput(id, value, meta) {
+    if (
+      ['string', 'int', 'number', 'color', 'slider'].indexOf(meta.t) != -1
+    ) {
+      if (meta.style) {
+        return [
+          { t: 'h/11' },
+          { t: meta.n },
+          { t: `${meta.t}:${id}`, v: value, style: meta.style },
+        ];
+      }
+
+      return [
+        { t: 'h/11' },
+        { t: meta.n },
+        { t: `${meta.t}:${id}`, v: value },
+      ];
+    } else if (meta.t == 'dropdown') {
+      return [
+        { t: 'h/11' },
+        { t: meta.n },
+        {
+          t: `dropdown:${id}`,
+          options: meta.options || meta.getOptions(),
+          v: value,
+        },
+      ];
+    } else if (meta.t == 'bool') {
+      return [{ t: `bool:${id}`, v: value, text: meta.n }];
+    }
+  }
+
+  function clearField(field) {
+    elid(field).value = '';
+  }
+
   function elid(id) {
     return document.getElementById(id);
+  }
+
+  function enterKeyPress (e) {
+    if (e.key === 'Enter') {
+      elid('add-timer').click();
+    }
   }
 
   function getHexFromString(colour) {
@@ -51,6 +93,22 @@ var util = (function () {
     return [r, g, b];
   }
 
+  function getInverseColour (colour) {
+    rgb = getRGBFromHex(colour);
+    rI = Math.floor((255 - rgb[0]) * 1);
+    gI = Math.floor((255 - rgb[1]) * 1);
+    bI = Math.floor((255 - rgb[2]) * 1);
+
+    return `rgb(${rI}, ${gI}, ${bI})`;
+  }
+
+  function getContrastColourRelativeToBG(colour) {
+    rgb = getRGBFromHex(colour);
+      yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
+
+      return yiq > 125 ? 'black' : 'white';
+  }
+
   function isTimerDone(index) {
     return timerList[index].count && timerList[index].count <= 0 ? true : false;
   }
@@ -63,6 +121,19 @@ var util = (function () {
       : new Array(width - n.length + 1).join('0') + n;
   }
 
+  function writeTime (data) {
+    time = {
+      h: data.h > 0 ? data.h : 0,
+      m: data.m > 0 ? data.m : 0,
+      s: data.s > 0 ? data.s : 0,
+    };
+
+    return `${padWithZero(time.h, 2)}:${padWithZero(time.m, 2)}:${padWithZero(
+      time.s,
+      2
+    )}`;
+  }
+
   return {
     anyDone: function () {
       for (var i = 0; i < timerList.length; i++) {
@@ -73,61 +144,13 @@ var util = (function () {
 
       return false;
     },
-    contrastColour: function (colour) {
-      rgb = getRGBFromHex(colour);
-      yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
-
-      return yiq > 125 ? 'black' : 'white';
-    },
-    clearField: function (field) {
-      elid(field).value = '';
-    },
-    createInput: function (id, value, meta) {
-      if (
-        ['string', 'int', 'number', 'color', 'slider'].indexOf(meta.t) != -1
-      ) {
-        if (meta.style) {
-          return [
-            { t: 'h/11' },
-            { t: meta.n },
-            { t: `${meta.t}:${id}`, v: value, style: meta.style },
-          ];
-        }
-
-        return [
-          { t: 'h/11' },
-          { t: meta.n },
-          { t: `${meta.t}:${id}`, v: value },
-        ];
-      } else if (meta.t == 'dropdown') {
-        return [
-          { t: 'h/11' },
-          { t: meta.n },
-          {
-            t: `dropdown:${id}`,
-            options: meta.options || meta.getOptions(),
-            v: value,
-          },
-        ];
-      } else if (meta.t == 'bool') {
-        return [{ t: `bool:${id}`, v: value, text: meta.n }];
-      }
-    },
+    contrastColour: getContrastColourRelativeToBG,
+    clearField: clearField,
+    createInput: createUserInput,
     elid: elid,
-    enterKeyPress: function (e) {
-      if (e.key === 'Enter') {
-        elid('add-timer').click();
-      }
-    },
+    enterKeyPress: enterKeyPress,
     hexFromString: getHexFromString,
-    inverseColour: function (colour) {
-      rgb = getRGBFromHex(colour);
-      rI = Math.floor((255 - rgb[0]) * 1);
-      gI = Math.floor((255 - rgb[1]) * 1);
-      bI = Math.floor((255 - rgb[2]) * 1);
-
-      return `rgb(${rI}, ${gI}, ${bI})`;
-    },
+    inverseColour: getInverseColour,
     isDone: isTimerDone,
     pad: padWithZero,
     readIn: function () {
@@ -138,18 +161,7 @@ var util = (function () {
 
       return { name: elid('name').value, hrs: h, min: m, sec: s, total: t };
     },
-    writeTime: function (data) {
-      time = {
-        h: data.h > 0 ? data.h : 0,
-        m: data.m > 0 ? data.m : 0,
-        s: data.s > 0 ? data.s : 0,
-      };
-
-      return `${padWithZero(time.h, 2)}:${padWithZero(time.m, 2)}:${padWithZero(
-        time.s,
-        2
-      )}`;
-    },
+    writeTime: writeTime,
   };
 })();
 
