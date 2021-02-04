@@ -80,7 +80,7 @@ function drawTimers() {
 
   for (var i = 0; i < timers.length; i++) {
     html += '<div id="timer-' + i + '" class="timer">';
-    if (timers[i].count && timers[i].count <= 0) {
+    if (isTimerDone(i)) {
       html += '<div class="nistext time" style="color: limegreen;">DONE</div>';
     } else {
       html += '<div class="nistext time">' + writeTime(timers[i]) + '</div>';
@@ -186,7 +186,7 @@ function resetAllTimers() {
 
 function tickTimers() {
   for (var i = 0; i < timers.length; i++) {
-    if (timers[i].count && timers[i].count <= 0) {
+    if (isTimerDone(i)) {
       stopTick(i);
       continue;
     }
@@ -209,9 +209,10 @@ function stopTick(index) {
 
   timers[index].interval = null;
 
-  soundNotify();
-  iconTick();
-  toastNotify(index);
+  if (isTimerDone(index)) {
+    soundNotify();
+    iconTick();
+  }
 }
 
 function scheduleTick(index) {
@@ -238,8 +239,9 @@ function iconTick() {
 
 function checkTimers() {
   for (var i = 0; i < timers.length; i++) {
-    if (timers[i].count && timers[i].count <= 0) {
+    if (anyTimerDone()) {
       showIcon = true;
+      break;
     }
   }
 
@@ -250,15 +252,8 @@ function checkTimers() {
 
 function soundNotify() {
   if (window.alt1 && settings.enableSoundAlert) {
-    for (var i = 0; i < timers.length; i++) {
-      if (!timers[i].count && !timers[i].count <= 0) {
-        continue;
-      }
-
-      alertSound.volume = settings.alertVolume / 100;
-      alertSound.play();
-      break;
-    }
+    alertSound.volume = settings.alertVolume / 100;
+    alertSound.play();
   }
 }
 
@@ -275,26 +270,6 @@ function overlayNotify() {
   }
 }
 
-function toastNotify(index) {
-  try {
-    if (!window.alt1) {
-      if (!('Notification' in window)) {
-        alert('Error: Browser does not support toast notifications');
-      } else if (Notification.permission === 'granted') {
-        return toast(index);
-      } else if (Notification.permission !== 'denied') {
-        Notification.requestPermission(function (permission) {
-          if (permission === 'granted') {
-            return toast(index);
-          }
-        });
-      }
-    }
-  } catch (e) {
-    console.log('Something went wrong...');
-  }
-}
-
 function getColourFromString(colour) {
   var checkHex = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(colour);
 
@@ -303,13 +278,6 @@ function getColourFromString(colour) {
   }
 
   return false;
-}
-
-function toast(index) {
-  return new Notification('General Timers', {
-    body: timers[index].name + ' : Done',
-    icon: 'icon.png',
-  });
 }
 
 function saveData() {
@@ -445,4 +413,22 @@ function loadSettings() {
     userSettings = JSON.parse(localStorage.gen_timers_config);
     settings = Object.assign(settings, userSettings);
   }
+}
+
+function isTimerDone(index) {
+  if (timers[index].count && timers[index].count <= 0) {
+    return true;
+  }
+
+  return false;
+}
+
+function anyTimerDone() {
+  for (var i = 0; i < timers.length; i++) {
+    if (isTimerDone(i)) {
+      return true;
+    }
+  }
+
+  return false;
 }
