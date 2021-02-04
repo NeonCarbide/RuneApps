@@ -8,10 +8,14 @@ body {
   color: var(--nis-col-std);
 }
 
-.pb2-flex-h {
+.pb2-flex-h, .pb2-bool {
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 5px;
+}
+
+.pb2-flex-h {
   justify-content: space-between;
 }
 
@@ -20,6 +24,10 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.pb2-bool {
+  justify-content: center;
 }
 
 .pb2-text {
