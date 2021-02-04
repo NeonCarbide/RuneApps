@@ -341,52 +341,27 @@ function settingsMenu() {
   data = [];
 
   data.push(
-    createUserInput(
-      'iconEnable',
-      settings.enableIconOverlay,
-      {
-        t: 'bool',
-        n: 'Enable Icon Overlay'
-      }
-    )
+    createUserInput('iconEnable', settings.enableIconOverlay, {
+      t: 'bool',
+      n: 'Enable Icon Overlay',
+    })
   );
   data.push(
-    createUserInput(
-      'iconSize',
-      settings.iconSize,
-      {
-        t: 'number',
-        n: 'Icon Font Size'
-      }
-    )
+    createUserInput('iconSize', settings.iconSize, {
+      t: 'number',
+      n: 'Icon Font Size',
+    })
   );
   data.push(
-    createUserInput(
-      'iconColour',
-      settings.iconColour,
-      {
-        t: 'string',
-        n: 'Icon Colour HEX Code'
-      }
-    )
+    createUserInput('iconColour', settings.iconColour, {
+      t: 'string',
+      n: 'Icon Colour HEX Code',
+    })
   );
-  data.push({
-    t: 'button:confirm',
-    text: 'Confirm',
-  });
-  data.push({
-    t: 'button:cancel',
-    text: 'Cancel',
-  });
+  data.push({ t: 'button:confirm', text: 'Confirm' });
+  data.push({ t: 'button:cancel', text: 'Cancel' });
 
-  menu = promptbox2(
-    {
-      title: 'Settings',
-      style: 'popup',
-      width: 200,
-    },
-    data
-  );
+  menu = promptbox2({ title: 'Settings', style: 'popup', width: 300 }, data);
 
   menu.cancel.onclick = menu.frame.close.b();
   menu.confirm.onclick = function () {
