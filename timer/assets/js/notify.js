@@ -1,4 +1,4 @@
-import { anyTimerDone, getHexFromString } from 'util';
+import { anyTimerDone, getHexFromString } from './util';
 
 alertSound = new Audio('assets/audio/pop.wav');
 

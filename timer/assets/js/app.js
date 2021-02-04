@@ -1,5 +1,5 @@
-import { iconTick, soundNotify } from 'notify';
-import { loadSettings } from 'settings';
+import { iconTick, soundNotify } from './notify';
+import { loadSettings } from './settings';
 import {
   SEC,
   MIN,
