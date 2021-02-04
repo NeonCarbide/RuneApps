@@ -22,48 +22,9 @@
       type="text/javascript"
       src="https://runeapps.org/runeappslib.js"
     ></script>
-    <script type="module">
-      import {
-        addTimer,
-        pauseAllTimers,
-        pauseTimer,
-        removeTimer,
-        resetAllTimers,
-        resetTimer,
-        start,
-        startTimer,
-      } from './assets/js/app.js';
-      import { clearIcon } from './assets/js/notify.js';
-      import { settingsMenu } from './assets/js/settings.js';
-      import { enterKeyPress, saveData } from './assets/js/util.js';
-
-      settings = {
-        timerDoneColour: '#32CD32',
-        timerRunningColour: '#FFD700',
-        enableSoundAlert: false,
-        alertVolume: 0.5,
-        enableIconOverlay: true,
-        iconSize: 48,
-        iconColour: '#F0F000',
-      };
-
-      alertSound = new Audio('assets/audio/pop.wav');
-
-      delay = 1050;
-      tick = 1000;
-      showIcon = false;
-      iconTimeout = null;
-      timers = [];
-
-      window.addEventListener('beforeunload', saveData);
-      window.addEventListener('mouseover', clearIcon);
-    </script>
-    <script type="module" src="assets/js/app.js"></script>
-    <script type="module" src="assets/js/notify.js"></script>
-    <script type="module" src="assets/js/settings.js"></script>
-    <script type="module" src="assets/js/util.js"></script>
+    <script type="application/javascript" src="assets/js/app.js"></script>
   </head>
-  <body class="nis" onload="start();">
+  <body class="nis" onload="app.start();">
     <div class="content">
       <div id="add-timer-wrapper">
         <input
@@ -79,7 +40,7 @@
             class="nisinput time-in"
             id="hrs"
             placeholder="H"
-            onkeypress="enterKeyPress(event);"
+            onkeypress="util.enterKeyPress(event);"
           />
           <span class="nistext">:</span>
           <input
@@ -87,7 +48,7 @@
             class="nisinput time-in"
             id="min"
             placeholder="M"
-            onkeypress="enterKeyPress(event);"
+            onkeypress="util.enterKeyPress(event);"
           />
           <span class="nistext">:</span>
           <input
@@ -95,30 +56,30 @@
             class="nisinput time-in"
             id="sec"
             placeholder="S"
-            onkeypress="enterKeyPress(event);"
+            onkeypress="util.enterKeyPress(event);"
           />
         </div>
-        <div class="nisbutton2 add" id="add-timer" onclick="addTimer();">
+        <div class="nisbutton2 add" id="add-timer" onclick="timers.add();">
           New Timer
         </div>
       </div>
-      <div id="timers"></div>
+      <div id="timers></div>
       <div id="static-footer">
-        <div class="nisbutton2 control" id="settings" onclick="settingsMenu()">
+        <div class="nisbutton2 control" id="settings" onclick="config.menu()">
           Settings
         </div>
         <div id="control-all">
           <div
             class="nisbutton2 control"
             id="pause-all-timers"
-            onclick="pauseAllTimers()"
+            onclick="timers.pauseAll()"
           >
             Pause All
           </div>
           <div
             class="nisbutton2 control"
             id="reset-all-timers"
-            onclick="resetAllTimers()"
+            onclick="timers.resetAll()"
           >
             Reset All
           </div>
