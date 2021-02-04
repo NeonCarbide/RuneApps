@@ -22,36 +22,6 @@ iconTimeout = null;
 timerList = [];
 
 var util = (function () {
-  function createUserInput(id, value, meta) {
-    if (['string', 'int', 'number', 'color', 'slider'].indexOf(meta.t) != -1) {
-      if (meta.style) {
-        return [
-          { t: 'h/11' },
-          { t: 'text', text: meta.n },
-          { t: `${meta.t}:${id}`, v: value, style: meta.style },
-        ];
-      }
-
-      return [
-        { t: 'h/11' },
-        { t: 'text', text: meta.n },
-        { t: `${meta.t}:${id}`, v: value },
-      ];
-    } else if (meta.t == 'dropdown') {
-      return [
-        { t: 'h/11' },
-        { t: 'text', text: meta.n },
-        {
-          t: `dropdown:${id}`,
-          options: meta.options || meta.getOptions(),
-          v: value,
-        },
-      ];
-    } else if (meta.t == 'bool') {
-      return [{ t: `bool:${id}`, v: value, text: meta.n }];
-    }
-  }
-
   function clearField(field) {
     elid(field).value = '';
   }
@@ -144,7 +114,6 @@ var util = (function () {
     },
     contrastColour: getContrastColourRelativeToBG,
     clearField: clearField,
-    createInput: createUserInput,
     elid: elid,
     enterKeyPress: enterKeyPress,
     hexFromString: getHexFromString,
@@ -182,57 +151,6 @@ var config = (function () {
 
     styles.icon += `background-color: ${settings.iconColour};`;
     styles.icon += `color: ${util.contrastColour(settings.iconColour)};`;
-
-    // info.concat(
-    //   util.createInput('doneColour', settings.timerDoneColour, {
-    //     t: 'string',
-    //     n: 'Done HEX Colour Code',
-    //     // style: styles.done,
-    //   }),
-    //   util.createInput('runningColour', settings.timerRunningColour, {
-    //     t: 'string',
-    //     n: 'Running HEX Colour Code',
-    //     // style: styles.running,
-    //   }),
-    //   util.createInput('soundEnable', settings.enableSoundAlert, {
-    //     t: 'bool',
-    //     n: 'Enable Sound Alert',
-    //   })
-    // );
-
-    // console.log(info);
-
-    // if (settings.enableSoundAlert) {
-    //   info.concat(
-    //     util.createInput('alertVolume', settings.alertVolume, {
-    //       t: 'int',
-    //       n: 'Alert Volume',
-    //     })
-    //   );
-    // }
-
-    // info.concat(
-    //   util.createInput('iconEnable', settings.enableIconOverlay, {
-    //     t: 'bool',
-    //     n: 'Enable Icon Overlay',
-    //   })
-    // );
-
-    // console.log(info);
-
-    // if (settings.enableIconOverlay) {
-    //   info.concat(
-    //     util.createInput('iconSize', settings.iconSize, {
-    //       t: 'int',
-    //       n: 'Icon Font Size',
-    //     }),
-    //     util.createInput('iconColour', settings.iconColour, {
-    //       t: 'string',
-    //       n: 'Icon HEX Colour Code',
-    //       // style: styles.icon,
-    //     })
-    //   );
-    // }
 
     info.push({ t: 'h/11' });
     info.push({ t: 'text', text: 'Done HEX Colour Code' });
@@ -283,8 +201,6 @@ var config = (function () {
     info.push({ t: 'h/11' });
     info.push({ t: 'button:confirm', text: 'Confirm' });
     info.push({ t: 'button:cancel', text: 'Cancel' });
-
-    console.log(info);
 
     try {
       menu = promptbox2(
