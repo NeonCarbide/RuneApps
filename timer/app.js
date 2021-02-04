@@ -1,5 +1,3 @@
-import { data } from "jquery";
-
 SEC = 1000;
 MIN = SEC * 60;
 HOUR = MIN * 60;
@@ -121,11 +119,11 @@ var util = (function () {
       : new Array(width - n.length + 1).join('0') + n;
   }
 
-  function writeTime(data) {
+  function writeTime(info) {
     time = {
-      h: data.h > 0 ? data.h : 0,
-      m: data.m > 0 ? data.m : 0,
-      s: data.s > 0 ? data.s : 0,
+      h: info.h > 0 ? info.h : 0,
+      m: info.m > 0 ? info.m : 0,
+      s: info.s > 0 ? info.s : 0,
     };
 
     return `${padWithZero(time.h, 2)}:${padWithZero(time.m, 2)}:${padWithZero(
@@ -217,7 +215,7 @@ var config = (function () {
       localStorage.gen_timers = JSON.stringify(obj);
     },
     menu: function () {
-      data = [];
+      info = [];
       styles = {
         done: '',
         running: '',
@@ -225,9 +223,7 @@ var config = (function () {
       };
 
       styles.done += `background-color: ${settings.timerDoneColour};`;
-      styles.done += `color: ${util.contrastColour(
-        settings.timerDoneColour
-      )};`;
+      styles.done += `color: ${util.contrastColour(settings.timerDoneColour)};`;
 
       styles.running += `background-color: ${settings.timerRunningColour};`;
       styles.running += `color: ${util.contrastColour(
@@ -235,11 +231,9 @@ var config = (function () {
       )};`;
 
       styles.icon += `background-color: ${settings.iconColour};`;
-      styles.icon += `color: ${util.contrastColour(
-        settings.iconColour
-      )};`;
+      styles.icon += `color: ${util.contrastColour(settings.iconColour)};`;
 
-      data.concat(
+      info.concat(
         util.createInput('doneColour', settings.timerDoneColour, {
           t: 'string',
           n: 'Done HEX Colour Code',
@@ -257,7 +251,7 @@ var config = (function () {
       );
 
       if (settings.enableSoundAlert) {
-        data.concat(
+        info.concat(
           util.createInput('alertVolume', settings.alertVolume, {
             t: 'int',
             n: 'Alert Volume',
@@ -265,7 +259,7 @@ var config = (function () {
         );
       }
 
-      data.concat(
+      info.concat(
         util.createInput('iconEnable', settings.enableIconOverlay, {
           t: 'bool',
           n: 'Enable Icon Overlay',
@@ -273,7 +267,7 @@ var config = (function () {
       );
 
       if (settings.enableIconOverlay) {
-        data.concat(
+        info.concat(
           util.createInput('iconSize', settings.iconSize, {
             t: 'int',
             n: 'Icon Font Size',
@@ -286,11 +280,11 @@ var config = (function () {
         );
       }
 
-      data.push({ t: 'h/11' });
-      data.push({ t: 'button:confirm', text: 'Confirm' });
-      data.push({ t: 'button:cancel', text: 'Cancel' });
+      info.push({ t: 'h/11' });
+      info.push({ t: 'button:confirm', text: 'Confirm' });
+      info.push({ t: 'button:cancel', text: 'Cancel' });
 
-      console.log(data);
+      console.log(info);
 
       try {
         menu = promptbox2(
@@ -303,7 +297,7 @@ var config = (function () {
               'https://runeapps.org/nis/nis.css',
             ],
           },
-          data
+          info
         );
 
         menu.cancel.onclick = menu.frame.close.b();
