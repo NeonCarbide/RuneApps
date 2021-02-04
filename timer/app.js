@@ -183,59 +183,101 @@ var config = (function () {
     styles.icon += `background-color: ${settings.iconColour};`;
     styles.icon += `color: ${util.contrastColour(settings.iconColour)};`;
 
-    info.concat(
-      util.createInput('doneColour', settings.timerDoneColour, {
-        t: 'string',
-        n: 'Done HEX Colour Code',
-        // style: styles.done,
-      })
-    );
-    info.concat(
-      util.createInput('runningColour', settings.timerRunningColour, {
-        t: 'string',
-        n: 'Running HEX Colour Code',
-        // style: styles.running,
-      })
-    );
-    info.concat(
-      util.createInput('soundEnable', settings.enableSoundAlert, {
-        t: 'bool',
-        n: 'Enable Sound Alert',
-      })
-    );
+    // info.concat(
+    //   util.createInput('doneColour', settings.timerDoneColour, {
+    //     t: 'string',
+    //     n: 'Done HEX Colour Code',
+    //     // style: styles.done,
+    //   }),
+    //   util.createInput('runningColour', settings.timerRunningColour, {
+    //     t: 'string',
+    //     n: 'Running HEX Colour Code',
+    //     // style: styles.running,
+    //   }),
+    //   util.createInput('soundEnable', settings.enableSoundAlert, {
+    //     t: 'bool',
+    //     n: 'Enable Sound Alert',
+    //   })
+    // );
 
-    console.log(info);
+    // console.log(info);
+
+    // if (settings.enableSoundAlert) {
+    //   info.concat(
+    //     util.createInput('alertVolume', settings.alertVolume, {
+    //       t: 'int',
+    //       n: 'Alert Volume',
+    //     })
+    //   );
+    // }
+
+    // info.concat(
+    //   util.createInput('iconEnable', settings.enableIconOverlay, {
+    //     t: 'bool',
+    //     n: 'Enable Icon Overlay',
+    //   })
+    // );
+
+    // console.log(info);
+
+    // if (settings.enableIconOverlay) {
+    //   info.concat(
+    //     util.createInput('iconSize', settings.iconSize, {
+    //       t: 'int',
+    //       n: 'Icon Font Size',
+    //     }),
+    //     util.createInput('iconColour', settings.iconColour, {
+    //       t: 'string',
+    //       n: 'Icon HEX Colour Code',
+    //       // style: styles.icon,
+    //     })
+    //   );
+    // }
+
+    info.push({ t: 'h/11' });
+    info.push({ t: 'text', text: 'Done HEX Colour Code' });
+    info.push({
+      t: 'string:doneColour',
+      v: settings.timerDoneColour,
+      style: doneStyle,
+    });
+    info.push({ t: 'h/11' });
+    info.push({ t: 'text', text: 'Running HEX Colour Code' });
+    info.push({
+      t: 'string:runningColour',
+      v: settings.timerRunningColour,
+      style: runningStyle,
+    });
+
+    info.push({
+      t: 'bool:soundEnable',
+      v: settings.enableSoundAlert,
+      text: 'Enable Sound Alert',
+    });
 
     if (settings.enableSoundAlert) {
-      info.concat(
-        util.createInput('alertVolume', settings.alertVolume, {
-          t: 'int',
-          n: 'Alert Volume',
-        })
-      );
+      info.push({ t: 'h/11' });
+      info.push({ t: 'text', text: 'Alert Volume' });
+      info.push({ t: 'int:alertVolume', v: settings.alertVolume });
     }
 
-    info.concat(
-      util.createInput('iconEnable', settings.enableIconOverlay, {
-        t: 'bool',
-        n: 'Enable Icon Overlay',
-      })
-    );
-
-    console.log(info);
+    info.push({
+      t: 'bool:iconEnable',
+      v: settings.enableIconOverlay,
+      text: 'Enable Icon Overlay',
+    });
 
     if (settings.enableIconOverlay) {
-      info.concat(
-        util.createInput('iconSize', settings.iconSize, {
-          t: 'int',
-          n: 'Icon Font Size',
-        }),
-        util.createInput('iconColour', settings.iconColour, {
-          t: 'string',
-          n: 'Icon HEX Colour Code',
-          // style: styles.icon,
-        })
-      );
+      info.push({ t: 'h/11' });
+      info.push({ t: 'text', text: 'Icon Font Size' });
+      info.push({ t: 'int:iconSize', v: settings.iconSize });
+      info.push({ t: 'h/11' });
+      info.push({ t: 'text', text: 'Icon HEX Colour Code' });
+      info.push({
+        t: 'string:iconColour',
+        v: settings.iconColour,
+        style: iconStyle,
+      });
     }
 
     info.push({ t: 'h/11' });
