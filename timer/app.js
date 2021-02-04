@@ -348,21 +348,14 @@ function settingsMenu() {
     text: 'Enable Icon Overlay',
   });
 
-  // if (settings.enableIconOverlay) {
-  //   data.push({ t: 'h/11' });
-  //   data.push(
-  //     createUserInput('iconSize', settings.iconSize, {
-  //       t: 'int',
-  //       n: 'Icon Font Size',
-  //     })
-  //   );
-  //   data.push(
-  //     createUserInput('iconColour', settings.iconColour, {
-  //       t: 'string',
-  //       n: 'Icon Colour HEX Code',
-  //     })
-  //   );
-  // }
+  if (settings.enableIconOverlay) {
+    data.push({ t: 'h/11' });
+    data.push({ t: 'text', n: 'Icon Font Size' });
+    data.push({ t: 'int:iconSize', v: settings.iconSize });
+    // data.push({ t: 'h/11' });
+    data.push({ t: 'text', n: 'Icon Font Size' });
+    data.push({ t: 'string:iconColour', v: settings.iconColour });
+  }
 
   data.push({ t: 'h/11' });
   data.push({ t: 'button:confirm', text: 'Confirm' });
