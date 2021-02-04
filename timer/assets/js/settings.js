@@ -1,4 +1,4 @@
-import { createUserInput, getTextColourRelativeToBG } from './util';
+import { createUserInput, getTextColourRelativeToBG } from './util.js';
 
 function settingsMenu() {
   data = [];

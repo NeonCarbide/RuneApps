@@ -1,4 +1,4 @@
-import { anyTimerDone, getHexFromString } from './util';
+import { anyTimerDone, getHexFromString } from './util.js';
 
 function checkTimers() {
   for (var i = 0; i < timers.length; i++) {

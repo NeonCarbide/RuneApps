@@ -1,4 +1,4 @@
-import { stopTick } from './app';
+import { stopTick } from './app.js';
 
 const SEC = 1000;
 const MIN = SEC * 60;
