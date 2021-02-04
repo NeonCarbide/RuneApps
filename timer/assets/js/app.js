@@ -305,6 +305,31 @@ function getColourFromString(colour) {
   return false;
 }
 
+function getTextColourRelativeToBG(colour) {
+  hex = getColourFromString(colour);
+
+  if (hex.length === 3) {
+    hex = hex
+      .split('')
+      .map(function (h) {
+        return h + h;
+      })
+      .join('');
+  }
+
+  r = parseInt(hex.substring(0, 2), 16);
+  g = parseInt(hex.substring(2, 2), 16);
+  b = parseInt(hex.substring(4, 2), 16);
+
+  yiq = (r * 299 + g * 587 + b * 114) / 1000;
+
+  if (yiq >= 128) {
+    return 'black';
+  }
+
+  return 'white';
+}
+
 function saveData() {
   obj = [];
 
@@ -356,12 +381,29 @@ function enterKeyPress(event) {
 function settingsMenu() {
   data = [];
 
+  doneStyle = '';
+  doneStyle += 'background-color: ' + settings.timerDoneColour;
+  doneStyle += 'color: ' + getTextColourRelativeToBG(settings.timerDoneColour);
+
+  runningStyle = '';
+  runningStyle += 'background-color: ' + settings.timerRunningColour;
+  runningStyle +=
+    'color: ' + getTextColourRelativeToBG(settings.timerRunningColour);
+
   data.push({ t: 'h/11' });
   data.push({ t: 'text', text: 'Done HEX Colour Code' });
-  data.push({ t: 'string:doneColour', v: settings.timerDoneColour });
+  data.push({
+    t: 'string:doneColour',
+    v: settings.timerDoneColour,
+    style: doneStyle,
+  });
   data.push({ t: 'h/11' });
   data.push({ t: 'text', text: 'Running HEX Colour Code' });
-  data.push({ t: 'string:runningColour', v: settings.timerRunningColour });
+  data.push({
+    t: 'string:runningColour',
+    v: settings.timerRunningColour,
+    style: runningStyle,
+  });
 
   data.push({
     t: 'bool:soundEnable',

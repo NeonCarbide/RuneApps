@@ -10,7 +10,7 @@ body {
 
 .pb2 {
   overflow-y: auto;
-  height: calc(100vh - 31px);
+  height: calc(100vh - 32px);
 }
 
 .pb2-flex-h, .pb2-bool {
@@ -18,17 +18,16 @@ body {
   flex-direction: row;
   align-items: center;
   padding: 5px;
+  border-top: 1px solid #41555f;
+  border-bottom: 1px solid #000000;
 }
 
 .pb2-flex-h {
   justify-content: space-between;
 }
 
-.pb2-flex-h:last-child {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+.pb2-bool ~ .pb2-flex-h {
+  border: none;
 }
 
 .pb2-bool {
@@ -43,12 +42,10 @@ body {
 .pb2-flex-h > .pb2-string {
   height: 20px;
   cursor: text;
-  color: #b1afae;
   outline: none;
   position: relative;
   padding: 0px 4px;
   box-sizing: border-box;
-  background: linear-gradient(to bottom, #191714, #292222, #100c0c);
   border: 1px solid #514949;
   font-family: sans-serif;
   font-size: 13px;
@@ -69,6 +66,19 @@ body {
   text-align: center;
   box-sizing: border-box;
 }
+
+.pb2-int {
+  color: #b1afae;
+  background: linear-gradient(to bottom, #191714, #292222, #100c0c);
+}
+
+.pb2-flex-h:last-child {
+  border-top: 1px solid #41555f;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 .pb2-button:hover {
   background: linear-gradient(to bottom, #2a799c, #1b4e65 25%);
   color: white;
@@ -77,7 +87,6 @@ body {
 .pb2::-webkit-scrollbar {
   display: none;
 }
-
 .pb2-int::-webkit-inner-spin-button,
 .pb2-int::-webkit-outer-spin-button {
   -webkit-appearance: none;
