@@ -312,7 +312,7 @@ var config = (function () {
 
 var notify = (function () {
   function checkTimers() {
-    for (var i = 0; i < timers.length; i++) {
+    for (var i = 0; i < timerList.length; i++) {
       if (util.anyDone()) {
         showIcon = true;
         break;
@@ -426,16 +426,16 @@ var timers = (function () {
   }
 
   function stopTick(index) {
-    if (!timers[index].interval) {
+    if (!timerList[index].interval) {
       return;
     }
 
-    clearInterval(timers[index].interval);
+    clearInterval(timerList[index].interval);
 
-    timers[index].interval = null;
+    timerList[index].interval = null;
 
     if (util.isDone(index)) {
-      timers[index].done = true;
+      timerList[index].done = true;
 
       notify.soundNotify();
       notify.tick();
