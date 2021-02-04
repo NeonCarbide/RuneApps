@@ -164,6 +164,136 @@ var util = (function () {
 })();
 
 var config = (function () {
+  function configMenu() {
+    info = [];
+    styles = {
+      done: '',
+      running: '',
+      icon: '',
+    };
+
+    styles.done += `background-color: ${settings.timerDoneColour};`;
+    styles.done += `color: ${util.contrastColour(settings.timerDoneColour)};`;
+
+    styles.running += `background-color: ${settings.timerRunningColour};`;
+    styles.running += `color: ${util.contrastColour(
+      settings.timerRunningColour
+    )};`;
+
+    styles.icon += `background-color: ${settings.iconColour};`;
+    styles.icon += `color: ${util.contrastColour(settings.iconColour)};`;
+
+    info.concat(
+      util.createInput('doneColour', settings.timerDoneColour, {
+        t: 'string',
+        n: 'Done HEX Colour Code',
+        style: styles.done,
+      }),
+      util.createInput('runningColour', settings.timerRunningColour, {
+        t: 'string',
+        n: 'Running HEX Colour Code',
+        style: styles.running,
+      }),
+      util.createInput('soundEnable', settings.enableSoundAlert, {
+        t: 'bool',
+        n: 'Enable Sound Alert',
+      })
+    );
+
+    console.log(info);
+
+    if (settings.enableSoundAlert) {
+      info.concat(
+        util.createInput('alertVolume', settings.alertVolume, {
+          t: 'int',
+          n: 'Alert Volume',
+        })
+      );
+    }
+
+    info.concat(
+      util.createInput('iconEnable', settings.enableIconOverlay, {
+        t: 'bool',
+        n: 'Enable Icon Overlay',
+      })
+    );
+
+    console.log(info);
+
+    if (settings.enableIconOverlay) {
+      info.concat(
+        util.createInput('iconSize', settings.iconSize, {
+          t: 'int',
+          n: 'Icon Font Size',
+        }),
+        util.createInput('iconColour', settings.iconColour, {
+          t: 'string',
+          n: 'Icon HEX Colour Code',
+          style: styles.icon,
+        })
+      );
+    }
+
+    info.push({ t: 'h/11' });
+    info.push({ t: 'button:confirm', text: 'Confirm' });
+    info.push({ t: 'button:cancel', text: 'Cancel' });
+
+    console.log(info);
+
+    try {
+      menu = promptbox2(
+        {
+          title: 'Settings',
+          style: 'popup',
+          width: 290,
+          stylesheets: [
+            'assets/css/settings.css',
+            'https://runeapps.org/nis/nis.css',
+          ],
+        },
+        info
+      );
+
+      menu.cancel.onclick = menu.frame.close.b();
+      menu.confirm.onclick = function () {
+        settings.timerDoneColour = menu.doneColour.getValue();
+        settings.timerRunningColour = menu.runningColour.getValue();
+
+        document.documentElement.style.setProperty(
+          '--colour-timer-done',
+          settings.timerDoneColour
+        );
+        document.documentElement.style.setProperty(
+          '--colour-timer-running',
+          settings.timerRunningColour
+        );
+
+        settings.enableSoundAlert = menu.soundEnable.getValue();
+
+        if (menu.alertVolume) {
+          menu.alertVolume.min = 0;
+          menu.alertVolume.max = 100;
+          settings.alertVolume = menu.alertVolume.getValue();
+        }
+
+        settings.enableIconOverlay = menu.iconEnable.getValue();
+
+        if (menu.iconSize) {
+          settings.iconSize = menu.iconSize.getValue();
+        }
+
+        if (menu.iconColour) {
+          settings.iconColour = menu.iconColour.getValue();
+        }
+
+        config.cfgSave();
+        menu.frame.close();
+      };
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return {
     cfgLoad: function () {
       if (localStorage.gen_timers_config) {
@@ -214,135 +344,7 @@ var config = (function () {
 
       localStorage.gen_timers = JSON.stringify(obj);
     },
-    menu: function () {
-      this.info = [];
-      this.styles = {
-        done: '',
-        running: '',
-        icon: '',
-      };
-
-      this.styles.done += `background-color: ${settings.timerDoneColour};`;
-      this.styles.done += `color: ${util.contrastColour(settings.timerDoneColour)};`;
-
-      this.styles.running += `background-color: ${settings.timerRunningColour};`;
-      this.styles.running += `color: ${util.contrastColour(
-        settings.timerRunningColour
-      )};`;
-
-      this.styles.icon += `background-color: ${settings.iconColour};`;
-      this.styles.icon += `color: ${util.contrastColour(settings.iconColour)};`;
-
-      this.info.concat(
-        util.createInput('doneColour', settings.timerDoneColour, {
-          t: 'string',
-          n: 'Done HEX Colour Code',
-          style: this.styles.done,
-        }),
-        util.createInput('runningColour', settings.timerRunningColour, {
-          t: 'string',
-          n: 'Running HEX Colour Code',
-          style: this.styles.running,
-        }),
-        util.createInput('soundEnable', settings.enableSoundAlert, {
-          t: 'bool',
-          n: 'Enable Sound Alert',
-        })
-      );
-
-      console.log(this.info);
-
-      if (settings.enableSoundAlert) {
-        this.info.concat(
-          util.createInput('alertVolume', settings.alertVolume, {
-            t: 'int',
-            n: 'Alert Volume',
-          })
-        );
-      }
-
-      this.info.concat(
-        util.createInput('iconEnable', settings.enableIconOverlay, {
-          t: 'bool',
-          n: 'Enable Icon Overlay',
-        })
-      );
-
-      console.log(this.info);
-
-      if (settings.enableIconOverlay) {
-        this.info.concat(
-          util.createInput('iconSize', settings.iconSize, {
-            t: 'int',
-            n: 'Icon Font Size',
-          }),
-          util.createInput('iconColour', settings.iconColour, {
-            t: 'string',
-            n: 'Icon HEX Colour Code',
-            style: this.styles.icon,
-          })
-        );
-      }
-
-      this.info.push({ t: 'h/11' });
-      this.info.push({ t: 'button:confirm', text: 'Confirm' });
-      this.info.push({ t: 'button:cancel', text: 'Cancel' });
-
-      console.log(this.info);
-
-      try {
-        this.menu = promptbox2(
-          {
-            title: 'Settings',
-            style: 'popup',
-            width: 290,
-            stylesheets: [
-              'assets/css/settings.css',
-              'https://runeapps.org/nis/nis.css',
-            ],
-          },
-          this.info
-        );
-
-        this.menu.cancel.onclick = this.menu.frame.close.b();
-        this.menu.confirm.onclick = function () {
-          settings.timerDoneColour = this.menu.doneColour.getValue();
-          settings.timerRunningColour = this.menu.runningColour.getValue();
-
-          document.documentElement.style.setProperty(
-            '--colour-timer-done',
-            settings.timerDoneColour
-          );
-          document.documentElement.style.setProperty(
-            '--colour-timer-running',
-            settings.timerRunningColour
-          );
-
-          settings.enableSoundAlert = this.menu.soundEnable.getValue();
-
-          if (this.menu.alertVolume) {
-            this.menu.alertVolume.min = 0;
-            this.menu.alertVolume.max = 100;
-            settings.alertVolume = this.menu.alertVolume.getValue();
-          }
-
-          settings.enableIconOverlay = this.menu.iconEnable.getValue();
-
-          if (this.menu.iconSize) {
-            settings.iconSize = this.menu.iconSize.getValue();
-          }
-
-          if (this.menu.iconColour) {
-            settings.iconColour = this.menu.iconColour.getValue();
-          }
-
-          config.cfgSave();
-          this.menu.frame.close();
-        };
-      } catch (e) {
-        console.log(e);
-      }
-    },
+    menu: configMenu,
   };
 })();
 
