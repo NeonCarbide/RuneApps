@@ -215,34 +215,34 @@ var config = (function () {
       localStorage.gen_timers = JSON.stringify(obj);
     },
     menu: function () {
-      info = [];
-      styles = {
+      this.info = [];
+      this.styles = {
         done: '',
         running: '',
         icon: '',
       };
 
-      styles.done += `background-color: ${settings.timerDoneColour};`;
-      styles.done += `color: ${util.contrastColour(settings.timerDoneColour)};`;
+      this.styles.done += `background-color: ${settings.timerDoneColour};`;
+      this.styles.done += `color: ${util.contrastColour(settings.timerDoneColour)};`;
 
-      styles.running += `background-color: ${settings.timerRunningColour};`;
-      styles.running += `color: ${util.contrastColour(
+      this.styles.running += `background-color: ${settings.timerRunningColour};`;
+      this.styles.running += `color: ${util.contrastColour(
         settings.timerRunningColour
       )};`;
 
-      styles.icon += `background-color: ${settings.iconColour};`;
-      styles.icon += `color: ${util.contrastColour(settings.iconColour)};`;
+      this.styles.icon += `background-color: ${settings.iconColour};`;
+      this.styles.icon += `color: ${util.contrastColour(settings.iconColour)};`;
 
-      info.concat(
+      this.info.concat(
         util.createInput('doneColour', settings.timerDoneColour, {
           t: 'string',
           n: 'Done HEX Colour Code',
-          style: styles.done,
+          style: this.styles.done,
         }),
         util.createInput('runningColour', settings.timerRunningColour, {
           t: 'string',
           n: 'Running HEX Colour Code',
-          style: styles.running,
+          style: this.styles.running,
         }),
         util.createInput('soundEnable', settings.enableSoundAlert, {
           t: 'bool',
@@ -250,10 +250,10 @@ var config = (function () {
         })
       );
 
-      console.log(info);
+      console.log(this.info);
 
       if (settings.enableSoundAlert) {
-        info.concat(
+        this.info.concat(
           util.createInput('alertVolume', settings.alertVolume, {
             t: 'int',
             n: 'Alert Volume',
@@ -261,17 +261,17 @@ var config = (function () {
         );
       }
 
-      info.concat(
+      this.info.concat(
         util.createInput('iconEnable', settings.enableIconOverlay, {
           t: 'bool',
           n: 'Enable Icon Overlay',
         })
       );
 
-      console.log(info);
+      console.log(this.info);
 
       if (settings.enableIconOverlay) {
-        info.concat(
+        this.info.concat(
           util.createInput('iconSize', settings.iconSize, {
             t: 'int',
             n: 'Icon Font Size',
@@ -279,19 +279,19 @@ var config = (function () {
           util.createInput('iconColour', settings.iconColour, {
             t: 'string',
             n: 'Icon HEX Colour Code',
-            style: styles.icon,
+            style: this.styles.icon,
           })
         );
       }
 
-      info.push({ t: 'h/11' });
-      info.push({ t: 'button:confirm', text: 'Confirm' });
-      info.push({ t: 'button:cancel', text: 'Cancel' });
+      this.info.push({ t: 'h/11' });
+      this.info.push({ t: 'button:confirm', text: 'Confirm' });
+      this.info.push({ t: 'button:cancel', text: 'Cancel' });
 
-      console.log(info);
+      console.log(this.info);
 
       try {
-        menu = promptbox2(
+        this.menu = promptbox2(
           {
             title: 'Settings',
             style: 'popup',
@@ -301,13 +301,13 @@ var config = (function () {
               'https://runeapps.org/nis/nis.css',
             ],
           },
-          info
+          this.info
         );
 
-        menu.cancel.onclick = menu.frame.close.b();
-        menu.confirm.onclick = function () {
-          settings.timerDoneColour = menu.doneColour.getValue();
-          settings.timerRunningColour = menu.runningColour.getValue();
+        this.menu.cancel.onclick = this.menu.frame.close.b();
+        this.menu.confirm.onclick = function () {
+          settings.timerDoneColour = this.menu.doneColour.getValue();
+          settings.timerRunningColour = this.menu.runningColour.getValue();
 
           document.documentElement.style.setProperty(
             '--colour-timer-done',
@@ -318,26 +318,26 @@ var config = (function () {
             settings.timerRunningColour
           );
 
-          settings.enableSoundAlert = menu.soundEnable.getValue();
+          settings.enableSoundAlert = this.menu.soundEnable.getValue();
 
-          if (menu.alertVolume) {
-            menu.alertVolume.min = 0;
-            menu.alertVolume.max = 100;
-            settings.alertVolume = menu.alertVolume.getValue();
+          if (this.menu.alertVolume) {
+            this.menu.alertVolume.min = 0;
+            this.menu.alertVolume.max = 100;
+            settings.alertVolume = this.menu.alertVolume.getValue();
           }
 
-          settings.enableIconOverlay = menu.iconEnable.getValue();
+          settings.enableIconOverlay = this.menu.iconEnable.getValue();
 
-          if (menu.iconSize) {
-            settings.iconSize = menu.iconSize.getValue();
+          if (this.menu.iconSize) {
+            settings.iconSize = this.menu.iconSize.getValue();
           }
 
-          if (menu.iconColour) {
-            settings.iconColour = menu.iconColour.getValue();
+          if (this.menu.iconColour) {
+            settings.iconColour = this.menu.iconColour.getValue();
           }
 
           config.cfgSave();
-          menu.frame.close();
+          this.menu.frame.close();
         };
       } catch (e) {
         console.log(e);
