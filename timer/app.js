@@ -45,7 +45,7 @@ var app = (function () {
   };
 })();
 
-var config = function () {
+var config = (function () {
   return {
     cfgLoad: function () {
       if (localStorage.gen_timers_config) {
@@ -215,9 +215,9 @@ var config = function () {
       }
     },
   };
-};
+})();
 
-var notify = function () {
+var notify = (function () {
   function checkTimers() {
     for (var i = 0; i < timers.length; i++) {
       if (util.anyDone()) {
@@ -269,9 +269,9 @@ var notify = function () {
     soundNotify: soundNotify,
     tick: iconTick,
   };
-};
+})();
 
-var timers = function () {
+var timers = (function () {
   function drawTimers() {
     html = '';
 
@@ -413,9 +413,9 @@ var timers = function () {
     },
     stop: stopTick,
   };
-};
+})();
 
-var util = function () {
+var util = (function () {
   function elid(id) {
     return document.getElementById(id);
   }
@@ -545,7 +545,7 @@ var util = function () {
       )}`;
     },
   };
-};
+})();
 
 window.addEventListener('beforeunload', config.cfgSave);
 window.addEventListener('mouseover', notify.clearIcon);
