@@ -1,5 +1,9 @@
 # Custom Alt1 Toolkit Apps
 
+## Installation
+
+To install one of my scripts, simply copy the link inside the '<>' and paste it into any browser
+
 ## Included Scripts
 
 ### General Timers
