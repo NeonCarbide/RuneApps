@@ -7,7 +7,7 @@ settings = {
   timerDoneColour: '#32CD32',
   timerRunningColour: '#FFD700',
   enableSoundAlert: false,
-  alertVolume: 0.5,
+  alertVolume: 100,
   enableIconOverlay: true,
   iconSize: 48,
   iconColour: '#F0F000',
