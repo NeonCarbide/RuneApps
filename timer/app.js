@@ -343,8 +343,7 @@ function settingsMenu() {
   data = [];
 
   data.concat({
-    t: 'bool',
-    id: 'iconEnable',
+    t: 'bool:iconEnable',
     v: settings.enableIconOverlay,
     text: 'Enable Icon Overlay',
   });
@@ -377,8 +376,8 @@ function settingsMenu() {
     menu.cancel.onclick = menu.frame.close.b();
     menu.confirm.onclick = function () {
       settings.enableIconOverlay = menu.iconEnable.getValue();
-      settings.iconSize = menu.iconSize.getValue();
-      settings.iconColour = menu.iconColour.getValue();
+      // settings.iconSize = menu.iconSize.getValue();
+      // settings.iconColour = menu.iconColour.getValue();
 
       saveSettings();
       menu.frame.close();
