@@ -367,17 +367,21 @@ function settingsMenu() {
   data.push({ t: 'button:confirm', text: 'Confirm' });
   data.push({ t: 'button:cancel', text: 'Cancel' });
 
-  menu = promptbox2({ title: 'Settings', style: 'popup', width: 300 }, data);
+  try {
+    menu = promptbox2({ title: 'Settings', style: 'popup', width: 300 }, data);
 
-  menu.cancel.onclick = menu.frame.close.b();
-  menu.confirm.onclick = function () {
-    settings.enableIconOverlay = menu.iconEnable.getValue();
-    settings.iconSize = menu.iconSize.getValue();
-    settings.iconColour = menu.iconColour.getValue();
-    
-    saveSettings();
-    menu.frame.close();
-  };
+    menu.cancel.onclick = menu.frame.close.b();
+    menu.confirm.onclick = function () {
+      settings.enableIconOverlay = menu.iconEnable.getValue();
+      settings.iconSize = menu.iconSize.getValue();
+      settings.iconColour = menu.iconColour.getValue();
+
+      saveSettings();
+      menu.frame.close();
+    };
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function createUserInput(id, value, meta) {
