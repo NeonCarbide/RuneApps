@@ -13,6 +13,7 @@ delay = 1050;
 tick = 1000;
 showIcon = false;
 iconTimeout = null;
+data = [];
 timers = [];
 
 window.addEventListener('beforeunload', saveData);
@@ -61,11 +62,11 @@ function readIn() {
   return { name: elid('name').value, hrs: h, min: m, sec: s, total: t };
 }
 
-function writeTime(data) {
+function writeTime(input) {
   time = {
-    h: data.h,
-    m: data.m,
-    s: data.s,
+    h: input.h,
+    m: input.m,
+    s: input.s,
   };
 
   return pad(time.h, 2) + ':' + pad(time.m, 2) + ':' + pad(time.s, 2);
@@ -106,17 +107,17 @@ function drawTimers() {
 }
 
 function addTimer() {
-  data = readIn();
+  input = readIn();
 
   timers.push({
-    name: data.name,
-    hrs: data.hrs,
-    h: data.hrs,
-    min: data.min,
-    m: data.min,
-    sec: data.sec,
-    s: data.sec,
-    total: data.total,
+    name: input.name,
+    hrs: input.hrs,
+    h: input.hrs,
+    min: input.min,
+    m: input.min,
+    sec: input.sec,
+    s: input.sec,
+    total: input.total,
     start: null,
     end: null,
     count: null,
@@ -340,55 +341,57 @@ function enterKeyPress(event) {
 }
 
 function settingsMenu() {
-  data = [];
+  if (data != []) {
+    data = [];
 
-  data.push({
-    t: 'bool:iconEnable',
-    v: settings.enableIconOverlay,
-    text: 'Enable Icon Overlay',
-  });
+    data.push({
+      t: 'bool:iconEnable',
+      v: settings.enableIconOverlay,
+      text: 'Enable Icon Overlay',
+    });
 
-  if (settings.enableIconOverlay) {
+    if (settings.enableIconOverlay) {
+      data.push({ t: 'h/11' });
+      data.push({ t: 'text', text: 'Icon Font Size' });
+      data.push({ t: 'int:iconSize', v: settings.iconSize });
+      data.push({ t: 'h/11' });
+      data.push({ t: 'text', text: 'Icon Colour HEX Code' });
+      data.push({ t: 'string:iconColour', v: settings.iconColour });
+    }
+
     data.push({ t: 'h/11' });
-    data.push({ t: 'text', text: 'Icon Font Size' });
-    data.push({ t: 'int:iconSize', v: settings.iconSize });
-    data.push({ t: 'h/11' });
-    data.push({ t: 'text', text: 'Icon Colour HEX Code' });
-    data.push({ t: 'string:iconColour', v: settings.iconColour });
-  }
+    data.push({ t: 'button:confirm', text: 'Confirm' });
+    data.push({ t: 'button:cancel', text: 'Cancel' });
 
-  data.push({ t: 'h/11' });
-  data.push({ t: 'button:confirm', text: 'Confirm' });
-  data.push({ t: 'button:cancel', text: 'Cancel' });
+    try {
+      menu = promptbox2(
+        {
+          title: 'Settings',
+          style: 'popup',
+          width: 290,
+          stylesheets: ['assets/css/settings.css', 'https://runeapps.org/nis/nis.css'],
+        },
+        data
+      );
 
-  try {
-    menu = promptbox2(
-      {
-        title: 'Settings',
-        style: 'popup',
-        width: 290,
-        stylesheets: ['assets/css/settings.css', 'https://runeapps.org/nis/nis.css'],
-      },
-      data
-    );
+      menu.cancel.onclick = menu.frame.close.b();
+      menu.confirm.onclick = function () {
+        settings.enableIconOverlay = menu.iconEnable.getValue();
 
-    menu.cancel.onclick = menu.frame.close.b();
-    menu.confirm.onclick = function () {
-      settings.enableIconOverlay = menu.iconEnable.getValue();
+        if (menu.iconSize) {
+          settings.iconSize = menu.iconSize.getValue();
+        }
 
-      if (menu.iconSize) {
-        settings.iconSize = menu.iconSize.getValue();
-      }
+        if (menu.iconColour) {
+          settings.iconColour = menu.iconColour.getValue();
+        }
 
-      if (menu.iconColour) {
-        settings.iconColour = menu.iconColour.getValue();
-      }
-
-      saveSettings();
-      menu.frame.close();
-    };
-  } catch (e) {
-    console.log(e);
+        saveSettings();
+        menu.frame.close();
+      };
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 
