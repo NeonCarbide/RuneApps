@@ -411,7 +411,7 @@ function settingsMenu() {
       settings.enableSoundAlert = menu.soundEnable.getValue();
 
       if (menu.alertVolume) {
-        settings.alertVolume = menu.alertVolume.getValue() * 0.01;
+        settings.alertVolume = menu.alertVolume.getValue() / 100;
       }
 
       settings.enableIconOverlay = menu.iconEnable.getValue();
@@ -429,29 +429,6 @@ function settingsMenu() {
     };
   } catch (e) {
     console.log(e);
-  }
-}
-
-function createUserInput(id, value, meta) {
-  if (['string', 'int', 'number', 'color', 'slider'].indexOf(meta.t) != -1) {
-    return [
-      { t: 'h/11' },
-      { t: 'text', text: meta.n },
-      { t: meta.t, id: id, v: value },
-    ];
-  } else if (meta.t == 'dropdown') {
-    return [
-      { t: 'h/11' },
-      { t: 'text', text: meta.n },
-      {
-        t: 'dropdown',
-        id: id,
-        options: meta.options || meta.getOptions(),
-        v: value,
-      },
-    ];
-  } else if (meta.t == 'bool') {
-    return [{ t: 'bool', id: id, v: value, text: meta.n }];
   }
 }
 
