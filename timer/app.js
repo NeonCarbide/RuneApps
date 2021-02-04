@@ -346,18 +346,23 @@ function settingsMenu() {
       n: 'Enable Icon Overlay',
     })
   );
-  data.push(
-    createUserInput('iconSize', settings.iconSize, {
-      t: 'number',
-      n: 'Icon Font Size',
-    })
-  );
-  data.push(
-    createUserInput('iconColour', settings.iconColour, {
-      t: 'string',
-      n: 'Icon Colour HEX Code',
-    })
-  );
+
+  if (settings.enableIconOverlay) {
+    data.push({ t: 'h/11' });
+    data.push(
+      createUserInput('iconSize', settings.iconSize, {
+        t: 'int',
+        n: 'Icon Font Size',
+      })
+    );
+    data.push(
+      createUserInput('iconColour', settings.iconColour, {
+        t: 'string',
+        n: 'Icon Colour HEX Code',
+      })
+    );
+  }
+
   data.push({ t: 'h/11' });
   data.push({ t: 'button:confirm', text: 'Confirm' });
   data.push({ t: 'button:cancel', text: 'Cancel' });
@@ -369,6 +374,7 @@ function settingsMenu() {
     settings.enableIconOverlay = menu.iconEnable.getValue();
     settings.iconSize = menu.iconSize.getValue();
     settings.iconColour = menu.iconColour.getValue();
+    
     saveSettings();
     menu.frame.close();
   };
