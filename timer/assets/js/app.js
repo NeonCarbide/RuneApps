@@ -289,13 +289,13 @@ function overlayNotify() {
     w = alt1.rsWidth;
     x = settings.iconSize;
     y = parseInt(h / 2 - settings.iconSize / 2);
-    colour = parseInt('0xFF' + getColourFromString(settings.iconColour));
+    colour = parseInt('0xFF' + getHexFromString(settings.iconColour));
 
     alt1.overLayText(text, colour, settings.iconSize, x, y, delay);
   }
 }
 
-function getColourFromString(colour) {
+function getHexFromString(colour) {
   var checkHex = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(colour);
 
   if (checkHex) {
@@ -305,8 +305,8 @@ function getColourFromString(colour) {
   return false;
 }
 
-function getTextColourRelativeToBG(colour) {
-  hex = getColourFromString(colour);
+function getRGBFromHex(colour) {
+  hex = getHexFromString(colour);
 
   if (hex.length === 3) {
     hex = hex
@@ -321,19 +321,27 @@ function getTextColourRelativeToBG(colour) {
   g = parseInt(hex.substr(2, 2), 16);
   b = parseInt(hex.substr(4, 2), 16);
 
-  yiq = (r * 299 + g * 587 + b * 114) / 1000;
+  return [r, g, b];
+}
 
-  rI = Math.floor((255 - r) * 1);
-  gI = Math.floor((255 - g) * 1);
-  bI = Math.floor((255 - b) * 1);
+function getInverseColour(colour) {
+  rgb = getRGBFromHex(colour);
+  rI = Math.floor((255 - rgb[0]) * 1);
+  gI = Math.floor((255 - rgb[1]) * 1);
+  bI = Math.floor((255 - rgb[2]) * 1);
 
   return 'rgb(' + rI + ', ' + gI + ', ' + bI + ')';
+}
 
-  // if (yiq > 125) {
-  //   return 'black';
-  // }
+function getTextColourRelativeToBG(colour) {
+  rgb = getRGBFromHex(colour);
+  yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
 
-  // return 'white';
+  if (yiq > 125) {
+    return 'black';
+  }
+
+  return 'white';
 }
 
 function saveData() {
