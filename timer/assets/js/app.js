@@ -67,10 +67,22 @@ function readIn() {
 
 function writeTime(input) {
   time = {
-    h: input.h,
-    m: input.m,
-    s: input.s,
+    h: 0,
+    m: 0,
+    s: 0,
   };
+
+  if (input.h > 0) {
+    time.h = input.h;
+  }
+
+  if (input.m > 0) {
+    time.m = input.m;
+  }
+
+  if (input.s > 0) {
+    time.s = input.s
+  }
 
   return pad(time.h, 2) + ':' + pad(time.m, 2) + ':' + pad(time.s, 2);
 }
@@ -80,15 +92,13 @@ function drawTimers() {
   str = '';
 
   for (var i = 0; i < timers.length; i++) {
-    if (timers[i].done) {
-      str = ' done">DONE'
+    if (timers[i].done || isTimerDone(i)) {
+      str += ' done';
     } else if (timers[i].interval) {
-      str = ' running">' + writeTime(timers[i]);
-    } else if (isTimerDone(i)) {
-      str = '">00:00:00';
-    } else {
-      str = '">' + writeTime(timers[i]);
+      str += ' running'
     }
+
+    str += '">' + writeTime(timers[i]);
 
     html += '<div id="timer-' + i + '" class="timer">';
     html += '<div class="nistext time' + str + '</div>';
