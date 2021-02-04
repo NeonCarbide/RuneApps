@@ -9,7 +9,7 @@ settings = {
   enableSoundAlert: false,
   alertVolume: 0.5,
   enableIconOverlay: true,
-  iconSize: 32,
+  iconSize: 48,
   iconColour: '#F0F000',
 };
 
