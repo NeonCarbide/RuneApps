@@ -250,6 +250,8 @@ var config = (function () {
         })
       );
 
+      console.log(info);
+
       if (settings.enableSoundAlert) {
         info.concat(
           util.createInput('alertVolume', settings.alertVolume, {
@@ -265,6 +267,8 @@ var config = (function () {
           n: 'Enable Icon Overlay',
         })
       );
+
+      console.log(info);
 
       if (settings.enableIconOverlay) {
         info.concat(
