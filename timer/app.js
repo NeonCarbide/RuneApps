@@ -23,9 +23,7 @@ timerList = [];
 
 var util = (function () {
   function createUserInput(id, value, meta) {
-    if (
-      ['string', 'int', 'number', 'color', 'slider'].indexOf(meta.t) != -1
-    ) {
+    if (['string', 'int', 'number', 'color', 'slider'].indexOf(meta.t) != -1) {
       if (meta.style) {
         return [
           { t: 'h/11' },
@@ -62,7 +60,7 @@ var util = (function () {
     return document.getElementById(id);
   }
 
-  function enterKeyPress (e) {
+  function enterKeyPress(e) {
     if (e.key === 'Enter') {
       elid('add-timer').click();
     }
@@ -93,7 +91,7 @@ var util = (function () {
     return [r, g, b];
   }
 
-  function getInverseColour (colour) {
+  function getInverseColour(colour) {
     rgb = getRGBFromHex(colour);
     rI = Math.floor((255 - rgb[0]) * 1);
     gI = Math.floor((255 - rgb[1]) * 1);
@@ -104,9 +102,9 @@ var util = (function () {
 
   function getContrastColourRelativeToBG(colour) {
     rgb = getRGBFromHex(colour);
-      yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
+    yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
 
-      return yiq > 125 ? 'black' : 'white';
+    return yiq > 125 ? 'black' : 'white';
   }
 
   function isTimerDone(index) {
@@ -121,7 +119,7 @@ var util = (function () {
       : new Array(width - n.length + 1).join('0') + n;
   }
 
-  function writeTime (data) {
+  function writeTime(data) {
     time = {
       h: data.h > 0 ? data.h : 0,
       m: data.m > 0 ? data.m : 0,
@@ -219,16 +217,25 @@ var config = (function () {
     menu: function () {
       data = [];
       styles = {
-        done: `background-color: ${
-          settings.timerDoneColour
-        }; color: ${util.contrastColour(settings.timerDoneColour)};`,
-        running: `background-color: ${
-          settings.timerRunningColour
-        }; color: ${util.contrastColour(settings.timerRunningColour)};`,
-        icon: `background-color: ${
-          settings.iconColour
-        }; color: ${util.contrastColour(settings.iconColour)};`,
+        done: '',
+        running: '',
+        icon: '',
       };
+
+      styles.done += `background-color: ${settings.timerDoneColour};`;
+      styles.done += `color: ${util.contrastColour(
+        settings.timerDoneColour
+      )};`;
+
+      styles.running += `background-color: ${settings.timerRunningColour};`;
+      styles.running += `color: ${util.contrastColour(
+        settings.timerRunningColour
+      )};`;
+
+      styles.icon += `background-color: ${settings.iconColour};`;
+      styles.icon += `color: ${util.contrastColour(
+        settings.iconColour
+      )};`;
 
       data.concat(
         util.createInput('doneColour', settings.timerDoneColour, {
