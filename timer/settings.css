@@ -1,7 +1,12 @@
 .pb2-flex-h {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+}
+
+.pb2-flex-h:last-child {
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
 }
 
@@ -11,12 +16,18 @@
   text-align: right;
 }
 
+.pb2-flex-h > .pb2-text {
+  grid-column: 1 / 2;
+}
+
 .pb2-flex-h > .pb2-int {
-  width: 3ch;
+  grid-column: 2 / 3;
+  max-width: 5ch;
 }
 
 .pb2-flex-h > .pb2-string {
-  width: 7ch;
+  grid-column: 2 / 3;
+  max-width: 9ch;
 }
 
 .pb2-int::-webkit-inner-spin-button,
