@@ -22,9 +22,13 @@
       type="text/javascript"
       src="https://runeapps.org/runeappslib.js"
     ></script>
+<<<<<<< HEAD
     <script type="text/javascript" src="assets/js/app.js"></script>
+=======
+    <script type="application/javascript" src="app.js"></script>
+>>>>>>> dev
   </head>
-  <body class="nis" onload="start();">
+  <body class="nis" onload="app.start();">
     <div class="content">
       <div id="add-timer-wrapper">
         <input
@@ -40,7 +44,7 @@
             class="nisinput time-in"
             id="hrs"
             placeholder="H"
-            onkeypress="enterKeyPress(event);"
+            onkeypress="util.enterKeyPress(event);"
           />
           <span class="nistext">:</span>
           <input
@@ -48,7 +52,7 @@
             class="nisinput time-in"
             id="min"
             placeholder="M"
-            onkeypress="enterKeyPress(event);"
+            onkeypress="util.enterKeyPress(event);"
           />
           <span class="nistext">:</span>
           <input
@@ -56,30 +60,30 @@
             class="nisinput time-in"
             id="sec"
             placeholder="S"
-            onkeypress="enterKeyPress(event);"
+            onkeypress="util.enterKeyPress(event);"
           />
         </div>
-        <div class="nisbutton2 add" id="add-timer" onclick="addTimer();">
+        <div class="nisbutton2 add" id="add-timer" onclick="timers.add();">
           New Timer
         </div>
       </div>
-      <div id="timers"></div>
+      <div id="timers></div>
       <div id="static-footer">
-        <div class="nisbutton2 control" id="settings" onclick="settingsMenu()">
+        <div class="nisbutton2 control" id="settings" onclick="config.menu()">
           Settings
         </div>
         <div id="control-all">
           <div
             class="nisbutton2 control"
             id="pause-all-timers"
-            onclick="pauseAllTimers()"
+            onclick="timers.pauseAll()"
           >
             Pause All
           </div>
           <div
             class="nisbutton2 control"
             id="reset-all-timers"
-            onclick="resetAllTimers()"
+            onclick="timers.resetAll()"
           >
             Reset All
           </div>
