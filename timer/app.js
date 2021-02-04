@@ -219,17 +219,17 @@ var config = (function () {
       };
 
       data.concat(
-        createInput('doneColour', settings.timerDoneColour, {
+        util.createInput('doneColour', settings.timerDoneColour, {
           t: 'string',
           n: 'Done HEX Colour Code',
           style: styles.done,
         }),
-        createInput('runningColour', settings.timerRunningColour, {
+        util.createInput('runningColour', settings.timerRunningColour, {
           t: 'string',
           n: 'Running HEX Colour Code',
           style: styles.running,
         }),
-        createInput('soundEnable', settings.enableSoundAlert, {
+        util.createInput('soundEnable', settings.enableSoundAlert, {
           t: 'bool',
           n: 'Enable Sound Alert',
         })
@@ -237,7 +237,7 @@ var config = (function () {
 
       if (settings.enableSoundAlert) {
         data.concat(
-          createInput('alertVolume', settings.alertVolume, {
+          util.createInput('alertVolume', settings.alertVolume, {
             t: 'int',
             n: 'Alert Volume',
           })
@@ -245,7 +245,7 @@ var config = (function () {
       }
 
       data.concat(
-        createInput('iconEnable', settings.enableIconOverlay, {
+        util.createInput('iconEnable', settings.enableIconOverlay, {
           t: 'bool',
           n: 'Enable Icon Overlay',
         })
@@ -253,11 +253,11 @@ var config = (function () {
 
       if (settings.enableIconOverlay) {
         data.concat(
-          createInput('iconSize', settings.iconSize, {
+          util.createInput('iconSize', settings.iconSize, {
             t: 'int',
             n: 'Icon Font Size',
           }),
-          createInput('iconColour', settings.iconColour, {
+          util.createInput('iconColour', settings.iconColour, {
             t: 'string',
             n: 'Icon HEX Colour Code',
             style: styles.icon,
