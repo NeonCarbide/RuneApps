@@ -382,8 +382,8 @@ function settingsMenu() {
   data = [];
 
   doneStyle = '';
-  doneStyle += 'background-color: ' + settings.timerDoneColour;
-  doneStyle += 'color: ' + getTextColourRelativeToBG(settings.timerDoneColour);
+  doneStyle += 'background-color: ' + settings.timerDoneColour + '; ';
+  doneStyle += 'color: ' + getTextColourRelativeToBG(settings.timerDoneColour) + ';';
 
   runningStyle = '';
   runningStyle += 'background-color: ' + settings.timerRunningColour;
