@@ -77,11 +77,15 @@ function writeTime(input) {
 
 function drawTimers() {
   html = '';
-  str = '">' + writeTime(timers[i]);
+  str = '';
 
   for (var i = 0; i < timers.length; i++) {
     if (timers[i].done) {
       str = ' done">DONE'
+    } else if (isTimerDone(i)) {
+      str = '">00:00:00';
+    } else {
+      str = '">' + writeTime(timers[i]);
     }
 
     html += '<div id="timer-' + i + '" class="timer">';
