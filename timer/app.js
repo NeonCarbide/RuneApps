@@ -259,12 +259,12 @@ var config = (function () {
   return {
     cfgLoad: function () {
       if (localStorage.gen_timers_config) {
-        userConfig = JSON.parse(localStorage.gen_timers_config);
-        config = Object.assign(config, userConfig);
+        userSettings = JSON.parse(localStorage.gen_timers_config);
+        settings = Object.assign(settings, userSettings);
       }
     },
     cfgSave: function () {
-      localStorage.gen_timers_config = JSON.stringify(config);
+      localStorage.gen_timers_config = JSON.stringify(settings);
     },
     dataLoad: function () {
       timerList = [];
