@@ -208,6 +208,7 @@ function stopTick(index) {
   clearInterval(timers[index].interval);
   timers[index].interval = null;
   iconTick();
+  soundNotify();
   toastNotify(index);
 }
 
@@ -247,8 +248,15 @@ function checkTimers() {
 
 function soundNotify() {
   if (window.alt1 && settings.enableSoundAlert) {
-    alertSound.volume = settngs.alertVolume;
-    alertSound.play();
+    for (var i = 0; i < timers.length; i++) {
+      if (!timers[i].count && !timers[i].count <= 0) {
+        continue;
+      }
+
+      alertSound.volume = settngs.alertVolume;
+      alertSound.play();
+      break;
+    }
   }
 }
 
