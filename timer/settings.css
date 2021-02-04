@@ -1,5 +1,5 @@
 body {
-  background-image: url('/nis/alt1-currentskin/background.png');
+  background-image: url('https://runeapps.org/nis/alt1-currentskin/background.png');
   background-color: var(--nis-col-back);
   overflow: hidden;
   margin: 0px;
@@ -15,11 +15,50 @@ body {
   justify-content: space-between;
 }
 
+.pb2-flex-h:last-child {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.pb2-text {
+  color: var(--nis-col-std);
+}
+
 .pb2-flex-h > .pb2-int,
 .pb2-flex-h > .pb2-string {
-  font-family: monospace;
+  height: 20px;
+  cursor: text;
+  color: #b1afae;
+  outline: none;
+  position: relative;
+  padding: 0px 4px;
+  box-sizing: border-box;
+  background: linear-gradient(to bottom, #191714, #292222, #100c0c);
+  border: 1px solid #514949;
+  font-family: sans-serif;
+  font-size: 13px;
   text-align: right;
-  max-width: 8ch;
+  max-width: 10ch;
+}
+
+.pb2-button {
+  padding: 0.15em;
+  user-select: none;
+  border: 1px solid #485b65;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #2a799c, #123443 25%);
+  font-weight: bold;
+  color: #ddd;
+  cursor: pointer;
+  box-shadow: 0px 0px 5px #152932 inset;
+  text-align: center;
+  box-sizing: border-box;
+}
+.pb2-button:hover {
+  background: linear-gradient(to bottom, #2a799c, #1b4e65 25%);
+  color: white;
 }
 
 .pb2-int::-webkit-inner-spin-button,
