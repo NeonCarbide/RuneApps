@@ -89,16 +89,18 @@ function writeTime(input) {
 
 function drawTimers() {
   html = '';
-  str = '';
 
   for (var i = 0; i < timers.length; i++) {
+    str = '';
+
     if (timers[i].done || isTimerDone(i)) {
       str += ' done';
     } else if (timers[i].interval) {
       str += ' running'
     }
 
-    str += '">' + writeTime(timers[i]);
+    str += '">';
+    str += writeTime(timers[i]);
 
     html += '<div id="timer-' + i + '" class="timer">';
     html += '<div class="nistext time' + str + '</div>';
