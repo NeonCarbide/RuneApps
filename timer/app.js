@@ -21,26 +21,134 @@ showIcon = false;
 iconTimeout = null;
 timerList = [];
 
-var app = (function () {
-  return {
-    start: function () {
-      try {
-        alt1.identifyAppUrl('appconfig.json');
-        config.cfgLoad();
-        config.dataLoad();
-      } catch (e) {
-        console.log('Alt1 not found');
-      }
+var util = (function () {
+  function elid(id) {
+    return document.getElementById(id);
+  }
 
+  function getHexFromString(colour) {
+    checkHex = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(colour);
+
+    return checkHex ? colour.substring(1) : false;
+  }
+
+  function getRGBFromHex(colour) {
+    hex = getHexFromString(colour);
+
+    if (hex.length == 3) {
+      hex = hex
+        .split('')
+        .map(function (h) {
+          return h + h;
+        })
+        .join('');
+    }
+
+    r = parseInt(hex.substr(0, 2), 16);
+    g = parseInt(hex.substr(2, 2), 16);
+    b = parseInt(hex.substr(4, 2), 16);
+
+    return [r, g, b];
+  }
+
+  function isTimerDone(index) {
+    return timerList[index].count && timerList[index].count <= 0 ? true : false;
+  }
+
+  function padWithZero(n, width) {
+    n = n + '';
+
+    return n.length >= width
+      ? n
+      : new Array(width - n.length + 1).join('0') + n;
+  }
+
+  return {
+    anyDone: function () {
       for (var i = 0; i < timerList.length; i++) {
-        if (timerList[i].start) {
-          if (Date.now() > timerList[i].end) {
-            timerList[i].count = -1;
-          }
+        if (isTimerDone(i)) {
+          return true;
         }
       }
 
-      timers.draw();
+      return false;
+    },
+    contrastColour: function (colour) {
+      rgb = getRGBFromHex(colour);
+      yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
+
+      return yiq > 125 ? 'black' : 'white';
+    },
+    clearField: function (field) {
+      elid(field).value = '';
+    },
+    createInput: function (id, value, meta) {
+      if (
+        ['string', 'int', 'number', 'color', 'slider'].indexOf(meta.t) != -1
+      ) {
+        if (meta.style) {
+          return [
+            { t: 'h/11' },
+            { t: meta.n },
+            { t: `${meta.t}:${id}`, v: value, style: meta.style },
+          ];
+        }
+
+        return [
+          { t: 'h/11' },
+          { t: meta.n },
+          { t: `${meta.t}:${id}`, v: value },
+        ];
+      } else if (meta.t == 'dropdown') {
+        return [
+          { t: 'h/11' },
+          { t: meta.n },
+          {
+            t: `dropdown:${id}`,
+            options: meta.options || meta.getOptions(),
+            v: value,
+          },
+        ];
+      } else if (meta.t == 'bool') {
+        return [{ t: `bool:${id}`, v: value, text: meta.n }];
+      }
+    },
+    elid: elid,
+    enterKeyPress: function (e) {
+      if (e.key === 'Enter') {
+        elid('add-timer').click();
+      }
+    },
+    hexFromString: getHexFromString,
+    inverseColour: function (colour) {
+      rgb = getRGBFromHex(colour);
+      rI = Math.floor((255 - rgb[0]) * 1);
+      gI = Math.floor((255 - rgb[1]) * 1);
+      bI = Math.floor((255 - rgb[2]) * 1);
+
+      return `rgb(${rI}, ${gI}, ${bI})`;
+    },
+    isDone: isTimerDone,
+    pad: padWithZero,
+    readIn: function () {
+      h = elid('hrs').value || 0;
+      m = elid('min').value || 0;
+      s = elid('sec').value || 0;
+      t = h * HOUR + m * MIN + s * SEC;
+
+      return { name: elid('name').value, hrs: h, min: m, sec: s, total: t };
+    },
+    writeTime: function (data) {
+      time = {
+        h: data.h > 0 ? data.h : 0,
+        m: data.m > 0 ? data.m : 0,
+        s: data.s > 0 ? data.s : 0,
+      };
+
+      return `${padWithZero(time.h, 2)}:${padWithZero(time.m, 2)}:${padWithZero(
+        time.s,
+        2
+      )}`;
     },
   };
 })();
@@ -415,134 +523,26 @@ var timers = (function () {
   };
 })();
 
-var util = (function () {
-  function elid(id) {
-    return document.getElementById(id);
-  }
-
-  function getHexFromString(colour) {
-    checkHex = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(colour);
-
-    return checkHex ? colour.substring(1) : false;
-  }
-
-  function getRGBFromHex(colour) {
-    hex = getHexFromString(colour);
-
-    if (hex.length == 3) {
-      hex = hex
-        .split('')
-        .map(function (h) {
-          return h + h;
-        })
-        .join('');
-    }
-
-    r = parseInt(hex.substr(0, 2), 16);
-    g = parseInt(hex.substr(2, 2), 16);
-    b = parseInt(hex.substr(4, 2), 16);
-
-    return [r, g, b];
-  }
-
-  function isTimerDone(index) {
-    return timerList[index].count && timerList[index].count <= 0 ? true : false;
-  }
-
-  function padWithZero(n, width) {
-    n = n + '';
-
-    return n.length >= width
-      ? n
-      : new Array(width - n.length + 1).join('0') + n;
-  }
-
+var app = (function () {
   return {
-    anyDone: function () {
+    start: function () {
+      try {
+        alt1.identifyAppUrl('appconfig.json');
+        config.cfgLoad();
+        config.dataLoad();
+      } catch (e) {
+        console.log('Alt1 not found');
+      }
+
       for (var i = 0; i < timerList.length; i++) {
-        if (isTimerDone(i)) {
-          return true;
+        if (timerList[i].start) {
+          if (Date.now() > timerList[i].end) {
+            timerList[i].count = -1;
+          }
         }
       }
 
-      return false;
-    },
-    contrastColour: function (colour) {
-      rgb = getRGBFromHex(colour);
-      yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
-
-      return yiq > 125 ? 'black' : 'white';
-    },
-    clearField: function (field) {
-      elid(field).value = '';
-    },
-    createInput: function (id, value, meta) {
-      if (
-        ['string', 'int', 'number', 'color', 'slider'].indexOf(meta.t) != -1
-      ) {
-        if (meta.style) {
-          return [
-            { t: 'h/11' },
-            { t: meta.n },
-            { t: `${meta.t}:${id}`, v: value, style: meta.style },
-          ];
-        }
-
-        return [
-          { t: 'h/11' },
-          { t: meta.n },
-          { t: `${meta.t}:${id}`, v: value },
-        ];
-      } else if (meta.t == 'dropdown') {
-        return [
-          { t: 'h/11' },
-          { t: meta.n },
-          {
-            t: `dropdown:${id}`,
-            options: meta.options || meta.getOptions(),
-            v: value,
-          },
-        ];
-      } else if (meta.t == 'bool') {
-        return [{ t: `bool:${id}`, v: value, text: meta.n }];
-      }
-    },
-    elid: elid,
-    enterKeyPress: function (e) {
-      if (e.key === 'Enter') {
-        elid('add-timer').click();
-      }
-    },
-    hexFromString: getHexFromString,
-    inverseColour: function (colour) {
-      rgb = getRGBFromHex(colour);
-      rI = Math.floor((255 - rgb[0]) * 1);
-      gI = Math.floor((255 - rgb[1]) * 1);
-      bI = Math.floor((255 - rgb[2]) * 1);
-
-      return `rgb(${rI}, ${gI}, ${bI})`;
-    },
-    isDone: isTimerDone,
-    pad: padWithZero,
-    readIn: function () {
-      h = elid('hrs').value || 0;
-      m = elid('min').value || 0;
-      s = elid('sec').value || 0;
-      t = h * HOUR + m * MIN + s * SEC;
-
-      return { name: elid('name').value, hrs: h, min: m, sec: s, total: t };
-    },
-    writeTime: function (data) {
-      time = {
-        h: data.h > 0 ? data.h : 0,
-        m: data.m > 0 ? data.m : 0,
-        s: data.s > 0 ? data.s : 0,
-      };
-
-      return `${padWithZero(time.h, 2)}:${padWithZero(time.m, 2)}:${padWithZero(
-        time.s,
-        2
-      )}`;
+      timers.draw();
     },
   };
 })();
