@@ -1,8 +1,6 @@
 .pb2-flex-h {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto min-content;
 }
 
 .pb2-flex-h > .pb2-int,
@@ -11,11 +9,17 @@
   text-align: right;
 }
 
+.pb2-flex-h > .pb2-text {
+  grid-column: 1 / 2;
+}
+
 .pb2-flex-h > .pb2-int {
+  grid-column: 2 / 3;
   width: 3ch;
 }
 
 .pb2-flex-h > .pb2-string {
+  grid-column: 2 / 3;
   width: 7ch;
 }
 
