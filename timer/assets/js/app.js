@@ -323,11 +323,17 @@ function getTextColourRelativeToBG(colour) {
 
   yiq = (r * 299 + g * 587 + b * 114) / 1000;
 
-  if (yiq >= 128) {
-    return 'black';
-  }
+  rI = Math.floor((255 - r) * 1);
+  gI = Math.floor((255 - g) * 1);
+  bI = Math.floor((255 - b) * 1);
 
-  return 'white';
+  return 'rgb(' + rI + ', ' + gI + ', ' + bI + ')';
+
+  // if (yiq > 125) {
+  //   return 'black';
+  // }
+
+  // return 'white';
 }
 
 function saveData() {
@@ -391,6 +397,11 @@ function settingsMenu() {
   runningStyle +=
     'color: ' + getTextColourRelativeToBG(settings.timerRunningColour) + '; ';
 
+  iconStyle = '';
+  iconStyle += 'background-color: ' + settings.iconColour + '; ';
+  iconStyle +=
+    'color: ' + getTextColourRelativeToBG(settings.iconColour) + '; ';
+
   data.push({ t: 'h/11' });
   data.push({ t: 'text', text: 'Done HEX Colour Code' });
   data.push({
@@ -430,7 +441,7 @@ function settingsMenu() {
     data.push({ t: 'int:iconSize', v: settings.iconSize });
     data.push({ t: 'h/11' });
     data.push({ t: 'text', text: 'Icon HEX Colour Code' });
-    data.push({ t: 'string:iconColour', v: settings.iconColour });
+    data.push({ t: 'string:iconColour', v: settings.iconColour, style: iconStyle });
   }
 
   data.push({ t: 'h/11' });
