@@ -14,7 +14,7 @@ import {
   writeTime,
 } from './util';
 
-export var settings = {
+settings = {
   timerDoneColour: '#32CD32',
   timerRunningColour: '#FFD700',
   enableSoundAlert: false,
@@ -24,11 +24,11 @@ export var settings = {
   iconColour: '#F0F000',
 };
 
-export var timers = [];
+timers = [];
 
 window.addEventListener('beforeunload', saveData);
 
-export function start() {
+function start() {
   try {
     alt1.identifyAppUrl('appconfig.json');
     loadData();
@@ -48,7 +48,7 @@ export function start() {
   drawTimers();
 }
 
-export function drawTimers() {
+function drawTimers() {
   html = '';
 
   for (var i = 0; i < timers.length; i++) {
@@ -72,7 +72,7 @@ export function drawTimers() {
   elid('timers').innerHTML = html;
 }
 
-export function addTimer() {
+function addTimer() {
   input = readIn();
 
   timers.push({
@@ -99,7 +99,7 @@ export function addTimer() {
   drawTimers();
 }
 
-export function pauseAllTimers() {
+function pauseAllTimers() {
   for (var i = 0; i < timers.length; i++) {
     stopTick(i);
   }
@@ -107,18 +107,18 @@ export function pauseAllTimers() {
   drawTimers();
 }
 
-export function pauseTimer(index) {
+function pauseTimer(index) {
   stopTick(index);
   drawTimers();
 }
 
-export function removeTimer(index) {
+function removeTimer(index) {
   stopTick(index);
   timers.splice(index, 1);
   drawTimers();
 }
 
-export function resetAllTimers() {
+function resetAllTimers() {
   for (var i = 0; i < timers.length; i++) {
     if (timers[i].start) {
       resetTimer(i);
@@ -126,7 +126,7 @@ export function resetAllTimers() {
   }
 }
 
-export function resetTimer(index) {
+function resetTimer(index) {
   stopTick(index);
   timers[index].h = timers[index].hrs;
   timers[index].m = timers[index].min;
@@ -138,7 +138,7 @@ export function resetTimer(index) {
   drawTimers();
 }
 
-export function scheduleTick(index) {
+function scheduleTick(index) {
   stopTick(index);
 
   if (timers[index].start != null) {
@@ -146,7 +146,7 @@ export function scheduleTick(index) {
   }
 }
 
-export function startTimer(index) {
+function startTimer(index) {
   if (!timers[index].start) {
     timers[index].start = Date.now();
   }
@@ -157,7 +157,7 @@ export function startTimer(index) {
   drawTimers();
 }
 
-export function stopTick(index) {
+function stopTick(index) {
   if (!timers[index].interval) {
     return;
   }
@@ -174,7 +174,7 @@ export function stopTick(index) {
   }
 }
 
-export function tickTimers() {
+function tickTimers() {
   for (var i = 0; i < timers.length; i++) {
     if (isTimerDone(i)) {
       stopTick(i);
