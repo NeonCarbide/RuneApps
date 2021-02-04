@@ -4,3 +4,23 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.pb2-flex-h > .pb2-int,
+.pb2-flex-h > .pb2-string {
+  font-family: monospace;
+  text-align: right;
+}
+
+.pb2-flex-h > .pb2-int {
+  width: 3ch;
+}
+
+.pb2-flex-h > .pb2-string {
+  width: 7ch;
+}
+
+.pb2-int::-webkit-inner-spin-button,
+.pb2-int::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

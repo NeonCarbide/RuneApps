@@ -362,7 +362,7 @@ function settingsMenu() {
   data.push({ t: 'button:cancel', text: 'Cancel' });
 
   try {
-    menu = promptbox2({ title: 'Settings', style: 'popup', width: 300, stylesheets: ['settings.css'] }, data);
+    menu = promptbox2({ title: 'Settings', style: 'popup', stylesheets: ['settings.css'] }, data);
 
     menu.cancel.onclick = menu.frame.close.b();
     menu.confirm.onclick = function () {
