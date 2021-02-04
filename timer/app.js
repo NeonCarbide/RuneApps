@@ -353,7 +353,7 @@ function settingsMenu() {
     data.push({ t: 'text', text: 'Icon Font Size' });
     data.push({ t: 'int:iconSize', v: settings.iconSize });
     data.push({ t: 'h/11' });
-    data.push({ t: 'text', text: 'Icon Font Size' });
+    data.push({ t: 'text', text: 'Icon Font Colour' });
     data.push({ t: 'string:iconColour', v: settings.iconColour });
   }
 
