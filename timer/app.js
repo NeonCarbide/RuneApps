@@ -239,14 +239,14 @@ var config = (function () {
     info.push({
       t: 'string:doneColour',
       v: settings.timerDoneColour,
-      style: doneStyle,
+      style: styles.done,
     });
     info.push({ t: 'h/11' });
     info.push({ t: 'text', text: 'Running HEX Colour Code' });
     info.push({
       t: 'string:runningColour',
       v: settings.timerRunningColour,
-      style: runningStyle,
+      style: styles.running,
     });
 
     info.push({
@@ -276,7 +276,7 @@ var config = (function () {
       info.push({
         t: 'string:iconColour',
         v: settings.iconColour,
-        style: iconStyle,
+        style: styles.icon,
       });
     }
 
