@@ -362,14 +362,25 @@ function settingsMenu() {
   data.push({ t: 'button:cancel', text: 'Cancel' });
 
   try {
-    menu = promptbox2({ title: 'Settings', style: 'popup', width: 290, stylesheets: ['settings.css', 'https://runeapps.org/nis/nis.css'] }, data);
+    menu = promptbox2(
+      {
+        title: 'Settings',
+        style: 'popup',
+        width: 290,
+        stylesheets: ['settings.css', 'https://runeapps.org/nis/nis.css'],
+      },
+      data
+    );
 
     menu.cancel.onclick = menu.frame.close.b();
     menu.confirm.onclick = function () {
       settings.enableIconOverlay = menu.iconEnable.getValue();
 
-      if (settings.enableIconOverlay) {
+      if (menu.iconSize) {
         settings.iconSize = menu.iconSize.getValue();
+      }
+
+      if (menu.iconColour) {
         settings.iconColour = menu.iconColour.getValue();
       }
 
