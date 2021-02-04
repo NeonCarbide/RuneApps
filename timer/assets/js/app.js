@@ -383,12 +383,13 @@ function settingsMenu() {
 
   doneStyle = '';
   doneStyle += 'background-color: ' + settings.timerDoneColour + '; ';
-  doneStyle += 'color: ' + getTextColourRelativeToBG(settings.timerDoneColour) + '; ';
+  doneStyle +=
+    'color: ' + getTextColourRelativeToBG(settings.timerDoneColour) + '; ';
 
   runningStyle = '';
-  runningStyle += 'background-color: ' + settings.timerRunningColour;
+  runningStyle += 'background-color: ' + settings.timerRunningColour + '; ';
   runningStyle +=
-    'color: ' + getTextColourRelativeToBG(settings.timerRunningColour);
+    'color: ' + getTextColourRelativeToBG(settings.timerRunningColour) + '; ';
 
   data.push({ t: 'h/11' });
   data.push({ t: 'text', text: 'Done HEX Colour Code' });
