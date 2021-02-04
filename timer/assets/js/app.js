@@ -253,7 +253,7 @@ function soundNotify() {
         continue;
       }
 
-      alertSound.volume = settngs.alertVolume;
+      alertSound.volume = settings.alertVolume;
       alertSound.play();
       break;
     }
