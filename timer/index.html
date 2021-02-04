@@ -23,6 +23,20 @@
       src="https://runeapps.org/runeappslib.js"
     ></script>
     <script type="application/javascript">
+      import {
+        addTimer,
+        pauseAllTimers,
+        pauseTimer,
+        removeTimer,
+        resetAllTimers,
+        resetTimer,
+        start,
+        startTimer,
+      } from './assets/js/app.js';
+      import { clearIcon } from './assets/js/notify.js';
+      import { settingsMenu } from './assets/js/settings.js';
+      import { enterKeyPress, saveData } from './assets/js/util.js';
+
       settings = {
         timerDoneColour: '#32CD32',
         timerRunningColour: '#FFD700',
