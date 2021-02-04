@@ -221,10 +221,12 @@ function clearIcon() {
 }
 
 function iconTick() {
-  iconTimeout = setTimeout(function () {
-    checkTimers();
-    iconTick();
-  }, tick);
+  if (settings.enableIconOverlay) {
+    iconTimeout = setTimeout(function () {
+      checkTimers();
+      iconTick();
+    }, tick);
+  }
 }
 
 function checkTimers() {
