@@ -1,12 +1,17 @@
-.pb2-flex-h {
-  display: grid;
-  grid-template-columns: auto auto;
-  align-items: center;
+body {
+  background-image: url('/nis/alt1-currentskin/background.png');
+  background-color: var(--nis-col-back);
+  overflow: hidden;
+  margin: 0px;
+  font-family: sans-serif;
+  font-size: 13px;
+  color: var(--nis-col-std);
 }
 
-.pb2-flex-h:last-child {
+.pb2-flex-h {
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -14,20 +19,7 @@
 .pb2-flex-h > .pb2-string {
   font-family: monospace;
   text-align: right;
-}
-
-.pb2-flex-h > .pb2-text {
-  grid-column: 1 / 2;
-}
-
-.pb2-flex-h > .pb2-int {
-  grid-column: 2 / 3;
-  max-width: 5ch;
-}
-
-.pb2-flex-h > .pb2-string {
-  grid-column: 2 / 3;
-  max-width: 9ch;
+  max-width: 8ch;
 }
 
 .pb2-int::-webkit-inner-spin-button,
