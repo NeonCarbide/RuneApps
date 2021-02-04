@@ -9,7 +9,7 @@ iconTimeout = null;
 
 window.addEventListener('mouseover', clearIcon);
 
-export function checkTimers() {
+function checkTimers() {
   for (var i = 0; i < timers.length; i++) {
     if (anyTimerDone()) {
       showIcon = true;
@@ -22,12 +22,12 @@ export function checkTimers() {
   }
 }
 
-export function clearIcon() {
+function clearIcon() {
   clearTimeout(iconTimeout);
   showIcon = false;
 }
 
-export function iconTick() {
+function iconTick() {
   if (settings.enableIconOverlay) {
     iconTimeout = setTimeout(function () {
       checkTimers();
@@ -36,7 +36,7 @@ export function iconTick() {
   }
 }
 
-export function overlayNotify() {
+function overlayNotify() {
   if (window.alt1 && settings.enableIconOverlay) {
     text = '\u23F0';
     h = alt1.rsHeight;
@@ -49,9 +49,11 @@ export function overlayNotify() {
   }
 }
 
-export function soundNotify() {
+function soundNotify() {
   if (window.alt1 && settings.enableSoundAlert) {
     alertSound.volume = settings.alertVolume / 100;
     alertSound.play();
   }
 }
+
+export { checkTimers, clearIcon, iconTick, overlayNotify, soundNotify };

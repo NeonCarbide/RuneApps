@@ -1,6 +1,6 @@
 import { createUserInput, getTextColourRelativeToBG } from './util';
 
-export function settingsMenu() {
+function settingsMenu() {
   data = [];
   styles = {
     done: '',
@@ -126,13 +126,15 @@ export function settingsMenu() {
   }
 }
 
-export function saveSettings() {
+function saveSettings() {
   localStorage.gen_timers_config = JSON.stringify(settings);
 }
 
-export function loadSettings() {
+function loadSettings() {
   if (localStorage.gen_timers_config) {
     userSettings = JSON.parse(localStorage.gen_timers_config);
     settings = Object.assign(settings, userSettings);
   }
 }
+
+export { settingsMenu, saveSettings, loadSettings };

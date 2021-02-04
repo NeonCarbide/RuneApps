@@ -1,9 +1,9 @@
-export const SEC = 1000;
-export const MIN = SEC * 60;
-export const HOUR = MIN * 60;
-export const DAY = HOUR * 24;
+const SEC = 1000;
+const MIN = SEC * 60;
+const HOUR = MIN * 60;
+const DAY = HOUR * 24;
 
-export function anyTimerDone() {
+function anyTimerDone() {
   for (var i = 0; i < timers.length; i++) {
     if (isTimerDone(i)) {
       return true;
@@ -13,11 +13,11 @@ export function anyTimerDone() {
   return false;
 }
 
-export function clearField(field) {
+function clearField(field) {
   elid(field).value = '';
 }
 
-export function createUserInput(id, value, meta) {
+function createUserInput(id, value, meta) {
   if (['string', 'int', 'number', 'color', 'slider'].indexOf(meta.t) != -1) {
     if (meta.style) {
       return [
@@ -43,17 +43,17 @@ export function createUserInput(id, value, meta) {
   }
 }
 
-export function elid(id) {
+function elid(id) {
   return document.getElementById(id);
 }
 
-export function enterKeyPress(event) {
+function enterKeyPress(event) {
   if (event.keyCode === 13) {
     elid('add-timer').click();
   }
 }
 
-export function getHexFromString(colour) {
+function getHexFromString(colour) {
   var checkHex = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(colour);
 
   if (checkHex) {
@@ -63,7 +63,7 @@ export function getHexFromString(colour) {
   return false;
 }
 
-export function getRGBFromHex(colour) {
+function getRGBFromHex(colour) {
   hex = getHexFromString(colour);
 
   if (hex.length === 3) {
@@ -82,7 +82,7 @@ export function getRGBFromHex(colour) {
   return [r, g, b];
 }
 
-export function getInverseColour(colour) {
+function getInverseColour(colour) {
   rgb = getRGBFromHex(colour);
   rI = Math.floor((255 - rgb[0]) * 1);
   gI = Math.floor((255 - rgb[1]) * 1);
@@ -91,7 +91,7 @@ export function getInverseColour(colour) {
   return `rgb(${rI}, ${gI}, ${bI})`;
 }
 
-export function getTextColourRelativeToBG(colour) {
+function getTextColourRelativeToBG(colour) {
   rgb = getRGBFromHex(colour);
   yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
 
@@ -102,11 +102,11 @@ export function getTextColourRelativeToBG(colour) {
   return 'white';
 }
 
-export function isTimerDone(index) {
+function isTimerDone(index) {
   return timers[index].count && timers[index].count <= 0 ? true : false;
 }
 
-export function loadData() {
+function loadData() {
   timers = [];
 
   if (!localStorage.gen_timers) {
@@ -137,13 +137,13 @@ export function loadData() {
   }
 }
 
-export function pad(n, width) {
+function pad(n, width) {
   n = n + '';
 
   return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 }
 
-export function readIn() {
+function readIn() {
   h = elid('hrs').value || 0;
   m = elid('min').value || 0;
   s = elid('sec').value || 0;
@@ -152,7 +152,7 @@ export function readIn() {
   return { name: elid('name').value, hrs: h, min: m, sec: s, total: t };
 }
 
-export function saveData() {
+function saveData() {
   obj = [];
 
   for (var i = 0; i < timers.length; i++) {
@@ -163,7 +163,7 @@ export function saveData() {
   localStorage.gen_timers = JSON.stringify(obj);
 }
 
-export function writeTime(input) {
+function writeTime(input) {
   time = {
     h: input.h > 0 ? input.h : 0,
     m: input.m > 0 ? input.m : 0,
@@ -172,3 +172,25 @@ export function writeTime(input) {
 
   return `${pad(time.h, 2)}:${pad(time.m, 2)}:${pad(time.s, 2)}`;
 }
+
+export {
+  SEC,
+  MIN,
+  HOUR,
+  DAY,
+  anyTimerDone,
+  clearField,
+  createUserInput,
+  elid,
+  enterKeyPress,
+  getHexFromString,
+  getRGBFromHex,
+  getInverseColour,
+  getTextColourRelativeToBG,
+  isTimerDone,
+  loadData,
+  pad,
+  readIn,
+  saveData,
+  writeTime,
+};
