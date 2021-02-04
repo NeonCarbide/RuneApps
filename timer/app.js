@@ -342,7 +342,7 @@ function enterKeyPress(event) {
 function settingsMenu() {
   data = [];
 
-  data.concat({
+  data.push({
     t: 'bool:iconEnable',
     v: settings.enableIconOverlay,
     text: 'Enable Icon Overlay',
@@ -364,11 +364,9 @@ function settingsMenu() {
   //   );
   // }
 
-  data.concat(
-    { t: 'h/11' },
-    { t: 'button:confirm', text: 'Confirm' },
-    { t: 'button:cancel', text: 'Cancel' }
-  );
+  data.push({ t: 'h/11' });
+  data.push({ t: 'button:confirm', text: 'Confirm' });
+  data.push({ t: 'button:cancel', text: 'Cancel' });
 
   try {
     menu = promptbox2({ title: 'Settings', style: 'popup', width: 300 }, data);
