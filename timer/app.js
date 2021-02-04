@@ -547,5 +547,9 @@ var app = (function () {
   };
 })();
 
-window.addEventListener('beforeunload', config.cfgSave);
-window.addEventListener('mouseover', notify.clearIcon);
+window.addEventListener('beforeunload', function () {
+  config.cfgSave();
+});
+window.addEventListener('mouseover', function () {
+  notify.clearIcon();
+});
