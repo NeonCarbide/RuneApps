@@ -3,7 +3,11 @@ MIN = SEC * 60;
 HOUR = MIN * 60;
 DAY = HOUR * 24;
 
+alertSound = new Audio('assets/audio/pop.wav');
+
 settings = {
+  enableSoundAlert: false,
+  alertVolume: 50,
   enableIconOverlay: true,
   iconSize: 32,
   iconColour: '#F0F000',
@@ -13,7 +17,6 @@ delay = 1050;
 tick = 1000;
 showIcon = false;
 iconTimeout = null;
-data = [];
 timers = [];
 
 window.addEventListener('beforeunload', saveData);
@@ -242,8 +245,15 @@ function checkTimers() {
   }
 }
 
+function soundNotify() {
+  if (window.alt1 && settings.enableSoundAlert) {
+    alertSound.volume = settngs.alertVolume;
+    alertSound.play();
+  }
+}
+
 function overlayNotify() {
-  if (window.alt1) {
+  if (window.alt1 && settings.enableIconOverlay) {
     text = '\u23F0';
     h = alt1.rsHeight;
     w = alt1.rsWidth;
@@ -341,57 +351,76 @@ function enterKeyPress(event) {
 }
 
 function settingsMenu() {
-  if (data != []) {
-    data = [];
+  data = [];
 
-    data.push({
-      t: 'bool:iconEnable',
-      v: settings.enableIconOverlay,
-      text: 'Enable Icon Overlay',
-    });
+  data.push({
+    t: 'bool:soundEnable',
+    v: settings.enableSoundAlert,
+    text: 'Enable Sound Alert',
+  });
 
-    if (settings.enableIconOverlay) {
-      data.push({ t: 'h/11' });
-      data.push({ t: 'text', text: 'Icon Font Size' });
-      data.push({ t: 'int:iconSize', v: settings.iconSize });
-      data.push({ t: 'h/11' });
-      data.push({ t: 'text', text: 'Icon Colour HEX Code' });
-      data.push({ t: 'string:iconColour', v: settings.iconColour });
-    }
-
+  if (settings.enableSoundAlert) {
     data.push({ t: 'h/11' });
-    data.push({ t: 'button:confirm', text: 'Confirm' });
-    data.push({ t: 'button:cancel', text: 'Cancel' });
+    data.push({ t: 'text', text: 'Alert Volume' });
+    data.push({ t: 'slider:alertVolume', v: settings.alertVolume });
+  }
 
-    try {
-      menu = promptbox2(
-        {
-          title: 'Settings',
-          style: 'popup',
-          width: 290,
-          stylesheets: ['assets/css/settings.css', 'https://runeapps.org/nis/nis.css'],
-        },
-        data
-      );
+  data.push({
+    t: 'bool:iconEnable',
+    v: settings.enableIconOverlay,
+    text: 'Enable Icon Overlay',
+  });
 
-      menu.cancel.onclick = menu.frame.close.b();
-      menu.confirm.onclick = function () {
-        settings.enableIconOverlay = menu.iconEnable.getValue();
+  if (settings.enableIconOverlay) {
+    data.push({ t: 'h/11' });
+    data.push({ t: 'text', text: 'Icon Font Size' });
+    data.push({ t: 'int:iconSize', v: settings.iconSize });
+    data.push({ t: 'h/11' });
+    data.push({ t: 'text', text: 'Icon Colour HEX Code' });
+    data.push({ t: 'string:iconColour', v: settings.iconColour });
+  }
 
-        if (menu.iconSize) {
-          settings.iconSize = menu.iconSize.getValue();
-        }
+  data.push({ t: 'h/11' });
+  data.push({ t: 'button:confirm', text: 'Confirm' });
+  data.push({ t: 'button:cancel', text: 'Cancel' });
 
-        if (menu.iconColour) {
-          settings.iconColour = menu.iconColour.getValue();
-        }
+  try {
+    menu = promptbox2(
+      {
+        title: 'Settings',
+        style: 'popup',
+        width: 290,
+        stylesheets: [
+          'assets/css/settings.css',
+          'https://runeapps.org/nis/nis.css',
+        ],
+      },
+      data
+    );
 
-        saveSettings();
-        menu.frame.close();
-      };
-    } catch (e) {
-      console.log(e);
-    }
+    menu.cancel.onclick = menu.frame.close.b();
+    menu.confirm.onclick = function () {
+      settings.enableSoundAlert = menu.soundEnable.getValue();
+
+      if (menu.alertVolume) {
+        settings.alertVolume = menu.alertVolume.getValue();
+      }
+
+      settings.enableIconOverlay = menu.iconEnable.getValue();
+
+      if (menu.iconSize) {
+        settings.iconSize = menu.iconSize.getValue();
+      }
+
+      if (menu.iconColour) {
+        settings.iconColour = menu.iconColour.getValue();
+      }
+
+      saveSettings();
+      menu.frame.close();
+    };
+  } catch (e) {
+    console.log(e);
   }
 }
 
