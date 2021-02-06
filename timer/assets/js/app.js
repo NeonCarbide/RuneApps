@@ -497,6 +497,11 @@ var app = (function () {
         alt1.identifyAppUrl('appconfig.json');
         config.cfgLoad();
         config.dataLoad();
+      } catch (e) {
+        console.log('Alt1 not found');
+      }
+
+      if (window.alt1) {
         document
           .getElementsByClassName('content')
           .style.setProperty('border-top', 'none');
@@ -515,8 +520,6 @@ var app = (function () {
           '--timers-height',
           'calc(100vh - 82px)'
         );
-      } catch (e) {
-        console.log('Alt1 not found');
       }
 
       for (var i = 0; i < timerList.length; i++) {
