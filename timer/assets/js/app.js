@@ -1,26 +1,3 @@
-SEC = 1000;
-MIN = SEC * 60;
-HOUR = MIN * 60;
-DAY = HOUR * 24;
-
-settings = {
-  timerDoneColour: '#32CD32',
-  timerRunningColour: '#FFD700',
-  enableSoundAlert: false,
-  alertVolume: 100,
-  enableIconOverlay: true,
-  iconSize: 48,
-  iconColour: '#F0F000',
-};
-
-alertSound = new Audio('assets/audio/pop.wav');
-
-delay = 1050;
-tick = 1000;
-showIcon = false;
-iconTimeout = null;
-timerList = [];
-
 var util = (function () {
   function clearField(field) {
     elid(field).value = '';
@@ -135,124 +112,129 @@ var util = (function () {
 var config = (function () {
   function configMenu() {
     info = [];
-    styles = {
-      done: '',
-      running: '',
-      icon: '',
-    };
 
-    styles.done += `background-color: ${settings.timerDoneColour};`;
-    styles.done += `color: ${util.contrastColour(settings.timerDoneColour)};`;
-
-    styles.running += `background-color: ${settings.timerRunningColour};`;
-    styles.running += `color: ${util.contrastColour(
-      settings.timerRunningColour
-    )};`;
-
-    styles.icon += `background-color: ${settings.iconColour};`;
-    styles.icon += `color: ${util.contrastColour(settings.iconColour)};`;
-
-    info.push({ t: 'h/11' });
-    info.push({ t: 'text', text: 'Done HEX Colour Code' });
-    info.push({
-      t: 'string:doneColour',
-      v: settings.timerDoneColour,
-      style: styles.done,
-    });
-    info.push({ t: 'h/11' });
-    info.push({ t: 'text', text: 'Running HEX Colour Code' });
-    info.push({
-      t: 'string:runningColour',
-      v: settings.timerRunningColour,
-      style: styles.running,
-    });
-
-    info.push({
-      t: 'bool:soundEnable',
-      v: settings.enableSoundAlert,
-      text: 'Enable Sound Alert',
-    });
-
-    if (settings.enableSoundAlert) {
-      info.push({ t: 'h/11' });
-      info.push({ t: 'text', text: 'Alert Volume' });
-      info.push({ t: 'int:alertVolume', v: settings.alertVolume });
-    }
-
-    info.push({
-      t: 'bool:iconEnable',
-      v: settings.enableIconOverlay,
-      text: 'Enable Icon Overlay',
-    });
-
-    if (settings.enableIconOverlay) {
-      info.push({ t: 'h/11' });
-      info.push({ t: 'text', text: 'Icon Font Size' });
-      info.push({ t: 'int:iconSize', v: settings.iconSize });
-      info.push({ t: 'h/11' });
-      info.push({ t: 'text', text: 'Icon HEX Colour Code' });
-      info.push({
-        t: 'string:iconColour',
-        v: settings.iconColour,
-        style: styles.icon,
-      });
-    }
-
-    info.push({ t: 'h/11' });
-    info.push({ t: 'button:confirm', text: 'Confirm' });
-    info.push({ t: 'button:cancel', text: 'Cancel' });
-
-    try {
-      menu = promptbox2(
-        {
-          title: 'Settings',
-          style: 'popup',
-          width: 290,
-          stylesheets: [
-            'assets/css/settings.css',
-            'https://runeapps.org/nis/nis.css',
-          ],
-        },
-        info
-      );
-
-      menu.cancel.onclick = menu.frame.close.b();
-      menu.confirm.onclick = function () {
-        settings.timerDoneColour = menu.doneColour.getValue();
-        settings.timerRunningColour = menu.runningColour.getValue();
-
-        document.documentElement.style.setProperty(
-          '--colour-timer-done',
-          settings.timerDoneColour
-        );
-        document.documentElement.style.setProperty(
-          '--colour-timer-running',
-          settings.timerRunningColour
-        );
-
-        settings.enableSoundAlert = menu.soundEnable.getValue();
-
-        if (menu.alertVolume) {
-          menu.alertVolume.min = 0;
-          menu.alertVolume.max = 100;
-          settings.alertVolume = menu.alertVolume.getValue();
-        }
-
-        settings.enableIconOverlay = menu.iconEnable.getValue();
-
-        if (menu.iconSize) {
-          settings.iconSize = menu.iconSize.getValue();
-        }
-
-        if (menu.iconColour) {
-          settings.iconColour = menu.iconColour.getValue();
-        }
-
-        config.cfgSave();
-        menu.frame.close();
+    if (window.alt1) {
+      styles = {
+        done: '',
+        running: '',
+        icon: '',
       };
-    } catch (e) {
-      console.log(e);
+
+      styles.done += `background-color: ${settings.timerDoneColour};`;
+      styles.done += `color: ${util.contrastColour(settings.timerDoneColour)};`;
+
+      styles.running += `background-color: ${settings.timerRunningColour};`;
+      styles.running += `color: ${util.contrastColour(
+        settings.timerRunningColour
+      )};`;
+
+      styles.icon += `background-color: ${settings.iconColour};`;
+      styles.icon += `color: ${util.contrastColour(settings.iconColour)};`;
+
+      info.push({ t: 'h/11' });
+      info.push({ t: 'text', text: 'Done HEX Colour Code' });
+      info.push({
+        t: 'string:doneColour',
+        v: settings.timerDoneColour,
+        style: styles.done,
+      });
+      info.push({ t: 'h/11' });
+      info.push({ t: 'text', text: 'Running HEX Colour Code' });
+      info.push({
+        t: 'string:runningColour',
+        v: settings.timerRunningColour,
+        style: styles.running,
+      });
+
+      info.push({
+        t: 'bool:soundEnable',
+        v: settings.enableSoundAlert,
+        text: 'Enable Sound Alert',
+      });
+
+      if (settings.enableSoundAlert) {
+        info.push({ t: 'h/11' });
+        info.push({ t: 'text', text: 'Alert Volume' });
+        info.push({ t: 'int:alertVolume', v: settings.alertVolume });
+      }
+
+      info.push({
+        t: 'bool:iconEnable',
+        v: settings.enableIconOverlay,
+        text: 'Enable Icon Overlay',
+      });
+
+      if (settings.enableIconOverlay) {
+        info.push({ t: 'h/11' });
+        info.push({ t: 'text', text: 'Icon Font Size' });
+        info.push({ t: 'int:iconSize', v: settings.iconSize });
+        info.push({ t: 'h/11' });
+        info.push({ t: 'text', text: 'Icon HEX Colour Code' });
+        info.push({
+          t: 'string:iconColour',
+          v: settings.iconColour,
+          style: styles.icon,
+        });
+      }
+
+      info.push({ t: 'h/11' });
+      info.push({ t: 'button:confirm', text: 'Confirm' });
+      info.push({ t: 'button:cancel', text: 'Cancel' });
+
+      try {
+        menu = promptbox2(
+          {
+            title: 'Settings',
+            style: 'popup',
+            width: 290,
+            stylesheets: [
+              'assets/css/settings.css',
+              'https://runeapps.org/nis/nis.css',
+            ],
+          },
+          info
+        );
+
+        menu.cancel.onclick = menu.frame.close.b();
+        menu.confirm.onclick = function () {
+          settings.timerDoneColour = menu.doneColour.getValue();
+          settings.timerRunningColour = menu.runningColour.getValue();
+
+          document.documentElement.style.setProperty(
+            '--colour-timer-done',
+            settings.timerDoneColour
+          );
+          document.documentElement.style.setProperty(
+            '--colour-timer-running',
+            settings.timerRunningColour
+          );
+
+          settings.enableSoundAlert = menu.soundEnable.getValue();
+
+          if (menu.alertVolume) {
+            menu.alertVolume.min = 0;
+            menu.alertVolume.max = 100;
+            settings.alertVolume = menu.alertVolume.getValue();
+          }
+
+          settings.enableIconOverlay = menu.iconEnable.getValue();
+
+          if (menu.iconSize) {
+            settings.iconSize = menu.iconSize.getValue();
+          }
+
+          if (menu.iconColour) {
+            settings.iconColour = menu.iconColour.getValue();
+          }
+
+          config.cfgSave();
+          menu.frame.close();
+        };
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      alert('Error : Alt1 Toolkit not detected');
     }
   }
 
@@ -379,10 +361,10 @@ var timers = (function () {
       html += `<div class="nistext time${str}</div>`;
       html += `<div class="nistext name">${timerList[i].name}</div>`;
       html += '<div class="buttons">';
-      html += `<div class="nisbutton2 control" id="start" onclick="timers.start(${i})">Start</div>`;
-      html += `<div class="nisbutton2 control" id="pause" onclick="timers.pause(${i})">Pause</div>`;
-      html += `<div class="nisbutton2 control" id="reset" onclick="timers.reset(${i})">Reset</div>`;
-      html += `<div class="nisbutton2 control" onclick="timers.remove(${i})">X</div>`;
+      html += `<div class="nisbutton2 icon-control" id="start" onclick="timers.start(${i})"><span class="fas fa-play"></span></div>`;
+      html += `<div class="nisbutton2 icon-control" id="pause" onclick="timers.pause(${i})"><span class="fas fa-pause"></span></div>`;
+      html += `<div class="nisbutton2 icon-control" id="reset" onclick="timers.reset(${i})"><span class="fas fa-redo"></span></div>`;
+      html += `<div class="nisbutton2 icon-control" id="remove" onclick="timers.remove(${i})"><span class="fas fa-trash"></span></div>`;
       html += '</div></div>';
     }
 
@@ -515,6 +497,24 @@ var app = (function () {
         alt1.identifyAppUrl('appconfig.json');
         config.cfgLoad();
         config.dataLoad();
+        document
+          .getElementsByClassName('content')
+          .style.setProperty('border-top', 'none');
+        document
+          .getElementsByClassName('content')
+          .style.setProperty('border-right', 'none');
+        document
+          .getElementsByClassName('content')
+          .style.setProperty('border-bottom', 'none');
+        document
+          .getElementsByClassName('content')
+          .style.setProperty('border-left', 'none');
+        document.documentElement.style.setProperty('--app-height', '100%');
+        document.documentElement.style.setProperty('--app-width', '100%');
+        document.documentElement.style.setProperty(
+          '--timers-height',
+          'calc(100vh - 82px)'
+        );
       } catch (e) {
         console.log('Alt1 not found');
       }

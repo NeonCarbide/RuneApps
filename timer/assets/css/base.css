@@ -1,15 +1,23 @@
 :root {
-  --colour-timer-done: #32CD32;
-  --colour-timer-running: #FFD700;
+  --app-height: calc(100vh - 20px);
+  --app-width: 50%;
+  --border-dark: 1px solid #000000;
+  --border-light: 1px solid #41555f;
+  --colour-done: #32CD32;
+  --colour-running: #FFD700;
+  --timers-height: calc(100vh - 97px);
 }
 
-.buttons,
+.control,
+.icon-control {
+  padding: 5px;
+}
+
 #add-timer-wrapper,
 #static-footer {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
 }
 
 .add {
@@ -17,22 +25,32 @@
 }
 .buttons {
   grid-column: 3 / 4;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-column-gap: 5px;
 }
 .content {
-  margin-top: 10px;
-}
-.control {
-  padding: 5px;
+  margin: 10px auto;
+  height: var(--app-height);
+  width: var(--app-width);
+  border-top: var(--border-light);
+  border-right: var(--border-light);
+  border-bottom: var(--border-dark);
+  border-left: var(--border-dark);
 }
 .done {
-  color: var(--colour-timer-done);
+  color: var(--colour-done);
 }
-.running {
-  color: var(--colour-timer-running);
+.icon-control {
+  width: 30px;
+  height: 30px;
 }
 .name {
   grid-column: 2 / 3;
   font-size: 1rem;
+}
+.running {
+  color: var(--colour-running);
 }
 .time {
   grid-column: 1 / 2;
@@ -59,9 +77,10 @@
 #add-timer-wrapper,
 #static-footer {
   padding: 5px;
+  justify-content: space-between;
 }
 #add-timer-wrapper {
-  border-bottom: 1px solid #000000;
+  border-bottom: var(--border-dark);
 }
 #control-all {
   display: grid;
@@ -78,8 +97,8 @@
   grid-column: 2 / 3;
 }
 #static-footer {
-  border-top: 1px solid #41555f;
-  position: fixed;
+  border-top: var(--border-light);
+  position: relative;
   bottom: 0;
   left: 0;
   right: 0;
@@ -87,12 +106,12 @@
 }
 #timers,
 #timers > .timer {
-  border-top: 1px solid #41555f;
-  border-bottom: 1px solid #000000;
+  border-top: var(--border-light);
+  border-bottom: var(--border-dark);
 }
 #timers {
   overflow-y: auto;
-  height: calc(100vh - 82px);
+  height: var(--timers-height);
 }
 
 #timers > .timer:first-child {
