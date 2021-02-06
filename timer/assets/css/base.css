@@ -36,8 +36,8 @@
   color: var(--colour-done);
 }
 .icon-control {
-  width: 30px;
-  height: 30px;
+  width: 27px;
+  height: 27px;
 }
 .name {
   grid-column: 2 / 3;
