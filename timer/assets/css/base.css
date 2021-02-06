@@ -31,12 +31,6 @@
 }
 .content {
   margin: 10px auto;
-  height: var(--app-height);
-  width: var(--app-width);
-  border-top: var(--border-light);
-  border-right: var(--border-light);
-  border-bottom: var(--border-dark);
-  border-left: var(--border-dark);
 }
 .done {
   color: var(--colour-done);
@@ -81,6 +75,14 @@
 }
 #add-timer-wrapper {
   border-bottom: var(--border-dark);
+}
+#content {
+  height: var(--app-height);
+  width: var(--app-width);
+  border-top: var(--border-light);
+  border-right: var(--border-light);
+  border-bottom: var(--border-dark);
+  border-left: var(--border-dark);
 }
 #control-all {
   display: grid;
