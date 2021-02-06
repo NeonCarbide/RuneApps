@@ -501,29 +501,18 @@ var app = (function () {
         console.log('Alt1 not found');
       }
 
-      // if (window.alt1) {
-      //   elid('content').style.borderTop = 'none';
-      //   elid('content').style.borderRight = 'none';
-      //   elid('content').style.borderBottom = 'none';
-      //   elid('content').style.borderLeft = 'none';
-      //   document.documentElement.style.setProperty('--app-height', '100%');
-      //   document.documentElement.style.setProperty('--app-width', '100%');
-      //   document.documentElement.style.setProperty(
-      //     '--timers-height',
-      //     'calc(100vh - 82px)'
-      //   );
-      // }
-
-      elid('content').style.borderTop = 'none';
-      elid('content').style.borderRight = 'none';
-      elid('content').style.borderBottom = 'none';
-      elid('content').style.borderLeft = 'none';
-      document.documentElement.style.setProperty('--app-height', '100%');
-      document.documentElement.style.setProperty('--app-width', '100%');
-      document.documentElement.style.setProperty(
-        '--timers-height',
-        'calc(100vh - 82px)'
-      );
+      if (window.alt1) {
+        elid('content').style.borderTop = 'none';
+        elid('content').style.borderRight = 'none';
+        elid('content').style.borderBottom = 'none';
+        elid('content').style.borderLeft = 'none';
+        document.documentElement.style.setProperty('--app-height', '100%');
+        document.documentElement.style.setProperty('--app-width', '100%');
+        document.documentElement.style.setProperty(
+          '--timers-height',
+          'calc(100vh - 82px)'
+        );
+      }
 
       for (var i = 0; i < timerList.length; i++) {
         if (timerList[i].start) {
