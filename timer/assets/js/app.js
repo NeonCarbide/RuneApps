@@ -387,7 +387,7 @@ var timers = (function () {
     stopTick(index);
 
     if (timerList[index].start != null) {
-      timerList[index].interval = setInterval(startTick, 1000);
+      timerList[index].interval = setInterval(startTick, 100);
     }
   }
 
@@ -397,7 +397,7 @@ var timers = (function () {
         stopTick(i);
         continue;
       }
-      if (timerList[i].start) {
+      if (timerList[i].interval) {
         timerList[i].count = timerList[i].end - Date.now();
         timerList[i].h = Math.floor((timerList[i].count % DAY) / HOUR);
         timerList[i].m = Math.floor((timerList[i].count % HOUR) / MIN);
